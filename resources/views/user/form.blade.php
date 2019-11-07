@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
-@section('title', 'Agregar Usuario')
+@if ($action=='edit')
+    @section('title', 'Editar Usuario')
+@else
+    @section('title', 'Nuevo Usuario')
+@endif
 
 @section('content')
     <!-- TITULO -->
@@ -8,14 +12,15 @@
         <center>
         <div class="titleHeader">
             <h1>
-                {{$action=='edit'?"Editar $datos->name":"Nuevo usuario"}}
+                {{$action=='edit'?"Editar Usuario":"Nuevo usuario"}}
             </h1>
             <div class="subTitleHeader">
             </div>
         </div>
         </center>
     </div>
-
+    
+    <!-- CONTENIDO -->
     <center>
         <div id="formUser">
             @if ($action=='edit')
@@ -39,12 +44,12 @@
                 
                 <div class="groupField">
                     <input class="inpForm" type="email" name="email" placeholder=" " autocomplete="off" required value="{{$datos->email ?? ""}}">
-                    <label class="labForm" for="nick">Email</label><br>  
+                    <label class="labForm" for="email">Email</label><br>  
                 </div>
 
                 <div class="groupField">
                     <input class="inpForm" type="password" name="password" placeholder=" " autocomplete="off" required value="{{$datos->password ?? ""}}">
-                    <label class="labForm" for="nick">Contraseña</label><br>  
+                    <label class="labForm" for="password">Contraseña</label><br>  
                 </div>
 
                 <div class="rowCheckBox">

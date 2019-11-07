@@ -15,6 +15,15 @@ body{
     outline: none;
 }
 
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 button, .button{
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
@@ -22,19 +31,12 @@ button, .button{
     border-radius: 50px;
     padding: 7px 14px;
     cursor: pointer;
-    background: #ffae98;
-    transition: all 0.5s ease-out;  
+    background-color: #ffae98;
+    transition: background-color 0.5s ease-out;  
 }
 
 button:hover, .button:hover{
-    background:#EEC3B7;
-    /*Arrancar animacion*/
-    -webkit-animation-name: pulse;
-    animation-name: pulse;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+    background-color:#be6a53;
 }
 
 input{
@@ -43,6 +45,10 @@ input{
     border: none;
     border-bottom: 1.5px solid #959595;
     font-size: 16px;
+}
+
+.convertFormButton{
+    margin-block-end: 0;
 }
 
 
@@ -69,10 +75,56 @@ input{
     height: 70%;
 }
 
+/* BARRA BUSQUEDA CABECERA */
+#searchBar{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 50%;
+    width: 30%;
+    margin: auto 35%;
+}
+
+#searchBar input{
+    border-radius: 50px;
+    width: 100%;
+    border: none;
+    height: 100%;
+    background-color: #eeeeee;
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+#searchBar input::placeholder{
+    font-weight: normal!important;
+}
+
+#searchBar button{
+    height: 100%;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    transform: translateX(-100%);
+}
+
+#searchBar button::hover{
+    height: 100%;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    transform: translateX(-100%);
+}
+
+#searchBar img{
+    height: 100%;
+}
+
+
 /* TITULO */
 .titleHeader{
     margin: 30px 0px 40px 0px;
     width: fit-content;
+    width: -moz-fit-content;
 }
 
 .titleHeader h1{
@@ -105,10 +157,6 @@ td, th{
     padding: 8px 15px;
 }
 
-td form{
-    margin-block-end: 0;
-}
-
 .th-color{
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
@@ -125,14 +173,40 @@ td form{
 /* OTROS */
 
 .buttonAdd button{
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    height: 59px;
-    width: 60px;
-    font-size: 27px
+    width: 100%;
+    padding: 0;
+    padding-top: 100%; /*Mantener la relacion de acpecto 1:1*/
+    position: relative;
+    background-image: url("../img/add1.png");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    background-size:30%;
+
+    /*Sombreado*/
+    -webkit-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.19);
+    -moz-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.19);
+    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.19);
+
 }
 
+.buttonAdd:hover button{
+    
+    /*Arrancar animacion*/
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.buttonAdd{
+    position: fixed;
+    width: 4.5%;
+    bottom: 30px;
+    right: 30px;
+}
 
 /* FORMULARIO */
 
@@ -174,6 +248,16 @@ td form{
 .inpForm:focus{
     transition: all ease 0.5s;
     border-bottom: 2.5px solid #ffae98;
+}
+
+.textarea{
+    height: 100px;
+    font-family: 'Raleway', sans-serif;
+    border: none;
+    border-bottom: 1.5px solid #959595;
+    font-size: 16px;
+    padding-top: 12px;
+    resize: vertical;
 }
 
 .checkbox{
@@ -221,6 +305,101 @@ td form{
     width: 35%;
     margin-top: 30px;
 }
+
+.bSubmit:hover{
+ /*Arrancar animacion*/
+ -webkit-animation-name: pulse;
+ animation-name: pulse;
+ -webkit-animation-duration: 1s;
+ animation-duration: 1s;
+ -webkit-animation-fill-mode: both;
+ animation-fill-mode: both;
+}
+
+/*************************************************************************/
+/*                            PELICULAS                                  */
+/*************************************************************************/
+.marginTopMovies{
+    height: 50px;
+}
+
+.posterMovie img{
+    border-radius: 15px;
+}
+
+.contentMovie h1{
+    font-size: 25px;
+    padding-left: 15px;
+    margin-top:10px!important;
+}
+
+.marginContentMovie{
+    padding: 30px;
+}
+
+
+/* BOTONES FLOTANTES CARTELES */
+
+.sizefbMovie{
+    width: 16%;
+    float: right;
+    margin-left: 10px;
+}
+
+.floatButtonsMovie button{
+    padding: 0;
+    width: 100%;
+    padding-top: 100%; /*Mantener la relacion de acpecto 1:1*/
+    position: relative; /* If you want text inside of it */
+    transform: translateY(50%) translateX(50%);
+
+    -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.07);
+    -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.07);
+    box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.07);
+}
+
+.floatButtonsMovie img{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0%;
+    height: 50%;
+    margin: auto;
+}
+
+.bEditMovie{
+    background: url("../img/edit3.png") 50% 50% no-repeat;
+    border-radius: 100%;
+    background-size:40%;
+    background-color: #ffae98;
+}
+
+.bEditMovie:hover{
+    background-color: #be6a53;
+    -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
+    transition: all ease 1s;
+}
+
+.bDeleteMovie{
+    background: url("../img/delete.png") 50% 50% no-repeat;
+    border-radius: 50%;
+    background-size:40%;
+    background-color: #da2f2f;
+}
+
+.bDeleteMovie:hover{
+    background-color: #9b2020;
+    -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
+    transition: all ease 1s;
+}
+
+
+
 
 /* ANIMACIONES */
 @-webkit-keyframes pulse {

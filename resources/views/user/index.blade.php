@@ -18,7 +18,7 @@
 
     <div class="buttonAdd">
         <a href="{{route('user.create')}}">
-            <button>&#10010</button>
+            <button></button>
         </a>
     </div>
     
@@ -33,7 +33,7 @@
                 <th class="th-color">Password</th>
                 <th class="th-color th-rigth">Admin</th>
             </tr>
-            @foreach ($usuarios as $usu)
+            @foreach ($users as $usu)
                 <tr>
                     <td>{{$usu->id}}</td>
                     <td>{{$usu->name}}</td>
@@ -43,7 +43,7 @@
                     <td>{{$usu->admin}}</td>
 
                     <td>
-                        <form action="{{route('user.destroy', $usu->id)}}" method="post">
+                        <form class="convertFormButton" action="{{route('user.destroy', $usu->id)}}" method="post">
                             @csrf
                             <input type="hidden" name="_method" value="DELETE">
                             <button>Eliminar</button>

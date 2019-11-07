@@ -28,6 +28,11 @@
     float: left;
 }
 
+.col25{
+    width: 25%;
+    float: left;
+}
+
 .col20{
     width: 20%;
     float: left;

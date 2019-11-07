@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index(){
         $todo = User::all();
-        return view('user/index', ['usuarios'=>$todo]);
+        return view('user/index', ['users'=>$todo]);
     }
 
     //------------------------------------------------------------------------------

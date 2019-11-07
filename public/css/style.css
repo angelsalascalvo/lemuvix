@@ -1,0 +1,258 @@
+/* GENERICO */
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap');
+
+body{
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none!important;
+}
+
+*:focus {
+    outline: none;
+}
+
+button, .button{
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    border:none;
+    border-radius: 50px;
+    padding: 7px 14px;
+    cursor: pointer;
+    background: #ffae98;
+    transition: all 0.5s ease-out;  
+}
+
+button:hover, .button:hover{
+    background:#EEC3B7;
+    /*Arrancar animacion*/
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+input{
+    height: 40px;
+    font-family: 'Raleway', sans-serif;
+    border: none;
+    border-bottom: 1.5px solid #959595;
+    font-size: 16px;
+}
+
+
+/* CABECERA */
+#topBar{
+    z-index: 1000;
+    float: left;
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    background-color: white;
+
+    -webkit-box-shadow: 0px 1px 9px 1px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 1px 9px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 9px 1px rgba(0,0,0,0.1);
+}
+
+#logoBar img{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    margin-left: 20px;
+    height: 70%;
+}
+
+/* TITULO */
+.titleHeader{
+    margin: 30px 0px 40px 0px;
+    width: fit-content;
+}
+
+.titleHeader h1{
+    margin: 0;
+}
+
+.subTitleHeader{
+    float: left;
+    background-color: black;
+    height: 3.5px;
+    width: 30px;
+    margin-left: 2px;
+}
+
+/* CONTENIDO */
+.content{
+    float: left;
+    width: 100%;
+    margin-top: 70px;
+}
+
+.margin{
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* TABLA */
+
+td, th{
+    padding: 8px 15px;
+}
+
+td form{
+    margin-block-end: 0;
+}
+
+.th-color{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    border:none;
+}
+.th-left{
+    border-top-left-radius: 4px;
+}
+
+.th-rigth{
+    border-top-right-radius: 4px;
+}
+
+/* OTROS */
+
+.buttonAdd button{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    height: 59px;
+    width: 60px;
+    font-size: 27px
+}
+
+
+/* FORMULARIO */
+
+#formUser .inpForm{
+    width: 35%;
+    margin-bottom: 25px;
+}
+
+.groupField{
+    position: relative;
+}
+
+.labForm{
+    position: absolute;
+    margin-top: 10px;
+    z-index: 100;
+    margin-left: -35%;
+    font-size: 16px;
+    pointer-events: none;
+    font-weight: normal;
+    color: #959595;
+    transition: all 0.5s ease;
+}
+
+.inpForm:focus ~ label{
+    margin-top: -9px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffae98;
+    transition: all ease 0.5s;
+}
+
+.inpForm:not(:placeholder-shown) ~ label{
+    margin-top: -9px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.inpForm:focus{
+    transition: all ease 0.5s;
+    border-bottom: 2.5px solid #ffae98;
+}
+
+.checkbox{
+    float:left;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    border: 0px solid gray;
+    background-color: gainsboro;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.checkbox:checked{
+    background-color:#ffae98;
+}
+
+.checkbox:checked:after{
+    content: "";
+    position: absolute;
+    margin: 5px 0px 7px 5px;
+    height: 6px;
+    width: 9px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    transform: rotate(-45deg);
+}
+
+.labCheckBox{
+    float: left;
+    margin-top:5px;
+    color:#959595;
+}
+
+.rowCheckbox{
+    margin: 0 32.5%;
+    width: 35%;
+    margin-bottom: 30px;
+}
+
+.bSubmit{
+    margin: 0 32.5%;
+    width: 35%;
+    margin-top: 30px;
+}
+
+/* ANIMACIONES */
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.02, 1.02, 1.02);
+        transform: scale3d(1.02, 1.02, 1.02);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.02, 1.02, 1.02);
+        transform: scale3d(1.02, 1.02, 1.02);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}

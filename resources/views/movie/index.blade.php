@@ -26,7 +26,7 @@
                 </div>
                 
                 <div class="posterMovie">
-                    <img class="col100" src="{{url('/img/generic.jpg')}}">
+                    <img class="col100" src="{{$m->poster ? url('/img/movies/'.$m->poster) : url('/img/generic.jpg')}}">
                 </div>
 
                 <div>

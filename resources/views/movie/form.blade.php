@@ -23,14 +23,17 @@
     <center>
         <div id="formUser">
             @if ($action=='edit')
-                <form action="{{route('movie.update', $datos->id)}}" method="post">    
+                <form enctype='multipart/form-data' action="{{route('movie.update', $datos->id)}}" method="post">    
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
             @else
-                <form action="{{route('movie.store')}}" method="post">
+                <form enctype='multipart/form-data' action="{{route('movie.store')}}" method="post">
                     @csrf
             @endif
-                
+                <div class="groupField">    
+                    <input type="file" name="poster">
+                </div>
+
                 <div class="groupField">
                     <input class="inpForm" type="text" name="title" placeholder=" " autocomplete="off" required value="{{$datos->title ?? ""}}">
                     <label class="labForm" for="title">Titulo</label><br>  

@@ -31,12 +31,12 @@ button, .button{
     border-radius: 50px;
     padding: 7px 14px;
     cursor: pointer;
-    background-color: #ffae98;
+    background-color: #ff756b;
     transition: background-color 0.5s ease-out;  
 }
 
 button:hover, .button:hover{
-    background-color:#be6a53;
+    background-color:#ca291e;
 }
 
 input{
@@ -71,8 +71,8 @@ input{
     top: 0;
     bottom: 0;
     margin: auto;
-    margin-left: 20px;
-    height: 70%;
+    margin-left: 40px;
+    height: 45%;
 }
 
 /* BARRA BUSQUEDA CABECERA */
@@ -177,7 +177,7 @@ td, th{
     padding: 0;
     padding-top: 100%; /*Mantener la relacion de acpecto 1:1*/
     position: relative;
-    background-image: url("../img/add1.png");
+    background-image: url("../img/add.png");
     background-position: 50% 50%;
     background-repeat: no-repeat;
     border-radius: 100%;
@@ -235,7 +235,7 @@ td, th{
     margin-top: -9px;
     font-size: 12px;
     font-weight: bold;
-    color: #ffae98;
+    color: #ff756b;
     transition: all ease 0.5s;
 }
 
@@ -247,7 +247,7 @@ td, th{
 
 .inpForm:focus{
     transition: all ease 0.5s;
-    border-bottom: 2.5px solid #ffae98;
+    border-bottom: 2.5px solid #ff756b;
 }
 
 .textarea{
@@ -274,7 +274,7 @@ td, th{
 }
 
 .checkbox:checked{
-    background-color:#ffae98;
+    background-color:#ff756b;
 }
 
 .checkbox:checked:after{
@@ -372,11 +372,11 @@ td, th{
     background: url("../img/edit3.png") 50% 50% no-repeat;
     border-radius: 100%;
     background-size:40%;
-    background-color: #ffae98;
+    background-color: #ff756b;
 }
 
 .bEditMovie:hover{
-    background-color: #be6a53;
+    background-color: #ca291e;
     -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
     -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
@@ -387,11 +387,11 @@ td, th{
     background: url("../img/delete.png") 50% 50% no-repeat;
     border-radius: 50%;
     background-size:40%;
-    background-color: #da2f2f;
+    background-color: #575757;
 }
 
 .bDeleteMovie:hover{
-    background-color: #9b2020;
+    background-color: #000000;
     -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
     -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
     box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);

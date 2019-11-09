@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Movie;
 
 class MovieController extends Controller
@@ -31,6 +32,17 @@ class MovieController extends Controller
     public function store(Request $result){
         $mov = new Movie($result->all());
         $mov->id = Movie::max('id')+1;
+        
+        //Comprobar si existe un archivo "Poster" adjunto
+        if($result->hasFile('poster')){
+            //Crear un nombre para almacenar el fichero
+            $name = "poster".$mov->id.".".$result->file('poster')->getClientOriginalExtension();
+            //Guardar el nombre en la base de datos
+            $mov->poster = $name;
+            //Almacenar el archivo en el directorio
+            $result->file('poster')->move(public_path('img/movies/'), $name);
+        }
+
         $mov->save();
 
         //Redirigir
@@ -42,7 +54,7 @@ class MovieController extends Controller
     /**
      * METODO PARA MOSTRAR EL FORMULARIO DE EDICION DE UNA PELICULA PASADA POR LA URL (ID)
      */
-    public function edit(Movie $id){
+    public function edit(Movie $id){        
         //$id vale directamente los valores del objeto con ese id, igual que find
         return view('movie/form', ['datos'=>$id, 'action'=>'edit', 'type'=>'movie']);
     }
@@ -55,6 +67,17 @@ class MovieController extends Controller
     public function update(Request $result){
         $mov = Movie::find($result->id);
         $mov->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
+
+        //Comprobar si existe un archivo "Poster" adjunto
+        if($result->hasFile('poster')){
+            //Crear un nombre para almacenar el fichero
+            $name = "poster".$mov->id.".".$result->file('poster')->getClientOriginalExtension();
+            //Guardar el nombre en la base de datos
+            $mov->poster = $name;
+            //Almacenar el archivo en el directorio
+            $result->file('poster')->move(public_path('img/movies/'), $name);
+        }
+
         $mov->save();
 
         //Redirigir
@@ -68,8 +91,9 @@ class MovieController extends Controller
      */
     public function destroy($id){
         $mov = Movie::find($id);
+        unlink(public_path('img/movies/'.$mov->poster)); //Eliminar cartel
         $mov->delete();
-
+        
         //Redirigir
         return redirect(route("movie.index"));
     }

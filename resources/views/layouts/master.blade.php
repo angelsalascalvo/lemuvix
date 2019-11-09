@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="{{ url('css/style.css')}}" />
         <link rel="stylesheet" href="{{ url('css/sizes.css')}}" />
+        <link rel="icon" type="image/png" href="{{ url('img/favicon.png')}}" />
         <title>
             @yield('title')
         </title>

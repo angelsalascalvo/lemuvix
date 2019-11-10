@@ -3,6 +3,7 @@
         <link rel="stylesheet" href="{{ url('css/style.css')}}" />
         <link rel="stylesheet" href="{{ url('css/sizes.css')}}" />
         <link rel="icon" type="image/png" href="{{ url('img/favicon.png')}}" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>
             @yield('title')
         </title>

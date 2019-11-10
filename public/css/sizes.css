@@ -13,6 +13,11 @@
     float: left;
 }
 
+.col75{
+    width: 75%;
+    float: left;
+}
+
 .col70{
     width: 70%;
     float: left;

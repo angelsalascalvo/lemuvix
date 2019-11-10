@@ -17,6 +17,12 @@ class MovieController extends Controller
 
     //------------------------------------------------------------------------------
 
+    public function show(Movie $id){
+        return view('movie/show', ['movie'=>$id, 'type'=>'movie']);
+    }
+
+    //------------------------------------------------------------------------------
+
     /**
      * METODO PARA MOSTRAR EL FORMULARIO DE CREAR PELICULA
      */
@@ -56,7 +62,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $id){        
         //$id vale directamente los valores del objeto con ese id, igual que find
-        return view('movie/form', ['datos'=>$id, 'action'=>'edit', 'type'=>'movie']);
+        return view('movie/form', ['data'=>$id, 'action'=>'edit', 'type'=>'movie']);
     }
 
     //------------------------------------------------------------------------------
@@ -91,7 +97,10 @@ class MovieController extends Controller
      */
     public function destroy($id){
         $mov = Movie::find($id);
-        unlink(public_path('img/movies/'.$mov->poster)); //Eliminar cartel
+        //Eliminar cartel
+        if($mov->poster!=null){
+            unlink(public_path('img/movies/'.$mov->poster)); //Eliminar cartel
+        }
         $mov->delete();
         
         //Redirigir

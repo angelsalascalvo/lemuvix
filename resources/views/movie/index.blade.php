@@ -12,7 +12,7 @@
 
                 <div class="floatButtonsMovie">
                     <div class="sizefbMovie">
-                        <form class="convertFormButton" action="{{route('movie.destroy', $m->id)}}" method="POST">
+                        <form action="{{route('movie.destroy', $m->id)}}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="bDeleteMovie"></button>
@@ -24,14 +24,16 @@
                         </a>
                     </div>
                 </div>
-                
-                <div class="posterMovie">
-                    <img class="col100" src="{{$m->poster ? url('/img/movies/'.$m->poster) : url('/img/generic.jpg')}}">
-                </div>
 
-                <div>
-                    <h1 class="col100">{{$m->title}}</h1>
-                </div>
+                <a href="{{route('movie.show', $m->id)}}">
+                    <div class="posterMovie">
+                        <img class="col100" src="{{$m->poster ? url('/img/movies/'.$m->poster) : url('/img/generic.jpg')}}">
+                    </div>
+
+                    <div>
+                        <h1 class="col100">{{$m->title}}</h1>
+                    </div>
+                </a>
             </div>
         </div>
     @endforeach

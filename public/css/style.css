@@ -11,6 +11,10 @@ body{
     transition: none!important;
 }
 
+a{
+    color:black!important;
+}
+
 *:focus {
     outline: none;
 }
@@ -39,6 +43,14 @@ button:hover, .button:hover{
     background-color:#ca291e;
 }
 
+.buttonStyle2{
+    background-color: #d3d3d3;
+}
+
+.buttonStyle2:hover{
+    background-color: #ff756b;
+}
+
 input{
     height: 40px;
     font-family: 'Raleway', sans-serif;
@@ -47,7 +59,8 @@ input{
     font-size: 16px;
 }
 
-.convertFormButton{
+
+form{
     margin-block-end: 0;
 }
 
@@ -122,7 +135,7 @@ input{
 
 /* TITULO */
 .titleHeader{
-    margin: 30px 0px 40px 0px;
+    margin: 40px 0px 40px 0px;
     width: fit-content;
     width: -moz-fit-content;
 }
@@ -208,12 +221,7 @@ td, th{
     right: 30px;
 }
 
-/* FORMULARIO */
-
-#formUser .inpForm{
-    width: 35%;
-    margin-bottom: 25px;
-}
+/* FORMULARIO GENERAL*/
 
 .groupField{
     position: relative;
@@ -223,7 +231,6 @@ td, th{
     position: absolute;
     margin-top: 10px;
     z-index: 100;
-    margin-left: -35%;
     font-size: 16px;
     pointer-events: none;
     font-weight: normal;
@@ -316,6 +323,35 @@ td, th{
  animation-fill-mode: both;
 }
 
+/*FORMULARIO USUARIO*/
+
+#formUser .inpForm{
+    width: 35%;
+    margin-bottom: 25px;
+}
+
+#formUser .labForm{
+    margin-left: -35%;
+}
+
+
+/*FORMULARIO PELICULA*/
+
+#formMovie .inpForm{
+    width: 80%;
+    margin-bottom: 25px;
+}
+
+#formMovie .labForm{
+    margin-left: -80%;
+}
+
+#posterFormImg{
+    width: 100%;
+    border-radius: 15px;
+}
+
+
 /*************************************************************************/
 /*                            PELICULAS                                  */
 /*************************************************************************/
@@ -398,7 +434,34 @@ td, th{
     transition: all ease 1s;
 }
 
+/* VISTA INDIVIDUAL PELICULA */
+.posterShow img{
+    width: 100%;
+    border-radius: 15px;
+}
 
+.contentShow{
+    width:80%;
+    text-align: left;
+}
+
+.subtitleShow{
+    font-weight: bold;
+    color: #ff756b;
+    margin-bottom: 10px;
+}
+
+.infoTextShow{
+    margin-bottom: 15px;
+}
+
+.buttonActionShow{
+    margin-top: 15px;
+}
+
+.buttonActionShow button{
+    margin-bottom: 5px;
+}
 
 
 /* ANIMACIONES */

@@ -46,3 +46,10 @@ Route::delete('movie/{id}/delete', 'MovieController@destroy')->name('movie.destr
 
 //Ver pelicula
 Route::get('movie/{id}', 'movieController@show')->name('movie.show');
+
+
+
+/////////////////////////////////////////////////////////////////
+///////////////         RESTfull Genres           ///////////////
+/////////////////////////////////////////////////////////////////
+Route::resource('genre', 'GenreController', ['except' => ['show']]);

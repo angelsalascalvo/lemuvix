@@ -19,6 +19,7 @@ class MoviesTableSeeder extends Seeder
             'duration' => 88,
             'year' => 2001,
             'rating' => 8.0,
+            'poster' => 'poster1.jpg',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
@@ -29,6 +30,7 @@ class MoviesTableSeeder extends Seeder
             'duration' => 116,
             'year' => 2015,
             'rating' => 7.0,
+            'poster' => 'poster2.jpg',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
@@ -39,6 +41,7 @@ class MoviesTableSeeder extends Seeder
             'duration' => 121,
             'year' => 2015,
             'rating' => 6.0,
+            'poster' => 'poster3.jpg',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
@@ -49,6 +52,7 @@ class MoviesTableSeeder extends Seeder
             'duration' => 163,
             'year' => 2017,
             'rating' => 7.0,
+            'poster' => 'poster4.jpg',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);

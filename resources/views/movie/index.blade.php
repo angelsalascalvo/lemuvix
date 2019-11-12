@@ -10,7 +10,7 @@
         <div class="col25 contentMovie">
             <div class="marginContentMovie">
 
-                <div class="floatButtonsMovie">
+                <div class="floatButtons transform50">
                     <div class="sizefbMovie">
                         <form action="{{route('movie.destroy', $m->id)}}" method="POST">
                             @csrf

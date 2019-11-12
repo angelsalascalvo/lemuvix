@@ -16,6 +16,7 @@
         </center>
     </div>
 
+    <!-- BOTON FLOTANTE -->
     <div class="buttonAdd">
         <a href="{{route('user.create')}}">
             <button></button>

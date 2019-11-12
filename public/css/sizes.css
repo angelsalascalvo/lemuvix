@@ -28,6 +28,11 @@
     float: left;
 }
 
+.col33{
+    width: 33.333%;
+    float: left;
+}
+
 .col30{
     width: 30%;
     float: left;
@@ -50,4 +55,16 @@
 
 .width50{
     width: 50%;
+}
+
+.layer10{
+    z-index: 10;
+}
+
+.layer20{
+    z-index: 20;
+}
+
+.layer30{
+    z-index: 30;
 }

@@ -17,6 +17,9 @@ class MovieController extends Controller
 
     //------------------------------------------------------------------------------
 
+    /**
+     * METODO PARA MOSTRAR LA INFORMACION COMPLETA DE LA PELICUA
+     */
     public function show(Movie $id){
         return view('movie/show', ['movie'=>$id, 'type'=>'movie']);
     }

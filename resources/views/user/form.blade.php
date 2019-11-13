@@ -24,7 +24,7 @@
     <center>
         <div id="formUser">
             @if ($action=='edit')
-                <form action="{{route('user.update', $datos->id)}}" method="post">    
+                <form action="{{route('user.update', $data->id)}}" method="post">    
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
             @else
@@ -33,27 +33,27 @@
             @endif
                 
                 <div class="groupField">
-                    <input class="inpForm" type="text" name="nick" placeholder=" " autocomplete="off" required value="{{$datos->nick ?? ""}}">
+                    <input class="inpForm" type="text" name="nick" placeholder=" " autocomplete="off" required value="{{$data->nick ?? ""}}">
                     <label class="labForm" for="nick">Usuario</label><br>  
                 </div>
                 
                 <div class="groupField">
-                    <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{$datos->name ?? ""}}">
+                    <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{$data->name ?? ""}}">
                     <label class="labForm" for="nick">Nombre</label><br>  
                 </div>
                 
                 <div class="groupField">
-                    <input class="inpForm" type="email" name="email" placeholder=" " autocomplete="off" required value="{{$datos->email ?? ""}}">
+                    <input class="inpForm" type="email" name="email" placeholder=" " autocomplete="off" required value="{{$data->email ?? ""}}">
                     <label class="labForm" for="email">Email</label><br>  
                 </div>
 
                 <div class="groupField">
-                    <input class="inpForm" type="password" name="password" placeholder=" " autocomplete="off" required value="{{$datos->password ?? ""}}">
+                    <input class="inpForm" type="password" name="password" placeholder=" " autocomplete="off" required value="{{$data->password ?? ""}}">
                     <label class="labForm" for="password">Contraseña</label><br>  
                 </div>
 
                 <div class="rowCheckBox">
-                    <input type="checkbox" class="checkbox" name="admin" value="0" {{(isset($datos) && ($datos->admin==0)) ? "checked" : ""}}>
+                    <input type="checkbox" class="checkbox" name="admin" value="0" {{(isset($data) && ($data->admin==0)) ? "checked" : ""}}>
                     <label class="labCheckBox" for="admin">Administrador</label>
                 </div>
 

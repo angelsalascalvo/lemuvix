@@ -9,17 +9,13 @@
         </title>
     </head>
     <body>
-        <!-- BARRA SUPERIOR 
-        <div id="topBar">
-            <div id="logoBar">
-                <img src="{{ url('/img/logo.png')}}">
-            </div>
-        </div>-->
 
         <!-- BARRA SUPERIOR -->
         <div id="topBar">
             <div id="logoBar">
-                <img src="{{ url('/img/logo.png')}}">
+                <a href="{{route('movie.index')}}">
+                    <img src="{{ url('/img/logo.png')}}">
+                </a>
             </div>
 
             <!-- Mostrar barra busqueda si estamos trabajando en la seccion de peliculas -->
@@ -29,7 +25,6 @@
                     <button><img src="{{ url('/img/search.png')}}"></button>
                 </div>
             @endif
-
         </div>
 
         <!-- CONTENIDO -->
@@ -38,6 +33,52 @@
                 @yield('content')
             </div>
         </div>
+
+        <!-- PIE DE PAGINA -->
+        @if (isset($footer) && $footer=='big')
+            <footer class="col100 layer30">
+                <div class="imgFooter">
+                        <img src="{{url('img/footer.png')}}">
+                </div>
+                <div class="linksFooter">
+                    <div class="col10 colFooter">
+                        <img src="{{url('img/favicon.png')}}">
+                    </div>
+                    <div class="col10 colFooter">
+                        <ul>
+                            <a href="{{route('movie.index')}}"><li>Inicio</li></a>
+                            <a href="{{route('user.index')}}"><li>Usuarios</li></a>
+                            <a href="{{route('genre.index')}}"><li>Generos</li></a>
+                        </ul>
+                    </div>
+                    <div class="col10 colFooter">
+                        <ul>
+                            <li>Inicio</li>
+                            <li>Usuarios</li>
+                            <li>Generos</li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>            
+        @endif
     </body>
-    <script> </script>
+
+    <script>
+        /**
+        * METODO PARA HACER QUE EL BOTON FLOTANTE NO BAJE AL ENCONTRAR EL FOOTER DE LA PAGINA
+        */
+        function checkOffset() {
+            var a=$(document).scrollTop()+window.innerHeight;
+            var b=$('footer').offset().top;
+            
+            if (a<b) {
+                $('.buttonAdd').css('bottom', '30px');
+            } else {
+                $('.buttonAdd').css('bottom', (30+(a-b))+'px');
+            }
+        }
+
+        $(document).ready(checkOffset); //Ejecutar al acceder a la pagina
+        $(document).scroll(checkOffset); //Ejecutar al hacer scroll
+    </script>
 </html>

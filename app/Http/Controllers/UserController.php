@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function edit($id){
         $datos = User::find($id);
-        return view('user/form', ['datos'=>$datos, 'action'=>'edit']);
+        return view('user/form', ['data'=>$datos, 'action'=>'edit']);
     }
 
     //------------------------------------------------------------------------------

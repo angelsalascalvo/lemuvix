@@ -24,11 +24,11 @@
     <center>
         <div id="formMovie">
             @if ($action=='edit')
-                <form enctype='multipart/form-data' action="{{route('movie.update', $data->id)}}" method="post">    
+                <form id="fmmovie" enctype='multipart/form-data' action="{{route('movie.update', $data->id)}}" method="post">    
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
             @else
-                <form enctype='multipart/form-data' action="{{route('movie.store')}}" method="post">
+                <form id="fmmovie" enctype='multipart/form-data' action="{{route('movie.store')}}" method="post">
                     @csrf
             @endif
                 <div class="col25">
@@ -64,6 +64,23 @@
                         <input class="inpForm" type="number" name="rating" placeholder=" " autocomplete="off" required value="{{$data->rating ?? ""}}">
                         <label class="labForm" for="rating">Puntuacion</label><br>  
                     </div>
+
+                    @if (isset($genres))
+                        <select name="genres[]" form="fmmovie" multiple style="width:80%">
+                            @foreach ($genres as $gen)
+                            <!-- Comprobamos si el genero esta relacionado con la pelicula para marcarlo -->
+                                <option value="{{$gen->id}}" 
+                                
+                                    @foreach ($data->genres as $genRel)
+                                    @if ($genRel->id == $gen->id)
+                                        selected
+                                    @endif
+                                @endforeach
+
+                                >{{$gen->description}}</option>       
+                            @endforeach
+                        </select>
+                    @endif
 
                     <!-- 
                         ?? es una variacion del operador ternario, si existe la variable, escribe su valor en caso contrario,

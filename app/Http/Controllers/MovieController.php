@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Movie;
+use App\Genre;
 
 class MovieController extends Controller
 {
@@ -12,7 +12,7 @@ class MovieController extends Controller
      */
     public function index(){
         $all = Movie::all();
-        return view('movie/index', ['movies'=>$all, 'type'=>'movie']);
+        return view('movie/index', ['movies'=>$all, 'type'=>'movie', 'footer'=>'big']);
     }
 
     //------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ class MovieController extends Controller
      * METODO PARA MOSTRAR EL FORMULARIO DE CREAR PELICULA
      */
     public function create(){
-        return view('movie/form', ['action'=>'create', 'type'=>'movie']);
+        return view('movie/form', ['action'=>'create', 'type'=>'movie', 'genres'=>Genre::all()]);
     }
 
     //------------------------------------------------------------------------------
@@ -52,6 +52,9 @@ class MovieController extends Controller
             $result->file('poster')->move(public_path('img/movies/'), $name);
         }
 
+        //Almacenar relacion con generos
+        $mov->genres()->attach($result->genres); //Attach crea una fila en la tabla intermedia por casa valor pasado en su array por parametro
+        
         $mov->save();
 
         //Redirigir
@@ -65,7 +68,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $id){        
         //$id vale directamente los valores del objeto con ese id, igual que find
-        return view('movie/form', ['data'=>$id, 'action'=>'edit', 'type'=>'movie']);
+        return view('movie/form', ['data'=>$id, 'action'=>'edit', 'type'=>'movie', 'genres'=>Genre::all()]);
     }
 
     //------------------------------------------------------------------------------
@@ -81,11 +84,19 @@ class MovieController extends Controller
         if($result->hasFile('poster')){
             //Crear un nombre para almacenar el fichero
             $name = "poster".$mov->id.".".$result->file('poster')->getClientOriginalExtension();
+            //Eliminar anterior poster
+            if($mov->poster!=null){
+                unlink(public_path('img/movies/'.$mov->poster));
+            }
             //Guardar el nombre en la base de datos
             $mov->poster = $name;
             //Almacenar el archivo en el directorio
             $result->file('poster')->move(public_path('img/movies/'), $name);
         }
+
+        //Actualizar relacion con generos
+        $mov->genres()->detach($mov->genres); //Eliminar antiguas relaciones
+        $mov->genres()->attach($result->genres); //Agregar nuevas relaciones seleccionadas
 
         $mov->save();
 

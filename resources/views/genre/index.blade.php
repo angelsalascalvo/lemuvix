@@ -23,14 +23,14 @@
             
                 <div class="floatButtons transform50Y col100 layer20">
                     <div class="sizefbGenre">
-                        <form action="{{route('movie.destroy', $g->id)}}" method="POST">
+                        <form action="{{route('genre.destroy', $g->id)}}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="bDeleteMovie"></button>
                         </form>
                     </div>
                     <div class="sizefbGenre">
-                        <a href="{{route('movie.edit', $g->id)}}">
+                        <a href="{{route('genre.edit', $g->id)}}">
                             <button class="bEditMovie"></button>
                         </a>
                     </div>

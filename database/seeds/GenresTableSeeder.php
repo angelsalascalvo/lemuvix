@@ -13,23 +13,44 @@ class GenresTableSeeder extends Seeder
     {
         DB::table('genres')->insert([
             'id'=>1,
-            'description'=>'Terror',
+            'description'=>'Aventura',
+            'image'=>'image1.png',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
 
         DB::table('genres')->insert([
             'id'=>2,
-            'description'=>'Animacion',
+            'description'=>'Terror',
+            'image'=>'image2.png',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
 
         DB::table('genres')->insert([
             'id'=>3,
-            'description'=>'Aventura',
+            'description'=>'Animacion',
+            'image'=>'image3.png',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
+
+        DB::table('genres')->insert([
+            'id'=>4,
+            'description'=>'Ciencia Ficción',
+            'image'=>'image4.png',
+            'created_at' => date('Y-m-d H:m:s'),
+            'updated_at' => date('Y-m-d H:m:s')
+        ]);
+
+        DB::table('genres')->insert([
+            'id'=>5,
+            'description'=>'Documental',
+            'image'=>'image5.png',
+            'created_at' => date('Y-m-d H:m:s'),
+            'updated_at' => date('Y-m-d H:m:s')
+        ]);
+
+
     }
 }

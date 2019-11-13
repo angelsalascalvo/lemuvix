@@ -48,6 +48,11 @@
     float: left;
 }
 
+.col15{
+    width: 15%;
+    float: left;
+}
+
 .col10{
     width: 10%;
     float: left;

@@ -29,11 +29,11 @@
                         </button>
                     </a>
 
-                    <a href="{{route('movie.destroy', $movie->id)}}">
-                        <button class="col100 buttonStyle2">
-                            Eliminar
-                        </button>
-                    </a>
+                    <form class="convertFormButton" action="{{route('movie.destroy', $movie->id)}}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="col100 buttonStyle2">Eliminar</button>
+                    </form>
                 </div>
             </div>
     </div>
@@ -49,9 +49,17 @@
                 <span class='col100 infoTextShow'>{{$movie->duration}}</span>
                 <span class='col100 subtitleShow'>Puntuación:</span>
                 <span class='col100 infoTextShow'>{{$movie->rating}}/5 ⭐</span>
+                <span class='col100 subtitleShow'>Generos:</span>
+                <span class='col100 infoTextShow'>
+                    @foreach ($movie->genres as $gen)
+                        {{$gen->description}} 
+                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
+                        @if ($loop->last==false)
+                            |
+                        @endif
+                    @endforeach
+                </span>
             </div>
-
-            
         </center>
     </div>
 

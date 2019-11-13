@@ -32,7 +32,7 @@
                     @csrf
             @endif
                 <div class="col25">
-                    <img id="posterFormImg" src="{{isset($data) && $data->poster!=null ? url('/img/genres/'.$data->poster) : url('/img/uploadPoster.png')}}" onclick="$('#browsePoster').trigger('click')">
+                    <img id="posterFormImg" src="{{isset($data) && $data->image!=null ? url('/img/genres/'.$data->image) : url('/img/uploadPoster.png')}}" onclick="$('#browsePoster').trigger('click')">
                     
                     <div class="groupField" style="display:none">    
                         <input type="file" name="image" accept=".png, .jpg, .jpeg" id="browsePoster">

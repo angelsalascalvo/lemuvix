@@ -61,8 +61,8 @@ class UserController extends Controller
     /**
      * METODO PARA REALIZAR LA ACCION DE ACTUALIZACION DE DATOS DEL USUARIO EN LA BASE DE DATOS
      */
-    public function update(Request $result){
-        $usu = User::find($result->id);
+    public function update(Request $result, $id){
+        $usu = User::find($id);
         $usu->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
         
         //Comprobar si se ha seleccionado admin o no

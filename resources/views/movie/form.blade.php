@@ -65,22 +65,69 @@
                         <label class="labForm" for="rating">Puntuacion</label><br>  
                     </div>
 
-                    @if (isset($genres))
-                        <select name="genres[]" form="fmmovie" multiple style="width:80%">
-                            @foreach ($genres as $gen)
-                            <!-- Comprobamos si el genero esta relacionado con la pelicula para marcarlo -->
-                                <option value="{{$gen->id}}" 
-                                
-                                    @foreach ($data->genres as $genRel)
-                                    @if ($genRel->id == $gen->id)
-                                        selected
+                    @if ($genres->count()>0)
+                        <div style="width:80%">
+                            <label>Generos</label><br>  
+                            <select name="genres[]" form="fmmovie" multiple style="width:100%">
+                                @foreach ($genres as $gen)
+                                    <option value="{{$gen->id}}" 
+                                    {{-- Comprobamos si el genero esta relacionado con la pelicula para marcarlo --}}
+                                    @if (isset($data))
+                                        @foreach ($data->genres as $genRel)
+                                            @if ($genRel->id == $gen->id)
+                                                selected
+                                            @endif
+                                        @endforeach
                                     @endif
+                                        
+                                    >{{$gen->description}}</option>       
                                 @endforeach
-
-                                >{{$gen->description}}</option>       
-                            @endforeach
-                        </select>
+                            </select>
+                        </div>
                     @endif
+
+                    @if ($people->count()>0)
+                        <div style="width:80%">
+                            </br>
+                            <label>Direccion</label><br>  
+                            <select name="directors[]" form="fmmovie" multiple style="width:100%">
+                                @foreach ($people as $per)
+                                    <option value="{{$per->id}}" 
+                                    {{-- Comprobamos si el genero esta relacionado con la pelicula para marcarlo --}}
+                                    @if (isset($data))
+                                        @foreach ($data->directors as $dir)
+                                            @if ($dir->id == $per->id)
+                                                selected
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                        
+                                    >{{$per->name}}</option>       
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div style="width:80%">
+                            </br>
+                            <label>Reparto</label><br>  
+                            <select name="actors[]" form="fmmovie" multiple style="width:100%">
+                                @foreach ($people as $per)
+                                    <option value="{{$per->id}}" 
+                                    {{-- Comprobamos si el genero esta relacionado con la pelicula para marcarlo --}}
+                                    @if (isset($data))
+                                        @foreach ($data->actors as $dir)
+                                            @if ($dir->id == $per->id)
+                                                selected
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                        
+                                    >{{$per->name}}</option>       
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+
 
                     <!-- 
                         ?? es una variacion del operador ternario, si existe la variable, escribe su valor en caso contrario,

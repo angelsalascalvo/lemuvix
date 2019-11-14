@@ -61,17 +61,16 @@ class GenreController extends Controller
     /**
      * METODO PARA REALIZAR EL PROPIO PROCESO DE ACTUALIZACION EN LA BASE DE DATOS DE LOS DATOS
      */
-    public function update(Request $result){
+    public function update(Request $result, $id){
 
-        $gen = Genre::find($result->genre); //El nombre del id en este caso no es id ya que en el archivo de rutas hemos utilizado resource con el nombre genre
+        $gen = Genre::find($id); //El nombre del id en este caso no es id ya que en el archivo de rutas hemos utilizado resource con el nombre genre
         $gen->fill($result->all());
 
-        //Comprobar si existe un archivo "Poster" adjunto
         if($result->hasFile('image')){
             //Crear un nombre para almacenar el fichero
             $name = "image".$gen->id.".".$result->file('image')->getClientOriginalExtension();
             //Eliminar anterior imagen
-            if($gen->image!=null){
+            if($gen->image!=null && file_exists(public_path('img/genres/'.$gen->image))){
                 unlink(public_path('img/genres/'.$gen->image));
             }
             //Guardar el nombre en la base de datos
@@ -94,11 +93,15 @@ class GenreController extends Controller
     public function destroy($id)
     {
         $gen = Genre::find($id);
-        //Eliminar imagen
-        if($gen->image!=null){
-            unlink(public_path('img/genres/'.$gen->image));
+
+        //Eliminar genero si no tiene peliculas asociadas
+        if($gen->movies->count()==0){
+            //Eliminar imagen
+            if($gen->image!=null && file_exists(public_path('img/genres/'.$gen->image))){
+                unlink(public_path('img/genres/'.$gen->image));
+            }
+            $gen->delete();
         }
-        $gen->delete();
 
         //Redirigir
         return redirect(route("genre.index"));

@@ -53,9 +53,9 @@
                     </div>
                     <div class="col10 colFooter">
                         <ul>
-                            <li>Inicio</li>
-                            <li>Usuarios</li>
-                            <li>Generos</li>
+                            <a href="{{route('person.index')}}"><li>Actores y Directores</li></a>
+                            <li>Info</li>
+                            <li>&nbsp</li>
                         </ul>
                     </div>
                 </div>

@@ -3,8 +3,44 @@
 @section('title', 'lemuvix')
 
 @section('content')
-    <div class="marginTopMovies col100">
-    </div>
+
+    <!-- TITULO -->
+    @if (isset($genre))
+        <div class="col100">
+            <center>
+           
+                <div class="titleHeader">
+                    <div class="imageHeader">
+                        <img src="{{url('/img/genres/'.$genre->image)}}">
+                    </div>
+                <div style="
+                        float: left;
+                        position: relative;
+                    ">
+                         
+
+
+                         <div style="position: absolute;top: 0;bottom: 0;margin: auto;">
+                                
+
+
+                    <h1>
+                        {{$genre->description}}
+                    </h1>
+                    <div class="subTitleHeader">
+                    </div>
+                    <div>
+                </div>
+                </div>
+            </center>
+        </div>
+    @else
+        <div class="marginTopMovies col100">
+        </div>
+    @endif
+    
+
+    
 
     @foreach ($movies as $m)
         <div class="col25 contentMovie">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Movie;
 use App\Genre;
+use App\Person;
 
 class MovieController extends Controller
 {
@@ -21,7 +22,7 @@ class MovieController extends Controller
      * METODO PARA MOSTRAR LA INFORMACION COMPLETA DE LA PELICUA
      */
     public function show(Movie $id){
-        return view('movie/show', ['movie'=>$id, 'type'=>'movie']);
+        return view('movie/show', ['movie'=>$id]);
     }
 
     //------------------------------------------------------------------------------
@@ -30,7 +31,7 @@ class MovieController extends Controller
      * METODO PARA MOSTRAR EL FORMULARIO DE CREAR PELICULA
      */
     public function create(){
-        return view('movie/form', ['action'=>'create', 'type'=>'movie', 'genres'=>Genre::all()]);
+        return view('movie/form', ['action'=>'create', 'genres'=>Genre::all(), 'people'=>Person::all()]);
     }
 
     //------------------------------------------------------------------------------
@@ -51,10 +52,13 @@ class MovieController extends Controller
             //Almacenar el archivo en el directorio
             $result->file('poster')->move(public_path('img/movies/'), $name);
         }
-
-        //Almacenar relacion con generos
-        $mov->genres()->attach($result->genres); //Attach crea una fila en la tabla intermedia por casa valor pasado en su array por parametro
         
+        //Almacenar relaciones
+        $mov->genres()->attach($result->genres); //Attach crea una fila en la tabla intermedia por casa valor pasado en su array por parametro
+        $mov->actors()->attach($result->actors);
+        $mov->directors()->attach($result->directors);
+
+        //Guardar pelicula
         $mov->save();
 
         //Redirigir
@@ -68,7 +72,7 @@ class MovieController extends Controller
      */
     public function edit(Movie $id){        
         //$id vale directamente los valores del objeto con ese id, igual que find
-        return view('movie/form', ['data'=>$id, 'action'=>'edit', 'type'=>'movie', 'genres'=>Genre::all()]);
+        return view('movie/form', ['data'=>$id, 'action'=>'edit', 'genres'=>Genre::all(), 'people'=>Person::all()]);
     }
 
     //------------------------------------------------------------------------------
@@ -76,8 +80,8 @@ class MovieController extends Controller
     /**
      * METODO PARA REALIZAR LA ACCION DE ACTUALIZACION DE DATOS DE LA PELICULA EN LA BASE DE DATOS
      */
-    public function update(Request $result){
-        $mov = Movie::find($result->id);
+    public function update(Request $result, $id){
+        $mov = Movie::find($id);
         $mov->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
 
         //Comprobar si existe un archivo "Poster" adjunto
@@ -85,7 +89,7 @@ class MovieController extends Controller
             //Crear un nombre para almacenar el fichero
             $name = "poster".$mov->id.".".$result->file('poster')->getClientOriginalExtension();
             //Eliminar anterior poster
-            if($mov->poster!=null){
+            if($mov->poster!=null && file_exists(public_path('img/movies/'.$mov->poster))){
                 unlink(public_path('img/movies/'.$mov->poster));
             }
             //Guardar el nombre en la base de datos
@@ -95,9 +99,11 @@ class MovieController extends Controller
         }
 
         //Actualizar relacion con generos
-        $mov->genres()->detach($mov->genres); //Eliminar antiguas relaciones
-        $mov->genres()->attach($result->genres); //Agregar nuevas relaciones seleccionadas
+        $mov->genres()->sync($result->genres); //Sync es como una eliminacion detach y agregacion attacch
+        $mov->directors()->sync($result->directors);
+        $mov->actors()->sync($result->actors);
 
+        //Guardar pelicula
         $mov->save();
 
         //Redirigir
@@ -111,13 +117,38 @@ class MovieController extends Controller
      */
     public function destroy($id){
         $mov = Movie::find($id);
+        //Eliminar relaciones con generos
+        $mov->genres()->detach();
+        $mov->actors()->detach();
+        $mov->directors()->detach();
+
         //Eliminar cartel
-        if($mov->poster!=null){
+        if($mov->poster!=null && file_exists(public_path('img/movies/'.$mov->poster))){
             unlink(public_path('img/movies/'.$mov->poster)); //Eliminar cartel
         }
+        //Eliminar pelicula
         $mov->delete();
         
         //Redirigir
         return redirect(route("movie.index"));
+    }
+
+    //------------------------------------------------------------------------------
+
+    /**
+     * METODO PARA MOSTRAR LAS PELICULAS ASOCIADAS A UN GENERO DETERMINADO
+     */
+    public function showByGenre(Genre $genre){
+        $movies= Array();
+        //Obtener las peliculas que corresponden con el genero pasado por parametro
+        foreach(Movie::all() as $mov){
+            foreach($mov->genres as $gen){
+                if($genre->id == $gen->id){
+                    array_push($movies, $mov);
+                }
+            }
+        }
+
+        return view('movie/index', ['movies'=>$movies, 'type'=>'movie', 'footer'=>'big', 'genre'=>$genre]);
     }
 }

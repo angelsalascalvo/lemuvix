@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGenreMovieTable extends Migration
+class CreateDirectorMovieTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateGenreMovieTable extends Migration
      */
     public function up()
     {
-        Schema::create('genre_movie', function (Blueprint $table) {
+        Schema::create('director_movie', function (Blueprint $table) {
             $table->integer('id_movie');
-            $table->integer('id_genre');
+            $table->integer('id_director');
             //Establecer ambos campos como clave primaria
-            $table->primary(array('id_movie', 'id_genre'));
+            $table->primary(array('id_movie', 'id_director'));
         });
     }
 
@@ -28,6 +28,6 @@ class CreateGenreMovieTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('genre_movie');
+        Schema::dropIfExists('director_movie');
     }
 }

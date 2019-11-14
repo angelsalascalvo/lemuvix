@@ -52,11 +52,39 @@
                 <span class='col100 subtitleShow'>Generos:</span>
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->genres as $gen)
+                    <a href="{{route('movie.showByGenre', $gen->id)}}">
                         {{$gen->description}} 
                         <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
                         @if ($loop->last==false)
-                            |
+                        &nbsp|&nbsp
                         @endif
+                    </a>
+                    @endforeach
+                </span>
+
+                <span class='col100 subtitleShow'>Direccion:</span>
+                <span class='col100 infoTextShow'>
+                    @foreach ($movie->directors as $dir)
+                    <a href="">
+                        {{$dir->name}} 
+                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
+                        @if ($loop->last==false)
+                        &nbsp|&nbsp
+                        @endif
+                    </a>
+                    @endforeach
+                </span>
+
+                <span class='col100 subtitleShow'>Reparto:</span>
+                <span class='col100 infoTextShow'>
+                    @foreach ($movie->actors as $act)
+                    <a href="">
+                        {{$act->name}} 
+                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
+                        @if ($loop->last==false)
+                        &nbsp|&nbsp
+                        @endif
+                    </a>
                     @endforeach
                 </span>
             </div>

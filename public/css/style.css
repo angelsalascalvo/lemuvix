@@ -19,6 +19,7 @@ body{
 
 a{
     color:black!important;
+    text-decoration: none;
 }
 
 *:focus {
@@ -156,6 +157,28 @@ form{
     height: 3.5px;
     width: 30px;
     margin-left: 2px;
+}
+
+.imageHeader{
+    float: left;
+}
+
+.imageHeader img{
+    border-radius: 50%;
+    width: 65px;
+}
+
+.txtHeader{
+    float: left;
+    margin-left: 15px;
+    position: relative;
+    width: fit-content;
+}
+
+centerVHeader{
+    width: fit-content;
+    float: left;
+    position: relative;
 }
 
 /* CONTENIDO */

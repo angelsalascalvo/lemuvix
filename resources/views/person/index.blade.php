@@ -8,7 +8,7 @@
         <center>
         <div class="titleHeader">
             <h1>
-                Generos
+                PERSONAS
             </h1>
             <div class="subTitleHeader">
             </div>
@@ -17,32 +17,32 @@
     </div>
 
     <!-- CONTENIDO -->
-    @foreach ($genres as $gen)
+    @foreach ($people as $per)
         <div class="col33 genreElement">
             <div class="marginGenre">
             
                 <div class="floatButtons transform50Y col100 layer20">
                     <div class="sizefbGenre">
-                        <form action="{{route('genre.destroy', $gen->id)}}" method="POST">
+                        <form action="{{route('person.destroy', $per->id)}}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="bDeleteMovie"></button>
                         </form>
                     </div>
                     <div class="sizefbGenre">
-                        <a href="{{route('genre.edit', $gen->id)}}">
+                        <a href="{{route('person.edit', $per->id)}}">
                             <button class="bEditMovie"></button>
                         </a>
                     </div>
                 </div>
-                <a href="{{route('movie.showByGenre', $gen->id)}}">
+                <a href="{{route('movie.showByGenre', $per->id)}}">
                     <div class="col100 genreContent layer10">
                         <div class="col20 imageGenre">
-                            <img class="col100" src="{{$gen->image ? url('/img/genres/'.$gen->image) : url('/img/generic.jpg')}}">
+                            <img class="col100" src="{{$per->photo ? url('/img/people/'.$per->photo) : url('/img/generic.jpg')}}">
                         </div>
 
                         <div class="col80 txtGenre">
-                            <h2>{{$gen->description}}</h2>
+                            <h2>{{$per->name}}</h2>
                         </div>
                     </div>
                 </a>
@@ -52,7 +52,7 @@
     @endforeach
 
     <div class="buttonAdd">
-        <a href="{{route('genre.create')}}">
+        <a href="{{route('person.create')}}">
             <button></button>
         </a>
     </div>

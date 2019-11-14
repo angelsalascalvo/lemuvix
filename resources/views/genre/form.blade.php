@@ -32,10 +32,12 @@
                     @csrf
             @endif
                 <div class="col25">
-                    <img id="posterFormImg" src="{{isset($data) && $data->image!=null ? url('/img/genres/'.$data->image) : url('/img/uploadPoster.png')}}" onclick="$('#browsePoster').trigger('click')">
-                    
+                    <div class="imgAspectRatio11">
+                        <img class="imgRound" id="imgUpload" src="{{isset($data) && $data->image!=null ? url('/img/genres/'.$data->image) : url('/img/uploadPoster.png')}}" onclick="$('#browseImage').trigger('click')">
+                    </div>
+
                     <div class="groupField" style="display:none">    
-                        <input type="file" name="image" accept=".png, .jpg, .jpeg" id="browsePoster">
+                        <input type="file" name="image" accept=".png, .jpg, .jpeg" id="browseImage">
                     </div>
                 </div>
 
@@ -61,16 +63,16 @@
                 //Establecer como atributo de la imagen la ruta de la imagen seleccionada
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#posterFormImg').attr('src', e.target.result);
+                    $('#imgUpload').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
             }else{
-                $('#posterFormImg').attr('src', "{{url('/img/generic.jpg')}}");
+                $('#imgUpload').attr('src', "{{url('/img/generic.jpg')}}");
             }
         }
 
         //Detectar examinacion de una imagen en el formulario
-        $("#browsePoster").change(function() {
+        $("#browseImage").change(function() {
             loadPreview(this);
         });
 

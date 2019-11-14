@@ -18,9 +18,11 @@
     </div>
 
     <!-- CONTENIDO -->
-    <div class="col25 posterShow">
-        <img src="{{$movie->poster!=null ? url('/img/movies/'.$movie->poster) : url('/img/generic.jpg')}}">
-
+    <div class="col25">
+        <div class="imgAspectRatioA4">
+            <img class="imgBorderRound" src="{{$movie->poster!=null ? url('/img/movies/'.$movie->poster) : url('/img/generic.jpg')}}">
+        </div>
+        
         <div class="buttonActionShow col100">
                 <div>
                     <a href="{{route('movie.edit', $movie->id)}}">
@@ -65,7 +67,7 @@
                 <span class='col100 subtitleShow'>Direccion:</span>
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->directors as $dir)
-                    <a href="">
+                    <a href="{{route('person.show', $dir->id)}}">
                         {{$dir->name}} 
                         <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
                         @if ($loop->last==false)
@@ -78,7 +80,7 @@
                 <span class='col100 subtitleShow'>Reparto:</span>
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->actors as $act)
-                    <a href="">
+                    <a href="{{route('person.show', $act->id)}}">
                         {{$act->name}} 
                         <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
                         @if ($loop->last==false)

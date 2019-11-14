@@ -279,7 +279,7 @@ td, th{
 .buttonAdd button{
     width: 100%;
     padding: 0;
-    padding-top: 100%; /*Mantener la relacion de acpecto 1:1*/
+    padding-top: 100%; /*Mantener la relacion de aspecto 1:1*/
     position: relative;
     background-image: url("../img/add.png");
     background-position: 50% 50%;
@@ -310,6 +310,42 @@ td, th{
     width: 4.5%;
     bottom: 30px;
     right: 30px;
+}
+
+.imgAspectRatioA4{
+    position: relative;
+    padding-top: 144.52%; /*RelacionAspecto A4 (437:620 -> 100% / 620 * 429)*/
+}
+.imgAspectRatioA4 img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.imgAspectRatio11{
+    position: relative;
+    padding-top: 100%;
+}
+.imgAspectRatio11 img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.imgRound{
+    border-radius: 50%;
+}
+
+.imgBorderRound{
+    border-radius: 15px;   
+}
+
+#imgUpload{
+    cursor: pointer;
 }
 
 /* FORMULARIO GENERAL*/
@@ -437,13 +473,6 @@ td, th{
     margin-left: -80%;
 }
 
-#posterFormImg{
-    cursor: pointer;
-    width: 100%;
-    border-radius: 15px;
-}
-
-
 /* BOTONES FLOTANTES */
 
 .sizefbMovie{
@@ -458,6 +487,10 @@ td, th{
     margin-left: 10px;
 }
 
+.floatButtons{
+    position: relative;
+}
+
 .floatButtons button{
     padding: 0;
     width: 100%;
@@ -469,36 +502,22 @@ td, th{
     box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.07);
 }
 
-.transform50 button{
-    transform: translateY(50%) translateX(50%);
-}
-
 .transform50Y button{
     transform: translateY(50%);
 }
 
-.floatButtons{
-    position: relative;
+.transform50XY button{
+    transform: translateY(50%) translateX(50%);
 }
 
-.floatButtons img{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0%;
-    height: 50%;
-    margin: auto;
-}
-
-.bEditMovie{
+.fbEdit{
     background: url("../img/edit3.png") 50% 50% no-repeat;
     border-radius: 100%;
     background-size:40%;
     background-color: #ff756b;
 }
 
-.bEditMovie:hover{
+.fbEdit:hover{
     background-color: #ca291e;
     -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
     -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
@@ -506,14 +525,14 @@ td, th{
     transition: all ease 1s;
 }
 
-.bDeleteMovie{
+.fbDelete{
     background: url("../img/delete.png") 50% 50% no-repeat;
     border-radius: 50%;
     background-size:40%;
     background-color: #575757;
 }
 
-.bDeleteMovie:hover{
+.fbDelete:hover{
     background-color: #000000;
     -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
     -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.3);
@@ -530,10 +549,6 @@ td, th{
     height: 50px;
 }
 
-.posterMovie img{
-    border-radius: 15px;
-}
-
 .contentMovie h1{
     font-size: 25px;
     padding-left: 15px;
@@ -545,11 +560,6 @@ td, th{
 }
 
 /* VISTA INDIVIDUAL PELICULA */
-.posterShow img{
-    width: 100%;
-    border-radius: 15px;
-}
-
 .contentShow{
     width:80%;
     text-align: left;
@@ -576,21 +586,6 @@ td, th{
 /*************************************************************************/
 /*                              GENEROS                                  */
 /*************************************************************************/
-
-.imageGenre{
-    position: relative;
-    padding-top: 20%;
-}
-
-.imageGenre img{
-    position:  absolute;
-    top: 0;
-    left: 0;
-    width:100%;
-    height:100%;
-    border-radius: 50%;
-}
-
 .genreElement h2{
     position: absolute;
     margin: auto;

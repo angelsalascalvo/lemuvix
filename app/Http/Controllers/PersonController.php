@@ -17,6 +17,15 @@ class PersonController extends Controller
     //------------------------------------------------------------------------------
 
     /**
+     * METODO PARA MOSTRAR LA VISTA CORRESPONDIENTE CON LA INFORMACION COMPLETA DE UNA PERSONA
+     */
+    public function show(Person $person){
+        return view('person/show', ['person'=>$person]);
+    }
+
+    //------------------------------------------------------------------------------
+
+    /**
      * METODO PARA MOSTRAR EL FORMULARIO DE CREAR PERSONA
      */
     public function create(){
@@ -52,9 +61,8 @@ class PersonController extends Controller
     /**
      * METODO PARA MOSTRAR AL VISTA DE EDICION DE PERSONAS
      */
-    public function edit ($id){
-        $per = Person::find($id);
-        return view('person/form', ['action'=>'edit', 'data'=>$per]);
+    public function edit (Person $person){
+        return view('person/form', ['action'=>'edit', 'data'=>$person]);
     }
 
     //------------------------------------------------------------------------------

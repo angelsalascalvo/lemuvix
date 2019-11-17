@@ -57,7 +57,7 @@
 
     <script>
 
-        //PREVISUALIZACION DE POSTAR CARGADO
+        //PREVISUALIZACION DE IMAGEN CARGADA
         function loadPreview(input) {
             if (input.files && input.files[0]) {
                 //Establecer como atributo de la imagen la ruta de la imagen seleccionada

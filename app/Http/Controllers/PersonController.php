@@ -104,13 +104,13 @@ class PersonController extends Controller
         $per = Person::find($id);
 
         //Eliminar persona si no tiene peliculas asociadas
-        //if($per->movies->count()==0){
+        if($per->moviesActed->count()==0 && $per->moviesDirected->count()==0){
             //Eliminar imaper
             if($per->photo!=null && file_exists(public_path('img/people/'.$per->photo)) ){
                 unlink(public_path('img/people/'.$per->photo));
             }
             $per->delete();
-        //}
+        }
 
         //Redirigir
         return redirect(route("person.index"));

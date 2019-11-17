@@ -20,7 +20,7 @@
 
             <!-- Mostrar barra busqueda si estamos trabajando en la seccion de peliculas -->
             @if (isset($type) && $type=='movie')
-                <div id="searchBar">
+                <div id="searchBar" class="searchBarGen">
                     <input placeholder="Buscar...">
                     <button><img src="{{ url('/img/search.png')}}"></button>
                 </div>
@@ -28,6 +28,8 @@
         </div>
 
         <!-- CONTENIDO -->
+        @yield('contentEmergent')
+        
         <div class='content'>
             <div class="margin">
                 @yield('content')
@@ -68,13 +70,15 @@
         * METODO PARA HACER QUE EL BOTON FLOTANTE NO BAJE AL ENCONTRAR EL FOOTER DE LA PAGINA
         */
         function checkOffset() {
-            var a=$(document).scrollTop()+window.innerHeight;
-            var b=$('footer').offset().top;
-            
-            if (a<b) {
-                $('.buttonAdd').css('bottom', '30px');
-            } else {
-                $('.buttonAdd').css('bottom', (30+(a-b))+'px');
+            if( $('footer').length ){
+                var a=$(document).scrollTop()+window.innerHeight;
+                var b=$('footer').offset().top;
+                
+                if (a<b) {
+                    $('.buttonAdd').css('bottom', '30px');
+                } else {
+                    $('.buttonAdd').css('bottom', (30+(a-b))+'px');
+                }
             }
         }
 

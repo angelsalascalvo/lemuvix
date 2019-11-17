@@ -47,19 +47,19 @@
             <div class="marginContentMovie">
                 <!-- BOTONES DE EDICION FLOTANTES -->
                 <div class="floatButtons transform50XY col100 layer20">
-                        <div class="sizefbMovie">
-                            <form action="{{route('movie.destroy', $m->id)}}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button class="fbDelete"></button>
-                            </form>
-                        </div>
-                        <div class="sizefbMovie">
-                            <a href="{{route('movie.edit', $m->id)}}">
-                                <button class="fbEdit"></button>
-                            </a>
-                        </div>
+                    <div class="sizefbMovie">
+                        <form action="{{route('movie.destroy', $m->id)}}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="fbDelete"></button>
+                        </form>
                     </div>
+                    <div class="sizefbMovie">
+                        <a href="{{route('movie.edit', $m->id)}}">
+                            <button class="fbEdit"></button>
+                        </a>
+                    </div>
+                </div>
 
                 <!-- CONTENEDOR DE PELICULA -->
                 <a href="{{route('movie.show', $m->id)}}">

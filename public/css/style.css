@@ -26,6 +26,11 @@ a{
     outline: none;
 }
 
+option{
+    font-size: 13px;
+    font-family: 'Raleway', sans-serif;
+}
+
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -50,6 +55,12 @@ button:hover, .button:hover{
     background-color:#ca291e;
 }
 
+button:disabled{
+    background-color: #eaeaea;
+    cursor: auto;
+}
+
+
 .buttonStyle2{
     background-color: #d3d3d3;
 }
@@ -66,15 +77,39 @@ input{
     font-size: 16px;
 }
 
-
 form{
     margin-block-end: 0;
+}
+
+.centerParent{
+    position: relative;
+}
+
+.centerChildVH{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+.centerChildV{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto 0;
+    height: fit-content;
 }
 
 
 /* CABECERA */
 #topBar{
-    z-index: 1000;
+    z-index: 300;
     float: left;
     position: fixed;
     width: 100%;
@@ -96,6 +131,7 @@ form{
 }
 
 /* BARRA BUSQUEDA CABECERA */
+
 #searchBar{
     position: absolute;
     top: 0;
@@ -105,7 +141,13 @@ form{
     margin: auto 35%;
 }
 
-#searchBar input{
+/* BARRA BUSQUEDA GENERICA */
+.searchBarGen{
+    position: relative;
+    height: 30px;
+}
+
+.searchBarGen input{
     border-radius: 50px;
     width: 100%;
     border: none;
@@ -115,11 +157,11 @@ form{
     font-weight: bold;
 }
 
-#searchBar input::placeholder{
+.searchBarGen input::placeholder{
     font-weight: normal!important;
 }
 
-#searchBar button{
+.searchBarGen button{
     height: 100%;
     background-color: transparent;
     position: absolute;
@@ -127,15 +169,7 @@ form{
     transform: translateX(-100%);
 }
 
-#searchBar button::hover{
-    height: 100%;
-    background-color: transparent;
-    position: absolute;
-    top: 0;
-    transform: translateX(-100%);
-}
-
-#searchBar img{
+.searchBarGen img{
     height: 100%;
 }
 
@@ -193,6 +227,59 @@ centerVHeader{
     width: 80%;
     margin: 0 auto;
 }
+
+/* VENTANA EMERGENTE */
+
+#emergent{
+    position: fixed;
+    z-index: 500;
+    width: 100%;
+    height: 100%;
+}
+
+.backgroundBlack{
+    width: 100%;
+    height: 100%;
+    background-color: #000000b4;
+}
+
+.emerWindow{
+    background-color: white;
+    width: 60%;
+    border-radius: 15px;
+}
+
+.option{
+    float: left;
+    width: 100%;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.option:hover{
+    cursor: pointer;
+}
+
+.imgOption{
+    width: 40px;
+    margin-left: 10px
+}
+
+.textOption span{
+    width: fit-content;
+    margin-left: 60px;
+}
+
+.listOptions{
+    position: relative;
+    max-height: 250px;
+    overflow:auto
+}
+
+.markedOption{
+    background-color: #eaeaea;
+}
+
 
 /* FOOTER */
 
@@ -450,6 +537,7 @@ td, th{
  animation-fill-mode: both;
 }
 
+
 /*FORMULARIO USUARIO*/
 
 #formUser .inpForm{
@@ -471,6 +559,22 @@ td, th{
 
 #formMovie .labForm{
     margin-left: -80%;
+}
+
+
+.containerElementsMovie{
+    width: 80%;
+}
+
+.elementMovie{
+    width: fit-content!important;
+    cursor: pointer;
+}
+
+.sizefbMovieForm{
+    width: 58%;
+    float: right;
+    margin-left: 10px;
 }
 
 /* BOTONES FLOTANTES */
@@ -509,6 +613,11 @@ td, th{
 .transform50XY button{
     transform: translateY(50%) translateX(50%);
 }
+
+.transform30XY button{
+    transform: translateY(-30%) translateX(30%);
+}
+
 
 .fbEdit{
     background: url("../img/edit3.png") 50% 50% no-repeat;

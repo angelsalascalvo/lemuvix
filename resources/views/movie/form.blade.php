@@ -111,25 +111,29 @@
                     <div id="arrayGenres" class="col100">
                         <label>Generos</label>
                         <button id="addGenre" type="button">Agregar</button>
-                        <div class="containerElementsMovie">
+                        <div id="containerGenres" class="containerElementsMovie">
 
-                                <div class="option elementMovie centerParent">
-                                    <div class="imgOption centerChildV">       
-                                        <!--boton eliminar-->
-                                        <div style="display:none;" class="floatButtons transform30XY col100 layer20">
-                                            <div class="sizefbMovieForm">
-                                                    <button class="fbDelete"></button>
-                                            </div>
-                                        </div>                         
-                                        <div class=" imgAspectRatio11">
-                                            <img class="imgRound" src="{{url('/img/uploadPoster.png')}}">
+                            <div class="elementMovie">
+                                <div class="imgElementMovie">
+
+                                    <!--boton eliminar-->
+                                    <div style="display:none" class="floatButtons transform30XY col100 layer20">
+                                        <div class="sizefbMovieForm">
+                                            <button type="button" class="fbDelete"></button>
                                         </div>
-                                    </div>
-                        
-                                    <div class="textOption">
-                                        <span class="centerChildV"><strong>Agregar</strong></span>
+                                    </div>        
+
+                                    <div class="imgAspectRatio11">
+                                        <img class="imgRound" src="{{url('/img/uploadPoster.png')}}">
                                     </div>
                                 </div>
+                                <div class="txtElementMovie">
+                                        <span><strong>Agregar</strong></span>
+                                </div>
+
+
+
+                            </div>
                         </div>
                     </div>
                     
@@ -161,7 +165,7 @@
 
     <script>
 
-        var selectedID = null;
+        var selectedElement = null;
         var allElements = [];
         var genresSelected = [];
         var directorsSelected = [];
@@ -192,12 +196,14 @@
                 showEmergent();
             });
 
+
             //Rellenar array con elementos previamente asociados (si estamos editando)
             //Crear elementos ocultos para el array correspondiente
             @if ($action=='edit')
                 @json($data->genres).forEach(element => {
                     genresSelected.push(element.id);
-                    $('#arrayGenres').append("<input type='hidden' name='genres[]' value='"+element.id+"'>")
+                    $('#arrayGenres').append("<input type='hidden' class='genreForm' name='genres[]' value='"+element.id+"'>")
+                    addGraphicGenre(element);
                 });
                 @json($data->directors).forEach(element => {
                     directorsSelected.push(element.id);
@@ -210,24 +216,62 @@
             @endif
         });
 
+
+        function addGraphicGenre(element){
+            var url = "{{url('/')}}";
+            var htmlElement = $("#containerGenres .elementMovie:first").clone(true); 
+            console.log(htmlElement);
+            //Imagen
+            if(element.image != null){
+                htmlElement.find("img").attr("src", url+"/img/genres/"+element.image);
+            }else{
+                htmlElement.find("img").attr("src", url+"/img/generic.jpg");
+            }
+            //Texto
+            htmlElement.find("span").text(element.description)
+            //Boton eliminar
+            htmlElement.find("button").click(function(){removeGraphicGenre(element.id, htmlElement)});
+            htmlElement.find(".floatButtons").show();
+
+            $("#containerGenres").append(htmlElement);
+        }
+
+        function removeGraphicGenre(id, htmlElement){
+            //Eliminar elemento html
+            htmlElement.remove();
+
+            //Eliminar campo del formulario
+            $(".genreForm").each(function(){                
+                if($(this).val()==id){
+                    $(this).remove();
+                }
+            });
+
+            //Eliminar del listado de seleccionados
+            genresSelected = jQuery.grep(genresSelected, function(value) {
+                return value != id;
+            });
+        }
+
         //--------------------------------------------------------------------------------
 
         //METODO QUE SE EJECUTARÁ AL PULSAR SOBRE EL BOTON ACEPTAR 
         function acept(type){            
             switch (type){
                 case "genre":
-                    genresSelected.push(selectedID);
-                    $('#arrayGenres').append("<input type='hidden' name='genres[]' value='"+selectedID+"'>")
+                    genresSelected.push(selectedElement.id);
+                    $('#arrayGenres').append("<input type='hidden' class='genreForm' name='genres[]' value='"+selectedElement.id+"'>");
+                    addGraphicGenre(selectedElement);
                 break;
 
                 case "director":
-                    directorsSelected.push(selectedID);
-                    $('#arrayDirectors').append("<input type='hidden' name='directors[]' value='"+selectedID+"'>")
+                    directorsSelected.push(selectedElement.id);
+                    $('#arrayDirectors').append("<input type='hidden' name='directors[]' value='"+selectedElement.id+"'>");
                 break;
 
                 case "actor":
-                    actorsSelected.push(selectedID);
-                    $('#arrayActors').append("<input type='hidden' name='actors[]' value='"+selectedID+"'>")
+                    actorsSelected.push(selectedElement.id);
+                    $('#arrayActors').append("<input type='hidden' name='actors[]' value='"+selectedElement.id+"'>");
                 break;
             }
         
@@ -251,15 +295,17 @@
         //--------------------------------------------------------------------------------
 
         //FUNCION PARA ALMACENAR EL ELEMENTO SELECCIONADO Y MARCARLO
-        function selected(elementOption){
+        function selected(elementOption, elementHtml){
             $("#emergetAcept").removeAttr("disabled");
-            selectedID = elementOption.attr("id");
+            selectedElement = elementOption;
+
             //Recorrer todos los elentos para desmarcarlos
             allElements.forEach(element => {
                 element.removeClass("markedOption");
             });
+
             //Marcar el elemento seleccionado
-            elementOption.addClass("markedOption");
+            elementHtml.addClass("markedOption");
         }
 
         //--------------------------------------------------------------------------------
@@ -311,7 +357,7 @@
                     htmlElement.find("span").text(element.description)
                     //Id
                     htmlElement.attr("id", element.id);
-                    htmlElement.click(function(){selected(htmlElement)});
+                    htmlElement.click(function(){selected(element, htmlElement)});
 
                     //Agregar elemento
                     allElements.push(htmlElement);

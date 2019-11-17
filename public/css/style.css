@@ -561,14 +561,28 @@ td, th{
     margin-left: -80%;
 }
 
-
 .containerElementsMovie{
     width: 80%;
 }
 
 .elementMovie{
-    width: fit-content!important;
-    cursor: pointer;
+    float: left;
+    position: relative;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.imgElementMovie{
+    width: 40px;
+    float: left;
+    position: relative;
+}
+
+.txtElementMovie{
+    position: relative;
+    float: left;
+    height: fit-content;
+    margin: 10px 10px 0px 10px;
 }
 
 .sizefbMovieForm{

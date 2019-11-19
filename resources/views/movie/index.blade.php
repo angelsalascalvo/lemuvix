@@ -40,7 +40,7 @@
     @endif
     
 
-    
+    <button id="aaa">Prueba Borrado</button>
 
     @foreach ($movies as $m)
         <div class="col25 contentMovie">
@@ -83,4 +83,26 @@
         </a>
     </div>
     
+    <script>
+         $(document).ready(function() {
+            $("#aaa").click(function(){removeMovieAjax(2)});
+         });
+
+        function removeMovieAjax(id){
+            console.log("Enviado borrado Ajax "+id);
+
+            var rute = "{{ route('movie.destroy', 'req_id') }}".replace('req_id', id)
+            
+            $.ajax({
+                method: "delete",
+                url: rute,
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success:function(result){
+                    console.log("Borrado: "+result);
+                }
+            });
+        }
+    </script>
 @endsection

@@ -55,11 +55,23 @@
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->genres as $gen)
                     <a href="{{route('movie.showByGenre', $gen->id)}}">
-                        {{$gen->description}} 
-                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
-                        @if ($loop->last==false)
-                        &nbsp|&nbsp
-                        @endif
+                        <div class="col25 centerParent showElementMovie">
+                            <div class="col100">
+                                <div class="col25">
+                                    <div class="imgAspectRatio11">
+                                        @if ($gen->image!=null)
+                                            <img class="imgRound" src="{{url('/img/genres/'.$gen->image)}}">
+                                        @else
+                                            <img class="imgRound" src="{{url('/img/generic.jpg')}}">
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col75">
+                                    <span class="centerChildV txtShowElementMovie">{{$gen->description}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     @endforeach
                 </span>
@@ -68,11 +80,23 @@
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->directors as $dir)
                     <a href="{{route('person.show', $dir->id)}}">
-                        {{$dir->name}} 
-                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
-                        @if ($loop->last==false)
-                        &nbsp|&nbsp
-                        @endif
+                        <div class="col25 centerParent showElementMovie">
+                            <div class="col100">
+                                <div class="col25">
+                                    <div class="imgAspectRatio11">
+                                        @if ($dir->photo!=null)
+                                            <img class="imgRound" src="{{url('/img/people/'.$dir->photo)}}">
+                                        @else
+                                            <img class="imgRound" src="{{url('/img/generic.jpg')}}">
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col75">
+                                    <span class="centerChildV txtShowElementMovie">{{$dir->name}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     @endforeach
                 </span>
@@ -81,11 +105,23 @@
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->actors as $act)
                     <a href="{{route('person.show', $act->id)}}">
-                        {{$act->name}} 
-                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
-                        @if ($loop->last==false)
-                        &nbsp|&nbsp
-                        @endif
+                        <div class="col25 centerParent showElementMovie">
+                            <div class="col100">
+                                <div class="col25">
+                                    <div class="imgAspectRatio11">
+                                        @if ($act->photo!=null)
+                                            <img class="imgRound" src="{{url('/img/people/'.$act->photo)}}">
+                                        @else
+                                            <img class="imgRound" src="{{url('/img/generic.jpg')}}">
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col75">
+                                    <span class="centerChildV txtShowElementMovie">{{$act->name}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     @endforeach
                 </span>

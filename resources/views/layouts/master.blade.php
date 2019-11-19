@@ -66,6 +66,7 @@
     </body>
 
     <script>
+        
         /**
         * METODO PARA HACER QUE EL BOTON FLOTANTE NO BAJE AL ENCONTRAR EL FOOTER DE LA PAGINA
         */

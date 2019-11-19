@@ -31,6 +31,14 @@ class UserController extends Controller
      * METODO PARA REALIZAR LA ACCIÓN DE GUARDADO DE LOS DATOS DE UN NUEVO USUARIO
      */
     public function store(Request $result){
+        //Validacion de datos
+        $result->validate([
+            'nick' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'password'=>'required'
+        ]); 
+
         $usu = new User($result->all());
         $usu->id = User::max('id')+1;
         //Comprobar si se ha seleccionado admin o no
@@ -62,6 +70,14 @@ class UserController extends Controller
      * METODO PARA REALIZAR LA ACCION DE ACTUALIZACION DE DATOS DEL USUARIO EN LA BASE DE DATOS
      */
     public function update(Request $result, $id){
+         //Validacion de datos
+         $result->validate([
+            'nick' => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'password'=>'required'
+        ]); 
+
         $usu = User::find($id);
         $usu->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
         

@@ -38,6 +38,11 @@ class PersonController extends Controller
      * METODO PARA ALMACENAR LA PERSONA EN LA BASE DE DATOS
      */
     public function store(Request $result){
+        //Validacion de datos
+        $result->validate([
+            'name' => 'required'
+        ]); 
+
         $per = new Person($result->all());
         $per->id = Person::max('id')+1;
 
@@ -71,6 +76,10 @@ class PersonController extends Controller
      * METODO PARA REALIZAR EL PROPIO PROCESO DE ACTUALIZACION EN LA BASE DE DATOS DE LOS DATOS
      */
     public function update(Request $result, $id){
+        //Validacion de datos
+        $result->validate([
+            'name' => 'required'
+        ]); 
 
         $per = Person::find($id);
         $per->fill($result->all());
@@ -85,7 +94,7 @@ class PersonController extends Controller
             //Guardar el nombre en la base de datos
             $per->photo = $name;
             //Almacenar el archivo en el directorio
-            $result->file('photo')->move(public_path('img/person/'), $name);
+            $result->file('photo')->move(public_path('img/people/'), $name);
         }
 
         $per->save();

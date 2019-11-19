@@ -32,29 +32,49 @@
                     @csrf
             @endif
                 
-                <div class="groupField">
+                <div class="groupField @error('nick') invalid @enderror">
                     <input class="inpForm" type="text" name="nick" placeholder=" " autocomplete="off" required value="{{$data->nick ?? ""}}">
-                    <label class="labForm" for="nick">Usuario</label><br>  
+                    <label class="labForm" for="nick">Usuario</label>
+                    @error('nick')
+                        <div class="invalidTxt">{{ $message }}</div>
+                    @enderror
+                    <br>
                 </div>
                 
-                <div class="groupField">
+                <div class="groupField @error('name') invalid @enderror">
                     <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{$data->name ?? ""}}">
-                    <label class="labForm" for="nick">Nombre</label><br>  
+                    <label class="labForm" for="nick">Nombre</label>
+                    @error('name')
+                        <div class="invalidTxt">{{ $message }}</div>
+                    @enderror
+                    <br>
                 </div>
                 
-                <div class="groupField">
+                <div class="groupField @error('email') invalid @enderror">
                     <input class="inpForm" type="email" name="email" placeholder=" " autocomplete="off" required value="{{$data->email ?? ""}}">
-                    <label class="labForm" for="email">Email</label><br>  
+                    <label class="labForm" for="email">Email</label>
+                    @error('email')
+                        <div class="invalidTxt">{{ $message }}</div>
+                    @enderror 
+                    <br>
                 </div>
 
-                <div class="groupField">
+                <div class="groupField @error('password') invalid @enderror">
                     <input class="inpForm" type="password" name="password" placeholder=" " autocomplete="off" required value="{{$data->password ?? ""}}">
-                    <label class="labForm" for="password">Contraseña</label><br>  
+                    <label class="labForm" for="password">Contraseña</label>
+                    @error('password')
+                        <div class="invalidTxt">{{ $message }}</div>
+                    @enderror 
+                    <br> 
                 </div>
 
                 <div class="rowCheckBox">
                     <input type="checkbox" class="checkbox" name="admin" value="0" {{(isset($data) && ($data->admin==0)) ? "checked" : ""}}>
                     <label class="labCheckBox" for="admin">Administrador</label>
+                    @error('admin')
+                        <div class="invalidTxt">{{ $message }}</div>
+                    @enderror 
+                    <br>
                 </div>
 
                 <input class="bSubmit button" class="button" type="submit" value="{{$action=='edit'?"Actualizar":"Guardar"}}">      

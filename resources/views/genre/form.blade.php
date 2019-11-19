@@ -42,9 +42,13 @@
                 </div>
 
                 <div class="col75"> 
-                    <div class="groupField">
+                    <div class="groupField @error('description') invalid @enderror">
                         <input class="inpForm" type="text" name="description" placeholder=" " autocomplete="off" required value="{{$data->description ?? ""}}">
                         <label class="labForm" for="description">Nombre</label><br>  
+                        @error('description')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>
                     </div>
                 </div>
                 

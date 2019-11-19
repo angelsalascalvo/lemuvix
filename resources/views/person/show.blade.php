@@ -49,11 +49,22 @@
                 <span class='col100 infoTextShow'>
                     @foreach ($person->moviesDirected as $mov)
                     <a href="{{route('movie.show', $mov->id)}}">
-                        {{$mov->title}} 
-                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
-                        @if ($loop->last==false)
-                        &nbsp|&nbsp
-                        @endif
+                        <div class="col25 centerParent">
+                            <div class="marginShowEP">
+                                <div class="col100">
+                                        <div class="imgAspectRatioA4">
+                                            @if ($mov->poster!=null)
+                                                <img class="imgBorderRoundMini" src="{{url('/img/movies/'.$mov->poster)}}">
+                                            @else
+                                                <img class="imgBorderRoundMini" src="{{url('/img/generic.jpg')}}">
+                                            @endif
+                                        </div>
+                                </div>
+                                <div class="col100 txtShowElementPerson">
+                                    <strong><span>{{$mov->title}}</span></strong>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     @endforeach
                 </span>
@@ -62,11 +73,22 @@
                 <span class='col100 infoTextShow'>
                     @foreach ($person->moviesActed as $mov)
                     <a href="{{route('movie.show', $mov->id)}}">
-                        {{$mov->title}} 
-                        <!-- Sin no es el ultimo elemento escribimos la barra separadora -->
-                        @if ($loop->last==false)
-                        &nbsp|&nbsp
-                        @endif
+                        <div class="col25 centerParent">
+                            <div class="marginShowEP">
+                                <div class="col100">
+                                        <div class="imgAspectRatioA4">
+                                            @if ($mov->poster!=null)
+                                                <img class="imgBorderRoundMini" src="{{url('/img/movies/'.$mov->poster)}}">
+                                            @else
+                                                <img class="imgBorderRoundMini" src="{{url('/img/generic.jpg')}}">
+                                            @endif
+                                        </div>
+                                </div>
+                                <div class="col100 txtShowElementPerson">
+                                    <strong><span>{{$mov->title}}</span></strong>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     @endforeach
                 </span>

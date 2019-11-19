@@ -28,6 +28,11 @@ class GenreController extends Controller
      * METODO PARA ALMACENAR EL GENERO EN LA BASE DE DATOS
      */
     public function store(Request $result){
+        //Validacion de datos
+        $result->validate([
+            'description' => 'required'
+        ]); 
+
         $gen = new Genre($result->all());
         $gen->id = Genre::max('id')+1;
 
@@ -62,7 +67,11 @@ class GenreController extends Controller
      * METODO PARA REALIZAR EL PROPIO PROCESO DE ACTUALIZACION EN LA BASE DE DATOS DE LOS DATOS
      */
     public function update(Request $result, $id){
-
+        //Validacion de datos
+        $result->validate([
+            'description' => 'required'
+        ]); 
+        
         $gen = Genre::find($id); //El nombre del id en este caso no es id ya que en el archivo de rutas hemos utilizado resource con el nombre genre
         $gen->fill($result->all());
 

@@ -40,6 +40,15 @@ class MovieController extends Controller
      * METODO PARA REALIZAR LA ACCIÓN DE GUARDADO DE LOS DATOS DE UN NUEVO PELICULA
      */
     public function store(Request $result){
+        //Validacion de datos
+        $result->validate([
+            'title' => 'required',
+            'sinopsis' => 'required',
+            'duration' => 'required|integer|min:1',
+            'year'=>'required|digits:4|integer',
+            'rating'=>'required|integer|between:1,5'
+        ]); 
+
         $mov = new Movie($result->all());
         $mov->id = Movie::max('id')+1;
         
@@ -81,6 +90,15 @@ class MovieController extends Controller
      * METODO PARA REALIZAR LA ACCION DE ACTUALIZACION DE DATOS DE LA PELICULA EN LA BASE DE DATOS
      */
     public function update(Request $result, $id){
+        //Validacion de datos
+        $result->validate([
+            'title' => 'required',
+            'sinopsis' => 'required',
+            'duration' => 'required|integer|min:1',
+            'year'=>'required|digits:4|integer',
+            'rating'=>'required|integer|between:1,5'
+            ]);
+
         $mov = Movie::find($id);
         $mov->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
 
@@ -115,7 +133,7 @@ class MovieController extends Controller
     /**
      * METODO PARA ELIMINAR LOS DATOS DE LA PELICULA INDICADO POR LA URL (ID) DE LA BASE DE DATOS
      */
-    public function destroy($id){
+    public function destroy(Request $esult, $id){
         $mov = Movie::find($id);
         //Eliminar relaciones con generos
         $mov->genres()->detach();
@@ -128,9 +146,14 @@ class MovieController extends Controller
         }
         //Eliminar pelicula
         $mov->delete();
+
         
-        //Redirigir
-        return redirect(route("movie.index"));
+        //Redirigir en funcion de si es una peticion Ajax o no
+        if($result->ajax()){
+            return response()->json($id);
+        }else{
+            return redirect(route("movie.index"));
+        }
     }
 
     //------------------------------------------------------------------------------
@@ -148,7 +171,7 @@ class MovieController extends Controller
                 }
             }
         }
-
+    
         return view('movie/index', ['movies'=>$movies, 'type'=>'movie', 'footer'=>'big', 'genre'=>$genre]);
     }
 }

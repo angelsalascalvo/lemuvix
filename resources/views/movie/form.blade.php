@@ -11,14 +11,16 @@
     <div id="emergent" style="display:none;">
         <div class="backgroundBlack"></div>
         <div class="emerWindow centerChildVH">
-            <div>
+
+            <div class="closeEmergentContent col100">
                 <button id="closeEmergent">X</button>
             </div>
+
             <center>
                 <div class="width60">
                     <h3 id="titleEmergent"></h3>   
                     <div class="searchBarGen">
-                        <input placeholder="Buscar...">
+                        <input id="bar" placeholder="Buscar...">
                         <button><img src="{{ url('/img/search.png')}}"></button>
                     </div>
 
@@ -26,7 +28,7 @@
                         <div class="option centerParent">
                             <div class="imgOption centerChildV">
                                 <div class=" imgAspectRatio11">
-                                    <img class="imgRound" src="{{url('/img/uploadPoster.png')}}">
+                                    <img class="imgRound" src="{{url('/img/addElement1.png')}}">
                                 </div>
                             </div>
                 
@@ -72,6 +74,8 @@
                 <form id="fmmovie" enctype='multipart/form-data' action="{{route('movie.store')}}" method="post">
                     @csrf
             @endif
+            <!-- CONTROL DE ERRORES -->
+
                 <div class="col25">
                     <div class="imgAspectRatioA4">
                         <img class="imgBorderRound" id="imgUpload" src="{{isset($data) && $data->poster!=null ? url('/img/movies/'.$data->poster) : url('/img/uploadPoster.png')}}" onclick="$('#browseImage').trigger('click')">
@@ -83,71 +87,140 @@
                 </div>
 
                 <div class="col75"> 
-                    <div class="groupField">
-                        <input class="inpForm" type="text" name="title" placeholder=" " autocomplete="off" required value="{{$data->title ?? ""}}">
-                        <label class="labForm" for="title">Titulo</label><br>  
+                    <div class="groupField @error('title') invalid @enderror">
+                        <!-- Con la accion de value rellenamos con el dato introducido si se produce un error o con el dato ya guardado si estamos editando -->
+                        <input class="inpForm" type="text" name="title" placeholder=" " autocomplete="off" required  value="{{ old('title')?? ($data->title ?? "")}}">
+                        <label class="labForm" for="title">Titulo</label>
+                        @error('title')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>  
                     </div>
                     
-                    <div class="groupField">
-                        <textarea class="inpForm textarea" type="text" name="sinopsis" placeholder=" " autocomplete="off" required>{{$data->sinopsis ?? ""}}</textarea>
-                        <label class="labForm" for="sinopsis">Sinopsis</label><br>  
+                    <div class="groupField @error('sinopsis') invalid @enderror">
+                        <textarea class="inpForm textarea" type="text" name="sinopsis" placeholder=" " required autocomplete="off" >{{old('sinopsis')?? ($data->sinopsis ?? "")}}</textarea>
+                        <label class="labForm" for="sinopsis">Sinopsis</label>
+                        @error('sinopsis')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>  
                     </div>
 
-                    <div class="groupField">
-                        <input class="inpForm" type="number" name="duration" placeholder=" " autocomplete="off" required value="{{$data->duration ?? ""}}">
-                        <label class="labForm" for="duration">Duración (min)</label><br>  
+                    <div class="groupField @error('duration') invalid @enderror">
+                        <input class="inpForm" type="number" name="duration" placeholder=" " autocomplete="off" required value="{{old('duration')?? ($data->duration ?? "")}}">
+                        <label class="labForm" for="duration">Duración (min)</label>
+                        @error('duration')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br> 
                     </div>
                     
-                    <div class="groupField">
-                        <input class="inpForm" type="number" name="year" placeholder=" " autocomplete="off" required value="{{$data->year ?? ""}}">
-                        <label class="labForm" for="year">Año</label><br>  
+                    <div class="groupField @error('year') invalid @enderror">
+                        <input class="inpForm" type="number" name="year" placeholder=" " autocomplete="off" required value="{{old('year')?? ($data->year ?? "")}}">
+                        <label class="labForm" for="year">Año</label>
+                        @error('year')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br> 
                     </div>
 
-                    <div class="groupField">
-                        <input class="inpForm" type="number" name="rating" placeholder=" " autocomplete="off" required value="{{$data->rating ?? ""}}">
-                        <label class="labForm" for="rating">Puntuacion</label><br>  
+                    <div class="groupField @error('rating') invalid @enderror">
+                        <input class="inpForm" type="number" name="rating" placeholder=" " autocomplete="off" required value="{{old('rating')?? ($data->rating ?? "")}}">
+                        <label class="labForm" for="rating">Puntuacion</label>
+                        @error('rating')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>  
                     </div>
 
+                    <!-- Seccion Generos -->
                     <div id="arrayGenres" class="col100">
-                        <label>Generos</label>
-                        <button id="addGenre" type="button">Agregar</button>
+                        <div class="sectionTitleFMovie">
+                            <label>Generos</label>
+                        </div>
+
                         <div id="containerGenres" class="containerElementsMovie">
+                            <div id="addGenres">
+                                <div class="elementMovie col centerParent">
+                                    <div class="imgElementMovie">
+                                        <!--boton eliminar-->
+                                        <div style="display:none" class="floatButtons transform30XY col100 layer20">
+                                            <div class="sizefbMovieForm">
+                                                <button type="button" class="fbDelete"></button>
+                                            </div>
+                                        </div>        
 
-                            <div class="elementMovie">
-                                <div class="imgElementMovie">
-
-                                    <!--boton eliminar-->
-                                    <div style="display:none" class="floatButtons transform30XY col100 layer20">
-                                        <div class="sizefbMovieForm">
-                                            <button type="button" class="fbDelete"></button>
+                                        <div class="imgAspectRatio11">
+                                            <img class="imgRound" src="{{url('/img/addElement.png')}}">
                                         </div>
-                                    </div>        
+                                    </div>
 
-                                    <div class="imgAspectRatio11">
-                                        <img class="imgRound" src="{{url('/img/uploadPoster.png')}}">
+                                    <div class="col txtElementMovie">
+                                        <span><strong>Agregar</strong></span>
                                     </div>
                                 </div>
-                                <div class="txtElementMovie">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seccion Dirección -->
+                    <div id="arrayDirectors" class="col100">
+                        <div class="sectionTitleFMovie sectionFMovieMargin">
+                            <label>Dirección</label>
+                        </div>
+
+                        <div id="containerDirectors" class="containerElementsMovie">
+                            <div id="addDirectors">
+                                <div class="elementMovie col centerParent">
+                                    <div class="imgElementMovie">
+                                        <!--boton eliminar-->
+                                        <div style="display:none" class="floatButtons transform30XY col100 layer20">
+                                            <div class="sizefbMovieForm">
+                                                <button type="button" class="fbDelete"></button>
+                                            </div>
+                                        </div>        
+
+                                        <div class="imgAspectRatio11">
+                                            <img class="imgRound" src="{{url('/img/addElement.png')}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col txtElementMovie">
                                         <span><strong>Agregar</strong></span>
+                                    </div>
                                 </div>
-
-
-
                             </div>
                         </div>
                     </div>
                     
+                    <!-- Seccion Directores -->
                     <div id="arrayActors" class="col100">
-                        <label>Dirección</label>
-                        <button id="addDirectors" type="button">Agregar</button>
-                    </div>
+                        <div class="sectionTitleFMovie sectionFMovieMargin">
+                            <label>Reparto</label>
+                        </div>
+                        <div id="containerActors" class="containerElementsMovie">
+                            <div id="addActors">
+                                <div class="elementMovie col centerParent">
+                                    <div class="imgElementMovie">
+                                        <!--boton eliminar-->
+                                        <div style="display:none" class="floatButtons transform30XY col100 layer20">
+                                            <div class="sizefbMovieForm">
+                                                <button type="button" class="fbDelete"></button>
+                                            </div>
+                                        </div>        
 
-                    <div id="arrayDirectors" class="col100">
-                        <label>Reparto</label>
-                        <button id="addActors" type="button">Agregar</button>
-                        
-                    </div>
+                                        <div class="imgAspectRatio11">
+                                            <img class="imgRound" src="{{url('/img/addElement.png')}}">
+                                        </div>
+                                    </div>
 
+                                    <div class="col txtElementMovie">
+                                        <span><strong>Agregar</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 
                     <!-- 
@@ -176,7 +249,7 @@
             $("#closeEmergent").click(showEmergent);
 
             //Boton añadir genero
-            $("#addGenre").click(function(){
+            $("#addGenres").click(function(){
                 $("#emergetAcept").click(function(){acept("genre")});
                 emergentGenres();
                 showEmergent();
@@ -207,20 +280,23 @@
                 });
                 @json($data->directors).forEach(element => {
                     directorsSelected.push(element.id);
-                    $('#arrayDirectors').append("<input type='hidden' name='directors[]' value='"+element.id+"'>")
+                    $('#arrayDirectors').append("<input type='hidden' class='directorForm' name='directors[]' value='"+element.id+"'>")
+                    addGraphicPeople(element, "director");
                 });
                 @json($data->actors).forEach(element => {
                     actorsSelected.push(element.id);
-                    $('#arrayActors').append("<input type='hidden' name='actors[]' value='"+element.id+"'>")
+                    $('#arrayActors').append("<input type='hidden' class='actorForm' name='actors[]' value='"+element.id+"'>")
+                    addGraphicPeople(element, "actor");
                 });
             @endif
+
+            search();
         });
 
-
+        //METODO PARA AGREGAR EL ELEMENTO GRAFICO DE GENERO A LA VISTA
         function addGraphicGenre(element){
             var url = "{{url('/')}}";
             var htmlElement = $("#containerGenres .elementMovie:first").clone(true); 
-            console.log(htmlElement);
             //Imagen
             if(element.image != null){
                 htmlElement.find("img").attr("src", url+"/img/genres/"+element.image);
@@ -228,14 +304,15 @@
                 htmlElement.find("img").attr("src", url+"/img/generic.jpg");
             }
             //Texto
-            htmlElement.find("span").text(element.description)
+            htmlElement.find("span").text(element.description);
             //Boton eliminar
             htmlElement.find("button").click(function(){removeGraphicGenre(element.id, htmlElement)});
             htmlElement.find(".floatButtons").show();
-
+            //Agregar el elemento a su padre
             $("#containerGenres").append(htmlElement);
         }
 
+        //METODO PARA ELIMINAR EL ELEMENTO GRAFICO DE GENERO DE LA VISTA
         function removeGraphicGenre(id, htmlElement){
             //Eliminar elemento html
             htmlElement.remove();
@@ -253,6 +330,70 @@
             });
         }
 
+        //METODO PARA AGREGAR EL ELEMENTO GRAFICO DE PERSONA A LA VISTA
+        function addGraphicPeople(element, type){
+            var url = "{{url('/')}}";
+
+            if(type=="actor"){
+                //Duplicar Elemento
+                var htmlElement = $("#containerActors .elementMovie:first").clone(true); 
+            }else{
+                var htmlElement = $("#containerDirectors .elementMovie:first").clone(true); 
+            }
+            
+            //Imagen
+            if(element.image != null){
+                htmlElement.find("img").attr("src", url+"/img/genres/"+element.image);
+            }else{
+                htmlElement.find("img").attr("src", url+"/img/generic.jpg");
+            }
+            //Texto
+            htmlElement.find("span").text(element.name);
+            //Boton eliminar
+            htmlElement.find("button").click(function(){removeGraphicPeople(element.id, htmlElement, type)});
+            htmlElement.find(".floatButtons").show();
+            //Agregar el elemento a su padre
+            if(type=="actor"){
+                $("#containerActors").append(htmlElement);
+            }else{
+                $("#containerDirectors").append(htmlElement);
+            }
+
+        }
+
+        //METODO PARA ELIMINAR EL ELEMENTO GRAFICO DE PERSONA DE LA VISTA
+        function removeGraphicPeople(id, htmlElement, type){
+            //Eliminar elemento html
+            htmlElement.remove();
+
+            if(type=="actor"){
+                //Eliminar campo del formulario
+                $(".actorForm").each(function(){                
+                    if($(this).val()==id){
+                        $(this).remove();
+                    }
+                });
+                 //Eliminar del listado de seleccionados
+                actorsSelected = jQuery.grep(actorsSelected, function(value) {
+                    return value != id;
+                });
+
+            }else{
+                //Eliminar campo del formulario
+                $(".directorForm").each(function(){                
+                    if($(this).val()==id){
+                        $(this).remove();
+                    }
+                });
+                 //Eliminar del listado de seleccionados
+                directorsSelected = jQuery.grep(directorsSelected, function(value) {
+                    return value != id;
+                });
+            }
+
+           
+        }
+
         //--------------------------------------------------------------------------------
 
         //METODO QUE SE EJECUTARÁ AL PULSAR SOBRE EL BOTON ACEPTAR 
@@ -266,12 +407,14 @@
 
                 case "director":
                     directorsSelected.push(selectedElement.id);
-                    $('#arrayDirectors').append("<input type='hidden' name='directors[]' value='"+selectedElement.id+"'>");
+                    $('#arrayDirectors').append("<input type='hidden' class='directorForm' name='directors[]' value='"+selectedElement.id+"'>");
+                    addGraphicPeople(selectedElement,"director");
                 break;
 
                 case "actor":
                     actorsSelected.push(selectedElement.id);
-                    $('#arrayActors').append("<input type='hidden' name='actors[]' value='"+selectedElement.id+"'>");
+                    $('#arrayActors').append("<input type='hidden' class='actorForm' name='actors[]' value='"+selectedElement.id+"'>");
+                    addGraphicPeople(selectedElement,"actor");
                 break;
             }
         
@@ -331,6 +474,7 @@
             //Limpiar contenido de la ventana
             clearOptions();
             $("#emergetAcept").prop('disabled', true);
+            $("#bar").val("");
 
             //Recorrer cada uno de los generos pasados a la vista
             genres.forEach(element => {
@@ -379,6 +523,7 @@
             //Limpiar contenido de la ventana
             clearOptions();
             $("#emergetAcept").prop('disabled', true);
+            $("#bar").val("");
 
             //Recorrer cada uno de los generos pasados a la vista
             people.forEach(element => {
@@ -406,13 +551,39 @@
                     htmlElement.attr("id", element.id);
 
                     //Al hacer clic sobre cada elemento se llama a la funcion que almacena su id
-                    htmlElement.click(function(){selected(htmlElement)});
+                    htmlElement.click(function(){selected(element, htmlElement)});
 
                     //Agregar elemento
                     allElements.push(htmlElement);
                     $(".listOptions").append(htmlElement);
                 }
             });
+        }
+
+        //--------------------------------------------------------------------------------
+
+        //BUSCAR ELEMENTOS
+        function search(){
+            $("#bar").on("keyup", function() {
+                for(var i =0; i<allElements.length;i++){
+                    var listElement = removeDiacritic(allElements[i].find("span").text().toLowerCase());
+
+                    if(listElement.indexOf($(this).val().toLowerCase()) >= 0){
+                        allElements[i].show();
+                    }else{
+                        
+                        allElements[i].hide();
+                    }
+                }
+            });
+        }
+
+        //METODO PARA ELIMINAR L
+        function removeDiacritic(texto) {
+            return texto
+           .normalize('NFD')
+           .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
+           .normalize();
         }
 
         //--------------------------------------------------------------------------------

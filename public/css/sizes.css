@@ -33,6 +33,17 @@
     float: left;
 }
 
+.col40{
+    width: 40%;
+    float: left;
+}
+
+.col45{
+    width: 45%;
+    float: left;
+}
+
+
 .col33{
     width: 33.333%;
     float: left;

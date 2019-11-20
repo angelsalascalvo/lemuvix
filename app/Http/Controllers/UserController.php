@@ -98,11 +98,31 @@ class UserController extends Controller
     /**
      * METODO PARA ELIMINAR LOS DATOS DEL USUARIO INDICADO POR LA URL (ID) DE LA BASE DE DATOS
      */
-    public function destroy($id){
+    public function destroy(Request $result, $id){
         $usu = User::find($id);
-        $usu->delete();
+        //$usu->delete();
 
-        //Redirigir
-        return redirect(route("user.index"));
+        //Comprobar que se ha eliminado
+        if(User::find($id)==null){
+            //Redirigir en funcion de si es una peticion Ajax o no
+            if($result->ajax()){
+                return response()->json([
+                    'status'=> true,
+                    'id'=>$id
+                ]);
+
+                return redirect(route("user.index"));
+            }
+        }else{
+            $error='No se ha podido eliminar, error desconocido';
+            if($result->ajax()){
+                //Enviar error si no se ha podido eliminar
+                return response()->json([
+                    'status' => false,
+                    'error' => $error
+                ]);
+            }
+            return redirect(route("user.index"))->with('error', $error);;
+        }      
     }
 }

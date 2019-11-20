@@ -99,7 +99,7 @@ class GenreController extends Controller
     /**
      * METODO PARA ELIMINAR UN GENERO DE LA BASE DE DATOS
      */
-    public function destroy($id)
+    public function destroy(Request $result, $id)
     {
         $gen = Genre::find($id);
 
@@ -112,7 +112,28 @@ class GenreController extends Controller
             $gen->delete();
         }
 
-        //Redirigir
-        return redirect(route("genre.index"));
+        //Unicamente se elimna a traves de ajax
+        if($result->ajax()){
+            //Comprobar si se ha eliminado
+            if(Genre::find($id)==null){
+                return response()->json([
+                   'status'=> true,
+                    'id'=>$id
+                ]);
+            }
+
+            //Enviar mensaje de error personalizado
+            if($gen->movies->count()!=0){
+                return response()->json([
+                    'status' => false,
+                    'error' => 'Imposible eliminar. El genero tiene '.$gen->movies->count().' peliculas asociadas.'
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'error' => 'No se ha podido eliminar. Error desconocido'
+                ]);
+            }
+        }        
     }
 }

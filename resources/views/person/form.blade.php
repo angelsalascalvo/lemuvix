@@ -33,7 +33,8 @@
             @endif
                 <div class="col25">
                     <div class="imgAspectRatio11">
-                        <img class="imgRound" id="imgUpload" src="{{isset($data) && $data->photo!=null ? url('/img/people/'.$data->photo) : url('/img/uploadPoster.png')}}" onclick="$('#browseImage').trigger('click')">
+                        <img class="imgRound" id="imgUpload" src="{{isset($data) && $data->photo!=null ? url('/img/people/'.$data->photo) : url('/img/uploadPerson.png')}}">
+                        <img class="imgHover imgRound" src="{{url('/img/uploadPerson2.png')}}" onclick="$('#browseImage').trigger('click')">
                     </div>
 
                     <div class="groupField" style="display:none">    
@@ -71,7 +72,7 @@
                 }
                 reader.readAsDataURL(input.files[0]);
             }else{
-                $('#imgUpload').attr('src', "{{url('/img/generic.jpg')}}");
+                $('#imgUpload').attr('src', "{{url('/img/uploadPerson.png')}}");
             }
         }
 

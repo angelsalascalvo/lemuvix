@@ -78,7 +78,8 @@
 
                 <div class="col25">
                     <div class="imgAspectRatioA4">
-                        <img class="imgBorderRound" id="imgUpload" src="{{isset($data) && $data->poster!=null ? url('/img/movies/'.$data->poster) : url('/img/uploadPoster.png')}}" onclick="$('#browseImage').trigger('click')">
+                        <img class="imgBorderRound" id="imgUpload" src="{{isset($data) && $data->poster!=null ? url('/img/movies/'.$data->poster) : url('/img/uploadPoster.png')}}">
+                        <img class="imgHover imgBorderRound" src="{{url('/img/uploadPoster2.png')}}" onclick="$('#browseImage').trigger('click')">
                     </div>
 
                     <div class="groupField" style="display:none">    
@@ -598,7 +599,7 @@
                 }
                 reader.readAsDataURL(input.files[0]);
             }else{
-                $('#imgUpload').attr('src', "{{url('/img/generic.jpg')}}");
+                $('#imgUpload').attr('src', "{{url('/img/uploadPoster.png')}}");
             }
         }
 

@@ -35,7 +35,7 @@
                 <th class="th-color th-rigth">Admin</th>
             </tr>
             @foreach ($users as $usu)
-                <tr>
+                <tr id="usu{{$usu->id}}">
                     <td>{{$usu->id}}</td>
                     <td>{{$usu->name}}</td>
                     <td>{{$usu->nick}}</td>
@@ -44,11 +44,7 @@
                     <td>{{$usu->admin}}</td>
 
                     <td>
-                        <form class="convertFormButton" action="{{route('user.destroy', $usu->id)}}" method="post">
-                            @csrf
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button>Eliminar</button>
-                        </form>
+                        <button id="bRemove{{$usu->id}}" class="bDelete">Eliminar</button>
                     </td>
 
                     <td>
@@ -60,4 +56,42 @@
             @endforeach
         </table>
     </center>
+
+    <script>
+        $(document).ready(function() {
+            //Comprobar existencia de errores para ser mostrados
+            @if (session('error'))
+                alert("{{ session('error')}}");
+            @endif
+
+            //Asignar el metodo de borrado a los botones de eliminar pasandoles su id correspondiente
+            $(".bDelete").click(function(){               
+                removeMovieAjax($(this).attr("id").replace('bRemove', ''));
+            });
+
+        });
+
+        /*
+        * METODO PARA ENVIAR LA PETICION DE ELIMINACION POR AJAX AL SERVIDOR
+        * Y ELIMINAR EL ELEMENTO HTML
+        */
+        function removeMovieAjax(id, route){           
+            var rute = "{{ route('user.destroy', 'req_id') }}".replace('req_id', id)
+            $.ajax({
+                url: rute,
+                type: 'delete',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success:function(result){
+                    //Si nos devuelve el codigo de la pelicula eliminada, borramos el elemento HTML
+                    if(result['status']){                        
+                        $("#usu"+result['id']).remove();
+                    }else{
+                        alert(result['error']);
+                    }
+                }
+            });
+        }
+    </script>
 @endsection

@@ -21,7 +21,7 @@
     <div class="col25">
         
         <div class="imgAspectRatio11">
-            <img class="imgRound" src="{{$person->photo!=null ? url('/img/people/'.$person->photo) : url('/img/generic.jpg')}}">
+            <img class="imgRound" src="{{$person->photo!=null ? url('/img/people/'.$person->photo) : url('/img/person.png')}}">
         </div>
 
         <div class="buttonActionShow col100">

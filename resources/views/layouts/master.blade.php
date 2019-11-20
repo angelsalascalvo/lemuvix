@@ -10,6 +10,41 @@
     </head>
     <body>
 
+        <!-- VENTANA EMERGENTE -->
+        <div id="emergentAction" style="display:none;">
+            <div class="backgroundBlack"></div>
+            <div class="emerWindow2 centerChildVH">
+
+                <div class="closeEmergentContent col100">
+                    <button id="closeEmergent">X</button>
+                </div>
+
+                <center>
+                    <div class="width60">
+                        <div id="txtEmergent" class="col100">
+                            <span></span>
+                        </div>
+                        <div id="buttonsEmergent" class="col100">
+                            <div class="col45">
+                                <button id="aceptConfim" class="col100">Aceptar</button>
+                            </div>
+                            <div class="col10" style="height:1px;">
+                            </div>
+                            <div class="col45">
+                                <button id="cancelConfirm" class="col100">Cancelar</button>
+                            </div>
+                        </div>
+
+                        <div id="emergetAcept" class="col100">
+                            <center>
+                                <button id="aceptInfo" class="width80">Aceptar</button>
+                            </center>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+
         <!-- BARRA SUPERIOR -->
         <div id="topBar">
             <div id="logoBar">
@@ -66,7 +101,59 @@
     </body>
 
     <script>
-        
+
+        $(document).ready(function() {
+            $(".backgroundBlack").click(showModalWindow);
+            $("#closeEmergent").click(showModalWindow);
+        });
+
+        //----------------------------------------------------------------------------------------
+
+        /**
+        * METODO PARA CONFIRMAR UNA ACCION A TRAVES DE LA VENTANA MODAL
+        */
+        function modalWindow(txt, type, executeFunc){
+            //type 0 -> info
+            //Type 1 -> confirm
+            $("#aceptConfim").unbind( "click" );
+            $("#emergentAction").show();
+            $("#txtEmergent span").text(txt);
+
+            //Para ventana de mostrar informacion
+            if(type==0){
+                $("#emergetAcept").show();
+                $("#buttonsEmergent").hide();
+                $("#aceptInfo").click(function(){
+                    $("#emergentAction").hide();
+                });
+
+            //Para ventanas de confirmar accion
+            }else{
+                $("#emergetAcept").hide();
+                $("#buttonsEmergent").show();
+                $("#cancelConfirm").click(function(){
+                    $("#emergentAction").hide();
+                });
+                $("#aceptConfim").click(function(){
+                    eval(executeFunc);
+                    $("#emergentAction").hide();
+                });
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+
+        //METODO PARA MOSTRAR U OCULTAR LA VENTANA EMERGENTE
+        function showModalWindow(){
+            if($("#emergentAction").is(':visible')){
+                $("#emergentAction").hide();
+            }else{
+                $("#emergentAction").show();
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+
         /**
         * METODO PARA HACER QUE EL BOTON FLOTANTE NO BAJE AL ENCONTRAR EL FOOTER DE LA PAGINA
         */

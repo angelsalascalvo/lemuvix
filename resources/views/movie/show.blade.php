@@ -31,10 +31,10 @@
                         </button>
                     </a>
 
-                    <form class="convertFormButton" action="{{route('movie.destroy', $movie->id)}}" method="POST">
+                    <form id="removeForm" class="convertFormButton" action="{{route('movie.destroy', $movie->id)}}" method="POST">
                             @csrf
                             @method('delete')
-                            <button class="col100 buttonStyle2">Eliminar</button>
+                            <button type="button" id="removeButton" class="col100 buttonStyle2">Eliminar</button>
                     </form>
                 </div>
             </div>
@@ -129,5 +129,23 @@
         </center>
     </div>
 
-    
+    <!-- SCRIPT -->
+    <script>
+         $(document).ready(function() {
+            $("#removeButton").click(function(){
+                var txt = "¿Desea eliminar la pelicula?";
+                //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
+                modalWindow(txt, 1, "submitDelete()");
+            });
+        });
+
+        //-------------------------------------------------------------------
+
+        /**
+        * METODO PARA ENVIAR EL FORMULARIO DE ELIMANCION DE LA PELICULA
+        */
+        function submitDelete(){
+            $("#removeForm").submit();
+        }
+    </script>
 @endsection

@@ -108,20 +108,55 @@ class PersonController extends Controller
     /**
      * METODO PARA ELIMINAR UNA PERSONA DE LA BASE DE DATOS
      */
-    public function destroy($id)
+    public function destroy(Request $result, $id)
     {
         $per = Person::find($id);
 
         //Eliminar persona si no tiene peliculas asociadas
         if($per->moviesActed->count()==0 && $per->moviesDirected->count()==0){
-            //Eliminar imaper
+            //Eliminar fotografia 
             if($per->photo!=null && file_exists(public_path('img/people/'.$per->photo)) ){
                 unlink(public_path('img/people/'.$per->photo));
             }
             $per->delete();
+
+        //Enviar directamente mensaje se error
+        }else{
+            $sum = $per->moviesActed->count()+$per->moviesDirected->count();
+            $error = 'Imposible eliminar. La persona tiene '.$sum.' asociaciones con peliculas';
+            //Redirigir en funcion de si es una peticion Ajax o no
+            if($result->ajax()){   
+                return response()->json([
+                    'status' => false,
+                    'error' => $error
+                ]);
+            }else{
+                return redirect(route("person.index"))->with('error', $error);
+            }
         }
 
-        //Redirigir
-        return redirect(route("person.index"));
+
+        //Comprobar si se ha eliminado
+        if(Person::find($id)==null){
+            //Redirigir en funcion de si es una peticion Ajax o no
+            if($result->ajax()){
+                return response()->json([
+                   'status'=> true,
+                    'id'=>$id
+                ]);
+            }
+            return redirect(route("person.index"));
+
+        }else{
+            $error = 'No se ha podido eliminar. Error desconocido';
+            if($result->ajax()){
+                return response()->json([
+                    'status' => false,
+                    'error' => $error
+                ]);
+            }
+            return redirect(route("person.index"))->with('error', $error);
+
+        }
     }
 }

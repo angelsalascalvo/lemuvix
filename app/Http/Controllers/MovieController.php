@@ -133,7 +133,7 @@ class MovieController extends Controller
     /**
      * METODO PARA ELIMINAR LOS DATOS DE LA PELICULA INDICADO POR LA URL (ID) DE LA BASE DE DATOS
      */
-    public function destroy(Request $esult, $id){
+    public function destroy(Request $result, $id){
         $mov = Movie::find($id);
         //Eliminar relaciones con generos
         $mov->genres()->detach();
@@ -147,13 +147,27 @@ class MovieController extends Controller
         //Eliminar pelicula
         $mov->delete();
 
-        
-        //Redirigir en funcion de si es una peticion Ajax o no
-        if($result->ajax()){
-            return response()->json($id);
-        }else{
+        //Comprobar que se ha eliminado
+        if(Movie::find($id)==null){
+            //Redirigir en funcion de si es una peticion Ajax o no
+            if($result->ajax()){
+                return response()->json([
+                    'status'=> true,
+                    'id'=>$id
+                ]);
+            }
             return redirect(route("movie.index"));
-        }
+        }else{
+            $error='No se ha podido eliminar, error desconocido';
+            if($result->ajax()){
+                //Enviar error si no se ha podido eliminar
+                return response()->json([
+                    'status' => false,
+                    'error' => $error
+                ]);
+            }
+            return redirect(route("movie.index"))->with('error', $error);;
+        }      
     }
 
     //------------------------------------------------------------------------------

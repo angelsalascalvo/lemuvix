@@ -8,16 +8,18 @@
     @if (isset($genre))
         <div class="col100">
             <center>
-                    <div class="">
-                        <div class="imgAspectRatio11">
-                            <img class="imgRound" src="{{url('/img/genres/'.$genre->image)}}">
-                        </div>
+            <div class="contentHeader">
+                <div class="imageHeader">
+                    <div class="imgAspectRatio11">
+                        <img class="imgRound" src="{{url('/img/genres/'.$genre->image)}}">
                     </div>
-            <div class="titleHeader">
-                <h1>
-                    {{$genre->description}}
-                </h1>
-                <div class="subTitleHeader">
+                </div>
+                <div class="txtHeader">
+                    <h1>
+                        {{$genre->description}}
+                    </h1>
+                    <div class="subTitleHeader">
+                    </div>
                 </div>
             </div>
             </center>
@@ -32,16 +34,19 @@
         <div id="mov{{$m->id}}" class="col25 contentMovie">
             <div class="marginContentMovie">
                 <!-- BOTONES DE EDICION FLOTANTES -->
-                <div class="floatButtons transform50XY col100 layer20">
-                    <div class="sizefbMovie">
-                        <button id="bRemove{{$m->id}}" class="fbDelete"></button>
+                @auth
+                    <div class="floatButtons transform50XY col100 layer20">
+                        <div class="sizefbMovie">
+                            <button id="bRemove{{$m->id}}" class="fbDelete"></button>
+                        </div>
+                        <div class="sizefbMovie">
+                            <a href="{{route('movie.edit', $m->id)}}">
+                                <button class="fbEdit"></button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="sizefbMovie">
-                        <a href="{{route('movie.edit', $m->id)}}">
-                            <button class="fbEdit"></button>
-                        </a>
-                    </div>
-                </div>
+                @endauth
+               
 
                 <!-- CONTENEDOR DE PELICULA -->
                 <a href="{{route('movie.show', $m->id)}}">
@@ -59,14 +64,16 @@
         </div>
     @endforeach
 
-    <div class="buttonAdd">
-        <a href="{{route('movie.create')}}">
-            <button></button>
-        </a>
-    </div>
+    @auth
+        <div class="buttonAdd">
+            <a href="{{route('movie.create')}}">
+                <button></button>
+            </a>
+        </div>
+    @endauth
+    
     
     <script>
-
          $(document).ready(function() {
             //Comprobar existencia de errores para ser mostrados
             @if (session('error'))

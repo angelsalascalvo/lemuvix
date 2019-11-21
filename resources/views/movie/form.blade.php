@@ -302,7 +302,7 @@
             if(element.image != null){
                 htmlElement.find("img").attr("src", url+"/img/genres/"+element.image);
             }else{
-                htmlElement.find("img").attr("src", url+"/img/generic.jpg");
+                htmlElement.find("img").attr("src", url+"/img/genre.jpg");
             }
             //Texto
             htmlElement.find("span").text(element.description);
@@ -343,10 +343,10 @@
             }
             
             //Imagen
-            if(element.image != null){
-                htmlElement.find("img").attr("src", url+"/img/genres/"+element.image);
+            if(element.photo != null){
+                htmlElement.find("img").attr("src", url+"/img/people/"+element.photo);
             }else{
-                htmlElement.find("img").attr("src", url+"/img/generic.jpg");
+                htmlElement.find("img").attr("src", url+"/img/person.png");
             }
             //Texto
             htmlElement.find("span").text(element.name);
@@ -496,7 +496,7 @@
                     if(element.image != null){
                         htmlElement.find("img").attr("src", url+"/img/genres/"+element.image);
                     }else{
-                        htmlElement.find("img").attr("src", url+"/img/generic.jpg");
+                        htmlElement.find("img").attr("src", url+"/img/person.png");
                     }
                     //Texto
                     htmlElement.find("span").text(element.description)
@@ -545,7 +545,7 @@
                     if(element.photo != null){
                         htmlElement.find("img").attr("src", url+"/img/people/"+element.photo);
                     }else{
-                        htmlElement.find("img").attr("src", url+"/img/generic.jpg");
+                        htmlElement.find("img").attr("src", url+"/img/person.png");
                     }
                     //Texto
                     htmlElement.find("span").text(element.name)

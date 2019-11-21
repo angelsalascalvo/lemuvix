@@ -44,7 +44,7 @@
 
                 <div class="col75"> 
                     <div class="groupField @error('name') invalid @enderror">
-                        <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{$data->name ?? ""}}">
+                        <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{old('name')?? ($data->name ?? "")}}">
                         <label class="labForm" for="name">Nombre</label><br>
                         @error('name')
                             <div class="invalidTxt">{{ $message }}</div>

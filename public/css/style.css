@@ -103,6 +103,18 @@ form{
     height: fit-content;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px rgb(255, 255, 255) inset;
+}
+
 /* CABECERA */
 #topBar{
     z-index: 300;
@@ -181,6 +193,22 @@ form{
     margin: 0;
 }
 
+.txtHeader{
+    float: left;
+    width: fit-content;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.txtHeader h1{
+    margin: 0;
+}
+
+.contentHeader{
+    width: fit-content;
+    margin: 40px 0px 40px 0px;
+}
+
 .subTitleHeader{
     float: left;
     background-color: black;
@@ -190,19 +218,13 @@ form{
 }
 
 .imageHeader{
+    width: 55px;
     float: left;
 }
 
 .imageHeader img{
     border-radius: 50%;
     width: 65px;
-}
-
-.txtHeader{
-    float: left;
-    margin-left: 15px;
-    position: relative;
-    width: fit-content;
 }
 
 centerVHeader{
@@ -252,7 +274,7 @@ centerVHeader{
     text-align: right;
 }
 
-#buttonsEmergent{
+.marginButtons{
     margin: 25px 0px;
 }
 
@@ -268,7 +290,7 @@ centerVHeader{
 
 .emerWindow{
     background-color: white;
-    width: 60%;
+    width: 50%;
     border-radius: 15px;
 }
 
@@ -619,6 +641,32 @@ td, th{
 
 #formUser .labForm{
     margin-left: -35%;
+}
+
+/*FORMULARIO RECUPERAR CONTRASEÑA*/
+.marginFormForgetPwd{
+    height: 10px;
+}
+
+#formForgetPwd .inpForm{
+    width: 40%;
+    margin-bottom: 25px;
+}
+
+#formForgetPwd .labForm{
+    margin-left: -40%;
+}
+
+#formForgetPwd .infoForm{
+    width: 40%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#formForgetPwd .button{
+    margin: 0;
+    width: 40%;
+    margin-top: 30px;
 }
 
 

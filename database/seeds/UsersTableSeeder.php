@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Hash;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Juan Perez Lopez',
             'nick' =>'juanlo',
             'email' => 'juanlo@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Antonio Fernandez Navarro',
             'nick' =>'antofer',
             'email' => 'antofer@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Angel Salas Calvo',
             'nick' =>'angel',
             'email' => 'angelsalascalvo@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -47,7 +47,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Maria Nieto Sanchez',
             'nick' =>'maria85',
             'email' => 'maria85@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -57,7 +57,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Carla Garcia Gutierrez',
             'nick' =>'carlaga',
             'email' => 'carlaga@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -67,7 +67,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Joaquin Domene Encinas',
             'nick' =>'joaquindo',
             'email' => 'joaquindo@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -77,7 +77,7 @@ class UsersTableSeeder extends Seeder
             'name'=>'Beatriz Lopez Garcia',
             'nick' =>'bealopez',
             'email' => 'bealopez@gmail.com',
-            'password' => '123',
+            'password' => Hash::make('123'),
             'admin' => 0,
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')

@@ -62,7 +62,7 @@
                                         @if ($gen->image!=null)
                                             <img class="imgRound" src="{{url('/img/genres/'.$gen->image)}}">
                                         @else
-                                            <img class="imgRound" src="{{url('/img/generic.jpg')}}">
+                                            <img class="imgRound" src="{{url('/img/genre.png')}}">
                                         @endif
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                         @if ($dir->photo!=null)
                                             <img class="imgRound" src="{{url('/img/people/'.$dir->photo)}}">
                                         @else
-                                            <img class="imgRound" src="{{url('/img/generic.jpg')}}">
+                                            <img class="imgRound" src="{{url('/img/person.png')}}">
                                         @endif
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                         @if ($act->photo!=null)
                                             <img class="imgRound" src="{{url('/img/people/'.$act->photo)}}">
                                         @else
-                                            <img class="imgRound" src="{{url('/img/generic.jpg')}}">
+                                            <img class="imgRound" src="{{url('/img/person.png')}}">
                                         @endif
                                     </div>
                                 </div>

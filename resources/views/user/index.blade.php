@@ -65,8 +65,12 @@
             @endif
 
             //Asignar el metodo de borrado a los botones de eliminar pasandoles su id correspondiente
-            $(".bDelete").click(function(){               
-                removeMovieAjax($(this).attr("id").replace('bRemove', ''));
+             //Asignar el metodo de borrado a los botones de eliminar pasandoles su id correspondiente
+             $(".bDelete").click(function(){               
+                var id = $(this).attr("id").replace('bRemove', '');
+                var txt = "¿Desea eliminar el usuario?";
+                //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
+                modalWindow(txt, 1, "removeUserAjax("+id+")");
             });
 
         });
@@ -75,7 +79,7 @@
         * METODO PARA ENVIAR LA PETICION DE ELIMINACION POR AJAX AL SERVIDOR
         * Y ELIMINAR EL ELEMENTO HTML
         */
-        function removeMovieAjax(id, route){           
+        function removeUserAjax(id, route){           
             var rute = "{{ route('user.destroy', 'req_id') }}".replace('req_id', id)
             $.ajax({
                 url: rute,

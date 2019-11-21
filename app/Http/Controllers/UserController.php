@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -35,12 +35,13 @@ class UserController extends Controller
         $result->validate([
             'nick' => 'required',
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password'=>'required'
         ]); 
 
         $usu = new User($result->all());
         $usu->id = User::max('id')+1;
+        $usu->password = Hash::make($result->password);
         //Comprobar si se ha seleccionado admin o no
         if($result->admin == "0"){
             $usu->admin=0;
@@ -74,19 +75,22 @@ class UserController extends Controller
          $result->validate([
             'nick' => 'required',
             'name' => 'required',
-            'email' => 'required|email',
+            //Validacion para comprobar si el correo esta duplicado en una tupla diferente a la del propio usuario
+            'email' => 'required|email|unique:users,email,'.$id,
             'password'=>'required'
         ]); 
 
         $usu = User::find($id);
         $usu->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
-        
+        $usu->password = Hash::make($result->password);
         //Comprobar si se ha seleccionado admin o no
         if($result->admin == "0"){
             $usu->admin=0;
         }else{
             $usu->admin=1;
         }
+
+        //Guardar datos
         $usu->save();
 
         //Redirigir

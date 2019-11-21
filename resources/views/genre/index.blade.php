@@ -61,12 +61,20 @@
 
     <script>
         $(document).ready(function() {
+            //Comprobar existencia de errores para ser mostrados
+            @if (session('error'))
+                modalWindow("{{ session('error')}}", 0, null);
+            @endif
+
             //Asignar el metodo de borrado a los botones de eliminar pasandoles su id correspondiente
             $(".fbDelete").click(function(){               
-                removeGenreAjax($(this).attr("id").replace('bRemove', ''));
+                var id = $(this).attr("id").replace('bRemove', '');
+                var txt = "¿Desea eliminar el genero?";
+                //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
+                modalWindow(txt, 1, "removeGenreAjax("+id+")");
             });
 
-         });
+        });
 
         /*
         * METODO PARA ENVIAR LA PETICION DE ELIMINACION POR AJAX AL SERVIDOR
@@ -85,7 +93,7 @@
                     if(result['status']){                        
                         $("#gen"+result['id']).remove();
                     }else{
-                        alert(result['error']);
+                        modalWindow(result['error'], 0, null);
                     }
                 }
             });

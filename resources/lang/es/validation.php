@@ -77,7 +77,7 @@ return [
     ],
     'string'               => 'El campo :attribute debe ser una cadena de texto.',
     'timezone'             => 'El campo :attribute debe ser una zona válida.',
-    'unique'               => 'El campo :attribute debe ser único.',
+    'unique'               => 'El campo :attribute ya está registrado.',
     'url'                  => 'El campo :attribute tiene un formato no válido.',
 
     /*

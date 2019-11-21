@@ -12,11 +12,11 @@
 
         <!-- VENTANA EMERGENTE -->
         <div id="emergentAction" style="display:none;">
-            <div class="backgroundBlack"></div>
+            <div class="backgroundBlack backModal"></div>
             <div class="emerWindow2 centerChildVH">
 
                 <div class="closeEmergentContent col100">
-                    <button id="closeEmergent">X</button>
+                    <button id="closeEmergentModal">X</button>
                 </div>
 
                 <center>
@@ -24,7 +24,7 @@
                         <div id="txtEmergent" class="col100">
                             <span></span>
                         </div>
-                        <div id="buttonsEmergent" class="col100">
+                        <div id="buttonsEmergent" class="marginButtons col100">
                             <div class="col45">
                                 <button id="aceptConfim" class="col100">Aceptar</button>
                             </div>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <div id="emergetAcept" class="col100">
+                        <div id="buttonAcept" class="marginButtons col100">
                             <center>
                                 <button id="aceptInfo" class="width80">Aceptar</button>
                             </center>
@@ -103,8 +103,8 @@
     <script>
 
         $(document).ready(function() {
-            $(".backgroundBlack").click(showModalWindow);
-            $("#closeEmergent").click(showModalWindow);
+            $(".backModal").click(showModalWindow);
+            $("#closeEmergentModal").click(showModalWindow);
         });
 
         //----------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@
 
             //Para ventana de mostrar informacion
             if(type==0){
-                $("#emergetAcept").show();
+                $("#buttonAcept").show();
                 $("#buttonsEmergent").hide();
                 $("#aceptInfo").click(function(){
                     $("#emergentAction").hide();
@@ -129,7 +129,7 @@
 
             //Para ventanas de confirmar accion
             }else{
-                $("#emergetAcept").hide();
+                $("#buttonAcept").hide();
                 $("#buttonsEmergent").show();
                 $("#cancelConfirm").click(function(){
                     $("#emergentAction").hide();

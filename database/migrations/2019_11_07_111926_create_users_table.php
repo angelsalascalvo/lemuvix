@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             //establecer clave primaria
             $table->primary('id');
+            //Campo necesario para el funcionamiento de auth de laravel
+            $table->rememberToken();
         });
     }
 

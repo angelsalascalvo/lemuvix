@@ -8,6 +8,12 @@ use App\Person;
 
 class MovieController extends Controller
 {
+
+    public function __construct() {
+        // Solo usuarios logueados podrán acceder a este controlador:
+        $this->middleware("auth")->except("show","index");
+    }
+
      /**
      * METODO PARA MOSTRAR LA PAGINA DE INICIO DE PELICULAS
      */

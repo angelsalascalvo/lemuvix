@@ -63,14 +63,16 @@
         $(document).ready(function() {
             //Comprobar existencia de errores para ser mostrados
             @if (session('error'))
-                alert("{{ session('error')}}");
+                modalWindow("{{ session('error')}}", 0, null);
             @endif
 
             //Asignar el metodo de borrado a los botones de eliminar pasandoles su id correspondiente
             $(".fbDelete").click(function(){               
-                removePersonAjax($(this).attr("id").replace('bRemove', ''));
+                var id = $(this).attr("id").replace('bRemove', '');
+                var txt = "¿Desea eliminar la persona?";
+                //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
+                modalWindow(txt, 1, "removePersonAjax("+id+")");
             });
-
         });
 
         /*

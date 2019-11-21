@@ -33,7 +33,7 @@
             @endif
                 
                 <div class="groupField @error('nick') invalid @enderror">
-                    <input class="inpForm" type="text" name="nick" placeholder=" " autocomplete="off" required value="{{$data->nick ?? ""}}">
+                    <input class="inpForm" type="text" name="nick" placeholder=" " autocomplete="off" required value="{{old('nick')?? ($data->nick ?? "")}}">
                     <label class="labForm" for="nick">Usuario</label>
                     @error('nick')
                         <div class="invalidTxt">{{ $message }}</div>
@@ -42,7 +42,7 @@
                 </div>
                 
                 <div class="groupField @error('name') invalid @enderror">
-                    <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{$data->name ?? ""}}">
+                    <input class="inpForm" type="text" name="name" placeholder=" " autocomplete="off" required value="{{old('name')?? ($data->name ?? "")}}">
                     <label class="labForm" for="nick">Nombre</label>
                     @error('name')
                         <div class="invalidTxt">{{ $message }}</div>
@@ -51,7 +51,7 @@
                 </div>
                 
                 <div class="groupField @error('email') invalid @enderror">
-                    <input class="inpForm" type="email" name="email" placeholder=" " autocomplete="off" required value="{{$data->email ?? ""}}">
+                    <input class="inpForm" type="email" name="email" placeholder=" " autocomplete="off" required value="{{old('email')?? ($data->email ?? "")}}">
                     <label class="labForm" for="email">Email</label>
                     @error('email')
                         <div class="invalidTxt">{{ $message }}</div>
@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="rowCheckBox">
-                    <input type="checkbox" class="checkbox" name="admin" value="0" {{(isset($data) && ($data->admin==0)) ? "checked" : ""}}>
+                    <input type="checkbox" class="checkbox" name="admin" value="0" {{old('admin')=="0" || (isset($data) && ($data->admin==0)) ? "checked" : ""}}>
                     <label class="labCheckBox" for="admin">Administrador</label>
                     @error('admin')
                         <div class="invalidTxt">{{ $message }}</div>

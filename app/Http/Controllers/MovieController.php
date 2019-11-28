@@ -49,7 +49,7 @@ class MovieController extends Controller
     public function store(Request $result){
         //Validacion de datos
         $result->validate([
-            'title' => 'required',
+            'title' => 'required|min:1|max:35',
             'sinopsis' => 'required',
             'duration' => 'required|integer|min:1',
             'year'=>'required|digits:4|integer',
@@ -101,7 +101,7 @@ class MovieController extends Controller
     public function update(Request $result, $id){
         //Validacion de datos
         $result->validate([
-            'title' => 'required',
+            'title' => 'required|min:1|max:35',
             'sinopsis' => 'required',
             'duration' => 'required|integer|min:1',
             'year'=>'required|digits:4|integer',
@@ -156,7 +156,7 @@ class MovieController extends Controller
             unlink(public_path('img/movies/'.$mov->poster)); //Eliminar cartel
         }
         //Eliminar pelicula
-        //$mov->delete();
+        $mov->delete();
 
         //Comprobar que se ha eliminado
         if(Movie::find($id)==null){
@@ -240,7 +240,9 @@ class MovieController extends Controller
                 }
 
                 //Llamada al metodo para guardar la pelicula escaneada
-                $this->saveFilmScaned( explode(".", basename($value))[0], basename($value), $path);
+                $mov = $this->saveFilmScaned( explode(".", basename($value))[0], basename($value), $path);
+                //Llamada al metodo que realizará un scrapping para obtener la informacion de la pelicula de una pagina externa
+                $this->sync(Movie::max('id'), true);
                 $numScanned++;
                 
             }
@@ -248,9 +250,9 @@ class MovieController extends Controller
         
         //Redirigir
         if($numScanned == 0){
-            $txt = "No hay peliculas nuevas para sincronizar";
+            $txt = "No hay peliculas nuevas para agregar automáticamente";
         }else{
-            $txt = "Se han sincronizado ".$numScanned." peliculas.";
+            $txt = "Se han agregado ".$numScanned." peliculas de forma automática.";
         }
         return redirect(route("movie.index"))->with('error', $txt);
     }
@@ -261,7 +263,6 @@ class MovieController extends Controller
      * METODO PARA CREAR UNA PELICULA ESCANEADA CON INFORMACION BÁSICA
      */
     function saveFilmScaned($title, $filename, $filepath){
-
         $mov = new Movie();
         $mov->id = Movie::max('id')+1;
         $mov->title = $title;
@@ -302,39 +303,70 @@ class MovieController extends Controller
 
     //---------------------------------------------------------------------------------
 
-    public function sincronization(){
-        //Utilizaremos los metodos del script "simple_html_dom.php" para hacer scraping y obtener la informacion de filmAffinity
+    /**
+     * METODO PARA REALIZAR SCRAPING Y OBTENER LA INFORMACION DE LA PELICULA CON EL ID ASIGNADO POR PARAMETRO
+     * Se emplean los metodos del script "simple_html_dom.php" que permitirán acceder a la informacion de la web mas facilmente
+     */
+    public function sync($id, $noRedirect=null){
+        $mov = Movie::find($id);
+        //Capturamos excepciones por si no encuentra resultados de filmaffinity asociados a la pelicula
+        try {
+            if($mov->urlsync==null){
+                //Busqueda en google para obtener el enlace
+                $key = $mov->title;
+                //Busqueda avanzada para buscar solo en el dominio de filmaffinity
+                $url = "https://www.google.es/search?q=".str_replace(" ","+",$key)."+sitio%3Afilmaffinity.com"; 
+                $content = file_get_html($url);
+                //Obtener el id del primer resultado de google correspondiente dentro de filmaffinity
+                $idFilmAffinity = $content->find("div[class='BNeawe UPmit AP7Wnd']", 0)->plaintext;
+                $idFilmAffinity = explode(" &#8250; ", $idFilmAffinity)[1];
+                //Crear Url de filmaffinity
+                $filmUrl = 'https://www.filmaffinity.com/es/'.$idFilmAffinity.".html";
+            }else{
+                $filmUrl = $mov->urlsync;
+            }
 
-        //Busqueda en google para obtener el enlace
-        $key = "steve jobs";
-        //Busqueda avanzada para buscar solo en el dominio de filmaffinity
-        $url = "https://www.google.es/search?q=".str_replace(" ","+",$key)."+sitio%3Afilmaffinity.com"; 
-        $content = file_get_html($url);
-        //Obtener el id del primer resultado de google correspondiente dentro de filmaffinity
-        $idFilmAffinity = $content->find("div[class='BNeawe UPmit AP7Wnd']", 0)->plaintext;
-        $idFilmAffinity = explode(" &#8250; ", $idFilmAffinity)[1];
-        //Crear Url de filmaffinity
-        $filmUrl = 'https://www.filmaffinity.com/es/'.$idFilmAffinity.".html";
-        
-        
-        //Obtener los propios datos de la pelicula
-        $content = file_get_html($filmUrl);
-        $titleRead = trim($content->find("dl[class='movie-info'] dd",0)->plaintext);
-        $ratingRead = trim($content->find("div[itemprop='ratingValue']",0)->plaintext);
-        $ratingRead = explode(",", $ratingRead)[0];
-        $yaerRead = trim($content->find("dd[itemprop='datePublished']",0)->plaintext);
-        $durationRead = trim($content->find("dd[itemprop='duration']",0)->plaintext);
-        $sinopsisRead = trim(str_replace("(FILMAFFINITY)", "", $content->find("dd[itemprop='description']",0)->plaintext));
-        $urlCoverRead = $content->find("a[class='lightbox']",0)->href;
-        
-        //Descargar imagen estableciendo su nombre correspondiente
-        Image::make($urlCoverRead)->save(public_path('img/saveAsImageName.jpg'));
+            //Obtener los propios datos de la pelicula
+            $content = file_get_html($filmUrl);
+            $titleRead = str_replace(" aka","", trim($content->find("dl[class='movie-info'] dd",0)->plaintext));
+            $ratingRead = trim($content->find("div[itemprop='ratingValue']",0)->plaintext);
+            $ratingRead = explode(",", $ratingRead)[0];
+            $yearRead = trim($content->find("dd[itemprop='datePublished']",0)->plaintext);
+            $durationRead = trim(str_replace(" min.","",$content->find("dd[itemprop='duration']",0)->plaintext));
+            $sinopsisRead = trim(str_replace("(FILMAFFINITY)", "", $content->find("dd[itemprop='description']",0)->plaintext));
+            $sinopsisRead = str_replace("&quot;", "'", $sinopsisRead);
+            $urlCoverRead = $content->find("a[class='lightbox']",0)->href;
+            
+            //Eliminar anterior poster
+            if($mov->poster!=null && file_exists(public_path('img/movies/'.$mov->poster))){
+                unlink(public_path('img/movies/'.$mov->poster));
+            }   
 
-        //Actualizar pelicula
+            //Descargar nueva imagen
+            $name = "poster".$mov->id.".jpg";
+            $mov->poster = $name;
+            Image::make($urlCoverRead)->save(public_path('img/movies/'.$name));
 
-        echo $titleRead."  |  ".$yaerRead."  |  ".$ratingRead."  |  ".$durationRead."  |  ".$sinopsisRead."  |  ".$urlCoverRead;
-        
+            //Actualizar pelicula
+            $mov->title = $titleRead;
+            $mov->rating = $ratingRead;
+            $mov->year = $yearRead;
+            $mov->duration = $durationRead;
+            $mov->sinopsis = $sinopsisRead;
 
+            //Guardar pelicula
+            $mov->save();        
+
+            $text = "Sincronizacion completada con éxito.";
+
+        } catch (\Exception $e) {
+            //Establecer el mensaje para mostrarlo en la vista
+            $text = "Imposible realizar la sincronización.";
+        }
+
+        //Redireccion si estamos enviando esta sincronizacion para una determinada pelicula
+        if($noRedirect==null){
+            return redirect(route("movie.show", $mov->id))->with('info', $text);
+        }
     }
-    
 }

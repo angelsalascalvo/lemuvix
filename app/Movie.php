@@ -9,7 +9,7 @@ class Movie extends Model
     
     //Campos que pueden agragarse al objeto por asignacion masiva
     protected $fillable = [
-        'title', 'sinopsis', 'duration', 'year', 'rating', 'filepath', 'filename'
+        'title', 'sinopsis', 'duration', 'year', 'rating', 'filepath', 'filename', 'urlsync'
     ];
 
     /**

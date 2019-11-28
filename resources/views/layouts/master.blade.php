@@ -164,7 +164,10 @@
             $(".backModal").click(showModalWindow);
             $("#closeEmergentModal").click(showModalWindow);
             searchBar();
+            checkOffset();
         });
+
+        $(document).scroll(checkOffset); //Ejecutar al hacer scroll
 
         //----------------------------------------------------------------------------------------
 
@@ -223,14 +226,15 @@
                 
                 if (a<b) {
                     $('.buttonAdd').css('bottom', '30px');
+                    $('.buttonScan').css('bottom', '110px');
                 } else {
                     $('.buttonAdd').css('bottom', (30+(a-b))+'px');
+                    $('.buttonScan').css('bottom', (110+(a-b))+'px');
                 }
             }
         }
 
-        $(document).ready(checkOffset); //Ejecutar al acceder a la pagina
-        $(document).scroll(checkOffset); //Ejecutar al hacer scroll
+        
 
         //----------------------------------------------------------------------------------------
 
@@ -241,16 +245,29 @@
 
                 var word = $(this).val().toLowerCase();
                 var allElementsIndex = $(".element");
+                var mostrado = false;
 
+                //Recorrer todos los elementos de la pagina
                 allElementsIndex.each(function(index, element){
                     var listElement = removeDiacritic($(this).find(".txtElement").text().toLowerCase());
-
+                    //Comprobar si coinciden con la palabra de busqueda
                     if(listElement.indexOf(word) >= 0){
                         $(this).show();
+                        mostrado=true;
                     }else{
                         $(this).hide();
                     }
                 });
+                
+                //Si no se ha mostrado ningun elemento mostramos un texto indicativo
+                if(!mostrado){
+                    $("#noResults").show();
+                }else{
+                    $("#noResults").hide();
+                }
+
+                //Llamada al metodo que ajusta la posicion de los botones flotantes para evitar fallos
+                checkOffset();
             });
         }
 

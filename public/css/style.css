@@ -114,6 +114,23 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px rgb(255, 255, 255) inset;
 }
+/* BARRA DE SCROLL */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+display:none;
+}
+
+::-webkit-scrollbar-thumb {
+background: #b4b4b4; 
+border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #000000; 
+}
 
 /* CABECERA */
 #topBar{
@@ -459,7 +476,7 @@ td, th{
 
 /* OTROS */
 
-.buttonAdd button{
+.buttonFloat button{
     width: 100%;
     padding: 0;
     padding-top: 100%; /*Mantener la relacion de aspecto 1:1*/
@@ -477,7 +494,7 @@ td, th{
 
 }
 
-.buttonAdd:hover button{
+.buttonFloat:hover button{
     
     /*Arrancar animacion*/
     -webkit-animation-name: pulse;
@@ -488,11 +505,28 @@ td, th{
     animation-fill-mode: both;
 }
 
-.buttonAdd{
+.buttonFloat{
     position: fixed;
-    width: 4.5%;
+    width: 65px;
     bottom: 30px;
     right: 30px;
+    z-index: 60;
+}
+
+.buttonScan{
+    bottom: 110px;
+    right: 36px!important;
+    width: 55px!important;
+}
+
+.buttonScan button{
+    background-size:35%!important;
+    background-image: url("../img/scan.png")!important;
+}
+
+.buttonSync button{
+    background-size:35%!important;
+    background-image: url("../img/copy.png")!important;
 }
 
 .imgAspectRatioA4{
@@ -638,6 +672,20 @@ td, th{
  animation-fill-mode: both;
 }
 
+.bSubmit2{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.bSubmit2:hover{
+ /*Arrancar animacion*/
+ -webkit-animation-name: pulse;
+ animation-name: pulse;
+ -webkit-animation-duration: 1s;
+ animation-duration: 1s;
+ -webkit-animation-fill-mode: both;
+ animation-fill-mode: both;
+}
 
 .invalidTxt{
     margin-top: -18px;
@@ -846,6 +894,7 @@ td, th{
     font-size: 25px;
     padding-left: 15px;
     margin-top:10px!important;
+    height: 30px;
 }
 
 .marginContentMovie{
@@ -885,7 +934,7 @@ td, th{
 }
 
 #player{
-    margin-top: 25px;
+    margin-top: 40px;
 }
 
 .titlePlayer{

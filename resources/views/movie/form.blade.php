@@ -77,12 +77,16 @@
 
                 <div class="col25">
                     <div class="imgAspectRatioA4">
-                        <img class="imgBorderRound" id="imgUpload" src="{{isset($data) && $data->poster!=null ? url('/img/movies/'.$data->poster) : url('/img/uploadPoster.png')}}">
+                        <img class="imgBorderRound" id="imgUpload" src="{{isset($data) && $data->poster!=null ? url('/img/movies/'.$data->poster.'?cache='.Str::random(8)) : url('/img/uploadPoster.png')}}">
                         <img class="imgHover imgBorderRound" src="{{url('/img/uploadPoster2.png')}}" onclick="$('#browseImage').trigger('click')">
                     </div>
 
                     <div class="groupField" style="display:none">    
                         <input type="file" name="poster" accept=".png, .jpg, .jpeg" id="browseImage">
+                    </div>
+
+                    <div class="col100">
+                        <input class="bSubmit2 button" class="button" type="submit" value="{{$action=='edit'?"Actualizar":"Guardar"}}">      
                     </div>
                 </div>
 
@@ -105,7 +109,7 @@
                         @enderror
                         <br>  
                     </div>
-
+                    
                     <div class="groupField @error('duration') invalid @enderror">
                         <input class="inpForm" type="number" name="duration" placeholder=" " autocomplete="off" required value="{{old('duration')?? ($data->duration ?? "")}}">
                         <label class="labForm" for="duration">Duración (min)</label>
@@ -146,6 +150,15 @@
                         <input class="inpForm" type="text" name="filepath" placeholder=" " autocomplete="off" required  value="{{ old('filepath')?? ($data->filepath ?? url("/films/"))}}">
                         <label class="labForm" for="filepath">Ruta pelicula</label>
                         @error('filepath')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>  
+                    </div>
+
+                    <div class="groupField @error('urlsync') invalid @enderror">
+                        <input class="inpForm" type="text" name="urlsync" placeholder=" " autocomplete="off" value="{{ old('urlsync')?? ($data->urlsync ?? "")}}">
+                        <label class="labForm" for="urlsync">Url sincronizacion</label>
+                        @error('urlsync')
                             <div class="invalidTxt">{{ $message }}</div>
                         @enderror
                         <br>  
@@ -247,9 +260,7 @@
                     -->
                 </div>
                 
-                <div class="col100">
-                    <input class="bSubmit button" class="button" type="submit" value="{{$action=='edit'?"Actualizar":"Guardar"}}">      
-                </div>
+                
             </form>          
         </div>
     </center>

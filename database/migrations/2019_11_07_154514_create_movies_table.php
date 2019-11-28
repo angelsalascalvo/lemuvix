@@ -22,6 +22,7 @@ class CreateMoviesTable extends Migration
             $table->float('rating');
             $table->string('filepath');
             $table->string('filename');
+            $table->string('urlsync')->nullable();
             $table->string('poster')->nullable();
             //Crear los campos created_at y updated_at
             $table->timestamps();

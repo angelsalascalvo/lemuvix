@@ -28,8 +28,14 @@
         <div class="marginTopMovies col100">
         </div>
     @endif
-    
 
+    <!-- Indicacion cuando no se encuentran resultados -->
+    <div id="noResults" style="display:none">
+        <center>
+            <span><strong>Sin resultados...</strong></span>
+        <center>
+    </div>
+    
     @foreach ($movies as $m)
         <div id="mov{{$m->id}}" class="element col25 contentMovie">
             <div class="marginContentMovie">
@@ -52,7 +58,7 @@
                 <a href="{{route('movie.show', $m->id)}}">
                     <div class="col100">
                         <div class="imgAspectRatioA4">
-                            <img class="imgBorderRound" src="{{$m->poster ? url('/img/movies/'.$m->poster) : url('/img/generic.jpg')}}">
+                            <img class="imgBorderRound" src="{{$m->poster ? url('/img/movies/'.$m->poster.'?cache='.Str::random(8)) : url('/img/generic.jpg')}}">
                         </div>
 
                         <div>
@@ -65,7 +71,13 @@
     @endforeach
 
     @auth
-        <div class="buttonAdd">
+        <div class="buttonScan buttonFloat">
+            <a href="{{route('movie.scan')}}">
+                <button></button>
+            </a>
+        </div>
+
+        <div class="buttonAdd buttonFloat">
             <a href="{{route('movie.create')}}">
                 <button></button>
             </a>

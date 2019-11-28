@@ -37,10 +37,10 @@ class UserController extends Controller{
     public function store(Request $result){
         //Validacion de datos
         $result->validate([
-            'nick' => 'required',
-            'name' => 'required',
+            'nick' => 'required|min:1|max:12',
+            'name' => 'required|min:1|max:35',
             'email' => 'required|email|unique:users,email',
-            'password'=>'required'
+            'password'=>'required|min:8|max:35'
         ]); 
 
         $usu = new User($result->all());
@@ -77,11 +77,11 @@ class UserController extends Controller{
     public function update(Request $result, $id){
          //Validacion de datos
          $result->validate([
-            'nick' => 'required',
-            'name' => 'required',
+            'nick' => 'required|min:1|max:12',
+            'name' => 'required|min:1|max:35',
             //Validacion para comprobar si el correo esta duplicado en una tupla diferente a la del propio usuario
             'email' => 'required|email|unique:users,email,'.$id,
-            'password'=>'required'
+            'password'=>'required|min:8|max:35'
         ]); 
 
         $usu = User::find($id);

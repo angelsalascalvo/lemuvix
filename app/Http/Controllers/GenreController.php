@@ -35,7 +35,7 @@ class GenreController extends Controller{
     public function store(Request $result){
         //Validacion de datos
         $result->validate([
-            'description' => 'required'
+            'description' => 'required|min:1|max:25'
         ]); 
 
         $gen = new Genre($result->all());
@@ -74,7 +74,7 @@ class GenreController extends Controller{
     public function update(Request $result, $id){
         //Validacion de datos
         $result->validate([
-            'description' => 'required'
+            'description' => 'required|min:1|max:25'
         ]); 
         
         $gen = Genre::find($id); //El nombre del id en este caso no es id ya que en el archivo de rutas hemos utilizado resource con el nombre genre

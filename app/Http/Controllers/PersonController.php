@@ -45,7 +45,7 @@ class PersonController extends Controller {
     public function store(Request $result){
         //Validacion de datos
         $result->validate([
-            'name' => 'required'
+            'name' => 'required|min:1|max:35'
         ]); 
 
         $per = new Person($result->all());
@@ -83,7 +83,7 @@ class PersonController extends Controller {
     public function update(Request $result, $id){
         //Validacion de datos
         $result->validate([
-            'name' => 'required'
+            'name' => 'required|min:1|max:35'
         ]); 
 
         $per = Person::find($id);

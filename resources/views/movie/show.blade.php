@@ -20,7 +20,7 @@
     <!-- CONTENIDO -->
     <div class="col25">
         <div class="imgAspectRatioA4">
-            <img class="imgBorderRound" src="{{$movie->poster!=null ? url('/img/movies/'.$movie->poster) : url('/img/generic.jpg')}}">
+            <img class="imgBorderRound" src="{{$movie->poster!=null ? url('/img/movies/'.$movie->poster.'?cache='.Str::random(8)) : url('/img/generic.jpg')}}">
         </div>
         @auth
             <div class="buttonActionShow col100">
@@ -55,7 +55,7 @@
                     <span class='col100 infoTextShow'>{{$movie->duration}} min</span>
                 </div>
                 <span class='col100 subtitleShow'>Puntuación:</span>
-                <span class='col100 infoTextShow'>{{$movie->rating}}/5 ⭐</span>
+                <span class='col100 infoTextShow'>{{$movie->rating}}/10 ⭐</span>
                 <span class='col100 subtitleShow'>Generos:</span>
                 <span class='col100 infoTextShow'>
                     @foreach ($movie->genres as $gen)
@@ -144,13 +144,35 @@
         </center>
     </div>
 
+
+    @auth
+        <div class="buttonSync buttonFloat">
+            <button></button>
+        </div>
+    @endauth
+
+
     <!-- SCRIPT -->
     <script>
          $(document).ready(function() {
+
+            //Comprobar existencia de informacion para ser mostrada;
+            @if (session('info'))
+                modalWindow("{{ session('info')}}", 0, null);
+            @endif
+
+            //Confirmacion borrado
             $("#removeButton").click(function(){
                 var txt = "¿Desea eliminar la pelicula?";
                 //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
                 modalWindow(txt, 1, "submitDelete()");
+            });
+
+            //Confirmacion sincronizacion
+            $(".buttonSync").click(function(){
+                var txt = "¿Seguro que desea sincronizar los datos de la pelicula? Esto eliminará los datos actuales";
+                //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
+                modalWindow(txt, 1, "sync()");
             });
         });
 
@@ -161,6 +183,15 @@
         */
         function submitDelete(){
             $("#removeForm").submit();
+        }
+
+        //-------------------------------------------------------------------
+
+        /**
+        * METODO PARA REDIRECCIONAR A LA ACCION DE SINCRONIZACION DE LA PELICULA
+        */
+        function sync(){
+            window.location.href = "{{route('movie.sync', $movie->id)}}";
         }
     </script>
 @endsection

@@ -22,7 +22,7 @@ Route::get('', 'MovieController@index')->name('movie.index');
 Route::get('movie/scan', 'MovieController@scan')->name("movie.scan");
 
 //Scraping
-Route::get('movie/sincronization', 'MovieController@sincronization')->name("movie.sincronization");
+Route::get('movie/sync/{id}', 'MovieController@sync')->name("movie.sync");
 
 //Crear pelicula
 Route::get('movie/create', 'MovieController@create')->name('movie.create');

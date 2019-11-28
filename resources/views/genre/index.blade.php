@@ -16,6 +16,13 @@
         </center>
     </div>
 
+    <!-- Indicacion cuando no se encuentran resultados -->
+    <div id="noResults" style="display:none">
+        <center>
+            <span>Sin resultados...</span>
+        <center>
+    </div>
+
     <!-- CONTENIDO -->
     @foreach ($genres as $gen)
         <div id="gen{{$gen->id}}" class="element col33 genreElement">
@@ -55,7 +62,7 @@
         </div>
     @endforeach
 
-    <div class="buttonAdd">
+    <div class="buttonAdd buttonFloat">
         <a href="{{route('genre.create')}}">
             <button></button>
         </a>

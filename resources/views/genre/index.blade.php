@@ -18,32 +18,35 @@
 
     <!-- CONTENIDO -->
     @foreach ($genres as $gen)
-        <div id="gen{{$gen->id}}" class="col33 genreElement">
+        <div id="gen{{$gen->id}}" class="element col33 genreElement">
             <div class="marginGenre">
-            
-                <!-- BOTONES DE EDICION FLOTANTES -->
-                <div class="floatButtons transform50Y col100 layer20">
-                    <div class="sizefbGenre">
-                        <button id="bRemove{{$gen->id}}" class="fbDelete"></button>
+                @auth
+                    <!-- BOTONES DE EDICION FLOTANTES -->
+                    <div class="floatButtons transform50Y col100 layer20">
+                        <div class="sizefbGenre">
+                            <button id="bRemove{{$gen->id}}" class="fbDelete"></button>
+                        </div>
+                        <div class="sizefbGenre">
+                            <a href="{{route('genre.edit', $gen->id)}}">
+                                <button class="fbEdit"></button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="sizefbGenre">
-                        <a href="{{route('genre.edit', $gen->id)}}">
-                            <button class="fbEdit"></button>
-                        </a>
-                    </div>
-                </div>
+                @endauth
 
                 <!-- CONTENEDOR DE GENERO -->
                 <a href="{{route('movie.showByGenre', $gen->id)}}">
                     <div class="col100 genreContent layer10">
+                        <div class="col10" style="height: 1px">
+                        </div>
                         <div class="col20">
                             <div class="imgAspectRatio11">
                                 <img class="imgRound"src="{{$gen->image ? url('/img/genres/'.$gen->image) : url('/img/genre.png')}}">
                             </div>
                         </div>
 
-                        <div class="col80 txtGenre">
-                            <h2>{{$gen->description}}</h2>
+                        <div class="col70 txtGenre">
+                            <h2 class="txtElement">{{$gen->description}}</h2>
                         </div>
                     </div>
                 </a>

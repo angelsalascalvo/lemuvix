@@ -19,6 +19,8 @@ class MoviesTableSeeder extends Seeder
             'duration' => 88,
             'year' => 2001,
             'rating' => 8.0,
+            'filepath' => '/movies',
+            'filename'=> 'mostruossa.mp4',
             'poster' => 'poster1.jpg',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -30,6 +32,8 @@ class MoviesTableSeeder extends Seeder
             'duration' => 116,
             'year' => 2015,
             'rating' => 7.0,
+            'filepath' => '/movies',
+            'filename'=> 'mostruossa.mp4',
             'poster' => 'poster2.jpg',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
@@ -42,6 +46,8 @@ class MoviesTableSeeder extends Seeder
             'year' => 2015,
             'rating' => 6.0,
             'poster' => 'poster3.jpg',
+            'filepath' => '/movies',
+            'filename'=> 'mostruossa.mp4',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
@@ -53,6 +59,8 @@ class MoviesTableSeeder extends Seeder
             'year' => 2017,
             'rating' => 7.0,
             'poster' => 'poster4.jpg',
+            'filepath' => '/movies',
+            'filename'=> 'mostruossa.mp4',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);
@@ -63,6 +71,8 @@ class MoviesTableSeeder extends Seeder
             'duration' => 88,
             'year' => 2018,
             'rating' => 5.0,
+            'filepath' => '/movies',
+            'filename'=> 'mostruossa.mp4',
             'created_at' => date('Y-m-d H:m:s'),
             'updated_at' => date('Y-m-d H:m:s')
         ]);

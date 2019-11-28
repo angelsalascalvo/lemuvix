@@ -5,8 +5,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 
-class UserController extends Controller
-{
+class UserController extends Controller{
+
+    public function __construct() {
+        // Solo usuarios logueados podrán acceder a este controlador:
+        $this->middleware("auth");
+    }
 
     /**
      * METODO PARA MOSTRAR LA PAGINA DE INICIO DE USUARIOS
@@ -104,7 +108,7 @@ class UserController extends Controller
      */
     public function destroy(Request $result, $id){
         $usu = User::find($id);
-        //$usu->delete();
+        $usu->delete();
 
         //Comprobar que se ha eliminado
         if(User::find($id)==null){

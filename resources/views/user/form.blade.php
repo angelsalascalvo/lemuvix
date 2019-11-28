@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="groupField @error('password') invalid @enderror">
-                    <input class="inpForm" type="password" name="password" placeholder=" " autocomplete="off" required value="{{$data->password ?? ""}}">
+                    <input class="inpForm" type="password" name="password" placeholder=" " autocomplete="off" required value="{{isset($data) ? "********": ""}}">
                     <label class="labForm" for="password">Contraseña</label>
                     @error('password')
                         <div class="invalidTxt">{{ $message }}</div>

@@ -31,7 +31,7 @@
     
 
     @foreach ($movies as $m)
-        <div id="mov{{$m->id}}" class="col25 contentMovie">
+        <div id="mov{{$m->id}}" class="element col25 contentMovie">
             <div class="marginContentMovie">
                 <!-- BOTONES DE EDICION FLOTANTES -->
                 @auth
@@ -56,7 +56,7 @@
                         </div>
 
                         <div>
-                            <h1 class="col100">{{$m->title}}</h1>
+                            <h1 class="txtElement col100">{{$m->title}}</h1>
                         </div>
                     </div>
                 </a>

@@ -117,6 +117,8 @@ return [
         'password' => 'contraseña',
         'name' => 'nombre',
         'nick' => 'usuario',
+        'filename'=>'nombre archivo de video',
+        'filepath'=>'ruta pelicula'
         
     ],
 

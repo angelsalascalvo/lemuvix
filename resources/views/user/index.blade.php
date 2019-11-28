@@ -40,7 +40,7 @@
                     <td>{{$usu->name}}</td>
                     <td>{{$usu->nick}}</td>
                     <td>{{$usu->email}}</td>
-                    <td>{{$usu->password}}</td>
+                    <td>********</td>
                     <td>{{$usu->admin}}</td>
 
                     <td>
@@ -61,7 +61,7 @@
         $(document).ready(function() {
             //Comprobar existencia de errores para ser mostrados
             @if (session('error'))
-                alert("{{ session('error')}}");
+                modalWindow("{{ session('error')}}", 0, null);
             @endif
 
             //Asignar el metodo de borrado a los botones de eliminar pasandoles su id correspondiente
@@ -92,7 +92,7 @@
                     if(result['status']){                        
                         $("#usu"+result['id']).remove();
                     }else{
-                        alert(result['error']);
+                        modalWindow(result['error'], 0, null);
                     }
                 }
             });

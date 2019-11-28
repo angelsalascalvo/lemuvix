@@ -18,32 +18,36 @@
 
     <!-- CONTENIDO -->
     @foreach ($people as $per)
-        <div id="per{{$per->id}}" class="col33 genreElement">
+        <div id="per{{$per->id}}" class="element col33 genreElement">
             <div class="marginGenre">
-                
-                <!-- BOTONES DE EDICION FLOTANTES -->
-                <div class="floatButtons transform50Y col100 layer20">
-                    <div class="sizefbGenre">
-                        <button id="bRemove{{$per->id}}" class="fbDelete"></button>
+                @auth
+                    <!-- BOTONES DE EDICION FLOTANTES -->
+                    <div class="floatButtons transform50Y col100 layer20">
+                        <div class="sizefbGenre">
+                            <button id="bRemove{{$per->id}}" class="fbDelete"></button>
+                        </div>
+                        <div class="sizefbGenre">
+                            <a href="{{route('person.edit', $per->id)}}">
+                                <button class="fbEdit"></button>
+                            </a>
+                        </div>
                     </div>
-                    <div class="sizefbGenre">
-                        <a href="{{route('person.edit', $per->id)}}">
-                            <button class="fbEdit"></button>
-                        </a>
-                    </div>
-                </div>
+                @endauth
 
                 <!-- CONTENEDOR DE PERSONA -->
                 <a href="{{route('person.show', $per->id)}}">
                     <div class="col100 genreContent layer10">
+                        <div class="col10" style="height: 1px">
+                        </div>
+
                         <div class="col20">
                             <div class="imgAspectRatio11">
                                 <img class="imgRound" src="{{$per->photo ? url('/img/people/'.$per->photo) : url('/img/person.png')}}">
                             </div>
                         </div>
 
-                        <div class="col80 txtGenre">
-                            <h2>{{$per->name}}</h2>
+                        <div class="col70 txtGenre">
+                            <h2 class="txtElement">{{$per->name}}</h2>
                         </div>
                     </div>
                 </a>
@@ -92,7 +96,7 @@
                     if(result['status']){                        
                         $("#per"+result['id']).remove();
                     }else{
-                        alert(result['error']);
+                        modalWindow(result['error'], 0, null);
                     }
                 }
             });

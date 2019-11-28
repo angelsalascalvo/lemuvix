@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Person;
 
-class PersonController extends Controller
-{
+class PersonController extends Controller {
+
+    public function __construct() {
+        // Solo usuarios logueados podrán acceder a este controlador:
+        $this->middleware("auth")->except("show","index");
+    }
+
      /**
      *  METODO PARA MOSTRAR LA VISTA QUE MOSTRARÁ TODOS LAS PERSONAS
      */
     public function index(){
-        return view('person/index', ['people'=> Person::all(), 'footer'=>'big']);
+        return view('person/index', ['people'=> Person::all(), 'showBar'=>'true', 'footer'=>'big']);
     }
 
     //------------------------------------------------------------------------------

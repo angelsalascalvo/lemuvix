@@ -20,9 +20,6 @@
 
 <!-- CONTENIDO -->
 <center>
-
-  
-
     <div id="formForgetPwd">
         <div class="marginFormForgetPwd col100">
         </div>

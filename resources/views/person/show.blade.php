@@ -24,7 +24,8 @@
             <img class="imgRound" src="{{$person->photo!=null ? url('/img/people/'.$person->photo) : url('/img/person.png')}}">
         </div>
 
-        <div class="buttonActionShow col100">
+        @auth    
+            <div class="buttonActionShow col100">
                 <div>
                     <a href="{{route('person.edit', $person->id)}}">
                         <button class="col100 buttonStyle2">
@@ -39,6 +40,8 @@
                     </form>
                 </div>
             </div>
+        @endauth
+
     </div>
 
     <div class="col75">

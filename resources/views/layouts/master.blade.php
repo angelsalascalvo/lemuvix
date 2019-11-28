@@ -54,12 +54,70 @@
             </div>
 
             <!-- Mostrar barra busqueda si estamos trabajando en la seccion de peliculas -->
-            @if (isset($type) && $type=='movie')
+            @if (isset($showBar) && $showBar=='true')
                 <div id="searchBar" class="searchBarGen">
-                    <input placeholder="Buscar...">
+                    <input id="barSearchTop" placeholder="Buscar...">
                     <button><img src="{{ url('/img/search.png')}}"></button>
                 </div>
             @endif
+
+
+            <div id="menu">
+                    <a class="elementMenu" href="{{route('movie.index')}}">
+                        <div >
+                            <span>Peliculas</span>
+                            @if (url()->current()=="http://lemuvix.test" || strpos(url()->current(), '/movie')!==false)
+                                <div class="markMenu"></div>
+                            @endif      
+                        </div>
+                    </a>
+
+                    <a class="elementMenu" href="{{route('genre.index')}}">
+                        <div>
+                            <span>Generos</span>
+                            @if (strpos(url()->current(), '/genre')!==false)
+                                <div class="markMenu"></div>
+                            @endif      
+                        </div>
+                    </a>
+
+                    <a class="elementMenu" href="{{route('person.index')}}">
+                        <div>
+                            <span>Personas</span>
+                            @if (strpos(url()->current(), '/person')!==false)
+                                <div class="markMenu"></div>
+                            @endif      
+                        </div>
+                    </a>
+
+                @auth
+                    <a class="elementMenu" href="{{route('user.index')}}">
+                        <div>
+                            <span>Usuarios</span>
+                            @if (strpos(url()->current(), '/user')!==false)
+                                <div class="markMenu"></div>
+                            @endif      
+                        </div>
+                    </a>
+
+
+                        <div class="elementMenu">
+                        <form class="convertFormButton" action="{{route('logout')}}" method="POST">
+                            @csrf
+                            <button class="noButtonStyle">Cerrar sesion</button>
+                        </form>
+                        </div>
+                    
+                @endauth
+                <!-- Solo para usuarios no registrados -->
+                @guest
+                    <a class="elementMenu" href="{{route('login')}}">
+                        <div>
+                            <strong><span>Acceder</span></strong>
+                        </div>
+                    </a>
+                @endguest
+            </div>
         </div>
 
         <!-- CONTENIDO -->
@@ -105,6 +163,7 @@
         $(document).ready(function() {
             $(".backModal").click(showModalWindow);
             $("#closeEmergentModal").click(showModalWindow);
+            searchBar();
         });
 
         //----------------------------------------------------------------------------------------
@@ -172,5 +231,35 @@
 
         $(document).ready(checkOffset); //Ejecutar al acceder a la pagina
         $(document).scroll(checkOffset); //Ejecutar al hacer scroll
+
+        //----------------------------------------------------------------------------------------
+
+        //BUSCAR ELEMENTOS
+        function searchBar(){
+
+            $("#barSearchTop").on("keyup", function() {
+
+                var word = $(this).val().toLowerCase();
+                var allElementsIndex = $(".element");
+
+                allElementsIndex.each(function(index, element){
+                    var listElement = removeDiacritic($(this).find(".txtElement").text().toLowerCase());
+
+                    if(listElement.indexOf(word) >= 0){
+                        $(this).show();
+                    }else{
+                        $(this).hide();
+                    }
+                });
+            });
+        }
+
+        //METODO PARA ELIMINAR LOS SIGNOS DE ACENTUACION DE LAS PALABRAS
+        function removeDiacritic(texto) {
+            return texto
+           .normalize('NFD')
+           .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
+           .normalize();
+        }
     </script>
 </html>

@@ -22,8 +22,8 @@
         <div class="imgAspectRatioA4">
             <img class="imgBorderRound" src="{{$movie->poster!=null ? url('/img/movies/'.$movie->poster) : url('/img/generic.jpg')}}">
         </div>
-        
-        <div class="buttonActionShow col100">
+        @auth
+            <div class="buttonActionShow col100">
                 <div>
                     <a href="{{route('movie.edit', $movie->id)}}">
                         <button class="col100 buttonStyle2">
@@ -38,6 +38,7 @@
                     </form>
                 </div>
             </div>
+        @endauth
     </div>
 
     <div class="col75">
@@ -45,10 +46,14 @@
             <div class='contentShow'>
                 <span class='col100 subtitleShow'>Sinopsis:</span>
                 <span class='col100 infoTextShow'>{{$movie->sinopsis}}</span>
-                <span class='col100 subtitleShow'>Año:</span>
-                <span class='col100 infoTextShow'>{{$movie->year}}</span>
-                <span class='col100 subtitleShow'>Duración:</span>
-                <span class='col100 infoTextShow'>{{$movie->duration}}</span>
+                <div class="col50">
+                    <span class='col100 subtitleShow'>Año:</span>
+                    <span class='col100 infoTextShow'>{{$movie->year}}</span>
+                </div>
+                <div class="col50">
+                    <span class='col33 subtitleShow'>Duración:</span>
+                    <span class='col100 infoTextShow'>{{$movie->duration}} min</span>
+                </div>
                 <span class='col100 subtitleShow'>Puntuación:</span>
                 <span class='col100 infoTextShow'>{{$movie->rating}}/5 ⭐</span>
                 <span class='col100 subtitleShow'>Generos:</span>
@@ -125,6 +130,16 @@
                     </a>
                     @endforeach
                 </span>
+            </div>
+        </center>
+    </div>
+
+    <!-- VIDEO PELICULA -->
+    <div id="player" class="col100">
+        <center>
+            <h1 class="width85 titlePlayer">Ver pelicula</h1>
+            <div class="width85">
+                <video controls width="100%" src="{{url($movie->filepath."/".$movie->filename)}}"></video>
             </div>
         </center>
     </div>

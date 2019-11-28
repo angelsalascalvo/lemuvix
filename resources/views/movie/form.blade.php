@@ -74,7 +74,6 @@
                 <form id="fmmovie" enctype='multipart/form-data' action="{{route('movie.store')}}" method="post">
                     @csrf
             @endif
-            <!-- CONTROL DE ERRORES -->
 
                 <div class="col25">
                     <div class="imgAspectRatioA4">
@@ -129,6 +128,24 @@
                         <input class="inpForm" type="number" name="rating" placeholder=" " autocomplete="off" required value="{{old('rating')?? ($data->rating ?? "")}}">
                         <label class="labForm" for="rating">Puntuacion</label>
                         @error('rating')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>  
+                    </div>
+
+                    <div class="groupField @error('filename') invalid @enderror">
+                        <input class="inpForm" type="text" name="filename" placeholder=" " autocomplete="off" required  value="{{ old('filename')?? ($data->filename ?? "")}}">
+                        <label class="labForm" for="filename">Nombre archivo video</label>
+                        @error('filename')
+                            <div class="invalidTxt">{{ $message }}</div>
+                        @enderror
+                        <br>  
+                    </div>
+
+                    <div class="groupField @error('filepath') invalid @enderror">
+                        <input class="inpForm" type="text" name="filepath" placeholder=" " autocomplete="off" required  value="{{ old('filepath')?? ($data->filepath ?? url("/films/"))}}">
+                        <label class="labForm" for="filepath">Ruta pelicula</label>
+                        @error('filepath')
                             <div class="invalidTxt">{{ $message }}</div>
                         @enderror
                         <br>  
@@ -579,7 +596,7 @@
             });
         }
 
-        //METODO PARA ELIMINAR L
+        //METODO PARA ELIMINAR LOS SIGNOS DE ACENTUACION DE LAS PALABRAS
         function removeDiacritic(texto) {
             return texto
            .normalize('NFD')

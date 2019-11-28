@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Genre;
 
-class GenreController extends Controller
-{
+class GenreController extends Controller{
+    
+    public function __construct() {
+        // Solo usuarios logueados podrán acceder a este controlador:
+        $this->middleware("auth")->except("index");
+    }
+
     /**
      *  METODO PARA MOSTRAR LA VISTA QUE MOSTRARÁ TODOS LOS GENEROS
      */
     public function index(){
-        return view('genre/index', ['genres'=> Genre::all(), 'footer'=>'big']);
+        return view('genre/index', ['genres'=> Genre::all(), 'showBar'=>'true', 'footer'=>'big']);
     }
 
     //------------------------------------------------------------------------------
@@ -56,7 +61,7 @@ class GenreController extends Controller
     /**
      * METODO PARA MOSTRAR AL VISTA DE EDICION DE GENERO
      */
-    public function edit ($id){
+    public function edit($id){
         $gen = Genre::find($id);
         return view('genre/form', ['action'=>'edit', 'data'=>$gen]);
     }

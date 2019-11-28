@@ -20,6 +20,8 @@ class CreateMoviesTable extends Migration
             $table->integer('duration');
             $table->integer('year');
             $table->float('rating');
+            $table->string('filepath');
+            $table->string('filename');
             $table->string('poster')->nullable();
             //Crear los campos created_at y updated_at
             $table->timestamps();

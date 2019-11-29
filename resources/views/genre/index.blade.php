@@ -24,7 +24,7 @@
     </div>
 
     <!-- CONTENIDO -->
-    @foreach ($genres as $gen)
+    @forelse ($genres as $gen)
         <div id="gen{{$gen->id}}" class="element col33 genreElement">
             <div class="marginGenre">
                 @auth
@@ -60,7 +60,13 @@
 
             </div>
         </div>
-    @endforeach
+    @empty
+        <div class="col100 noContent">
+            <center>
+                <span>Sin contenido</span>
+            </center>
+        </div>
+    @endforelse
 
     <div class="buttonAdd buttonFloat">
         <a href="{{route('genre.create')}}">

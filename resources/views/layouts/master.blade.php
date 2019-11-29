@@ -10,13 +10,13 @@
     </head>
     <body>
 
-        <!-- VENTANA EMERGENTE -->
+        <!-- VENTANA EMERGENTE GENERICA PARA CONFIRMACION E INFORMACION-->
         <div id="emergentAction" style="display:none;">
             <div class="backgroundBlack backModal"></div>
             <div class="emerWindow2 centerChildVH">
 
                 <div class="closeEmergentContent col100">
-                    <button id="closeEmergentModal">X</button>
+                    <button id="closeEmergentModal"><img src="{{ url('/img/close.png')}}"></button>
                 </div>
 
                 <center>
@@ -26,12 +26,12 @@
                         </div>
                         <div id="buttonsEmergent" class="marginButtons col100">
                             <div class="col45">
-                                <button id="aceptConfim" class="col100">Aceptar</button>
+                                <button id="cancelConfirm" class="col100">Cancelar</button>
                             </div>
                             <div class="col10" style="height:1px;">
                             </div>
                             <div class="col45">
-                                <button id="cancelConfirm" class="col100">Cancelar</button>
+                                <button id="aceptConfim" class="col100">Aceptar</button>
                             </div>
                         </div>
 
@@ -47,13 +47,14 @@
 
         <!-- BARRA SUPERIOR -->
         <div id="topBar">
+            <!-- LOGOTIPO -->
             <div id="logoBar">
                 <a href="{{route('movie.index')}}">
                     <img src="{{ url('/img/logo.png')}}">
                 </a>
             </div>
 
-            <!-- Mostrar barra busqueda si estamos trabajando en la seccion de peliculas -->
+            <!-- BARRA BUSQUEDA -->
             @if (isset($showBar) && $showBar=='true')
                 <div id="searchBar" class="searchBarGen">
                     <input id="barSearchTop" placeholder="Buscar...">
@@ -61,7 +62,7 @@
                 </div>
             @endif
 
-
+            <!-- MENU -->
             <div id="menu">
                     <a class="elementMenu" href="{{route('movie.index')}}">
                         <div >
@@ -141,15 +142,15 @@
                     </div>
                     <div class="col10 colFooter">
                         <ul>
-                            <a href="{{route('movie.index')}}"><li>Inicio</li></a>
-                            <a href="{{route('user.index')}}"><li>Usuarios</li></a>
+                            <a href="{{route('movie.index')}}"><li>Peliculas</li></a>
                             <a href="{{route('genre.index')}}"><li>Generos</li></a>
+                            <a href="{{route('person.index')}}"><li>Actores y Directores</li></a>
                         </ul>
                     </div>
                     <div class="col10 colFooter">
                         <ul>
-                            <a href="{{route('person.index')}}"><li>Actores y Directores</li></a>
-                            <li>Info</li>
+                            <a href="{{route('login')}}"><li>Acceder</li></a>
+                            <a href="{{route('user.index')}}"><li>Usuarios</li></a>
                             <li>&nbsp</li>
                         </ul>
                     </div>
@@ -246,26 +247,26 @@
                 var word = $(this).val().toLowerCase();
                 var allElementsIndex = $(".element");
                 var mostrado = false;
-
-                //Recorrer todos los elementos de la pagina
-                allElementsIndex.each(function(index, element){
-                    var listElement = removeDiacritic($(this).find(".txtElement").text().toLowerCase());
-                    //Comprobar si coinciden con la palabra de busqueda
-                    if(listElement.indexOf(word) >= 0){
-                        $(this).show();
-                        mostrado=true;
+                if(allElementsIndex.length>0){
+                    //Recorrer todos los elementos de la pagina
+                    allElementsIndex.each(function(index, element){
+                        var listElement = removeDiacritic($(this).find(".txtElement").text().toLowerCase());
+                        //Comprobar si coinciden con la palabra de busqueda
+                        if(listElement.indexOf(word) >= 0){
+                            $(this).show();
+                            mostrado=true;
+                        }else{
+                            $(this).hide();
+                        }
+                    });
+                    
+                    //Si no se ha mostrado ningun elemento mostramos un texto indicativo
+                    if(!mostrado){
+                        $("#noResults").show();
                     }else{
-                        $(this).hide();
+                        $("#noResults").hide();
                     }
-                });
-                
-                //Si no se ha mostrado ningun elemento mostramos un texto indicativo
-                if(!mostrado){
-                    $("#noResults").show();
-                }else{
-                    $("#noResults").hide();
                 }
-
                 //Llamada al metodo que ajusta la posicion de los botones flotantes para evitar fallos
                 checkOffset();
             });

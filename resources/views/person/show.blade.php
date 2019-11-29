@@ -50,7 +50,7 @@
 
                 <span class='col100 subtitleShow'>Direcciones:</span>
                 <span class='col100 infoTextShow'>
-                    @foreach ($person->moviesDirected as $mov)
+                    @forelse ($person->moviesDirected as $mov)
                     <a href="{{route('movie.show', $mov->id)}}">
                         <div class="col25 centerParent">
                             <div class="marginShowEP">
@@ -69,12 +69,16 @@
                             </div>
                         </div>
                     </a>
-                    @endforeach
+                    @empty
+                    <center>
+                        <span>Sin contenido</span>
+                    </center>
+                    @endforelse
                 </span>
 
                 <span class='col100 subtitleShow'>Actuaciones:</span>
                 <span class='col100 infoTextShow'>
-                    @foreach ($person->moviesActed as $mov)
+                    @forelse ($person->moviesActed as $mov)
                     <a href="{{route('movie.show', $mov->id)}}">
                         <div class="col25 centerParent">
                             <div class="marginShowEP">
@@ -93,7 +97,11 @@
                             </div>
                         </div>
                     </a>
-                    @endforeach
+                    @empty
+                    <center>
+                        <span>Sin contenido</span>
+                    </center>
+                    @endforelse
                 </span>
             </div>
         </center>

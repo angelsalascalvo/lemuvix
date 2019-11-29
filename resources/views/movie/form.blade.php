@@ -13,7 +13,7 @@
         <div class="emerWindow centerChildVH">
 
             <div class="closeEmergentContent col100">
-                <button id="closeEmergent">X</button>
+                <button id="closeEmergent"><img src="{{ url('/img/close.png')}}"></button>
             </div>
 
             <center>
@@ -25,15 +25,22 @@
                     </div>
 
                     <div class="listOptions col100">
-                        <div class="option centerParent">
-                            <div class="imgOption centerChildV">
-                                <div class=" imgAspectRatio11">
-                                    <img class="imgRound" src="{{url('/img/addElement1.png')}}">
+                        <div id="noContentEmergent" style="display:none">
+                            <center>
+                                <span>Sin resultados</span>
+                            </center>
+                        </div>
+
+                        <div style="display:none">
+                            <div class="option centerParent">
+                                <div class="imgOption centerChildV">
+                                    <div class=" imgAspectRatio11">
+                                        <img class="imgRound" src="{{url('/img/addElement1.png')}}">
+                                    </div>
                                 </div>
-                            </div>
-                
-                            <div class="textOption">
-                                <span class="centerChildV">Nuevo...</span>
+                                <div class="textOption">
+                                    <span class="centerChildV">Nuevo...</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -495,8 +502,9 @@
 
         //RELLENAR VENTANA EMERGENTE CON LOS GENEROS DISPONIBLES
         function emergentGenres(){
-            var genres = @json($genres);
+            var genres = @json($genres); //Convertir el contenido de una variable de php a javascript con json
             var url = "{{url('/')}}";
+            var noContent = true;
             //Cambiar titulo
             $("#titleEmergent").text("Seleccionar Genero");
 
@@ -516,8 +524,9 @@
                     }
                 });
 
-                //Agregamos el elemento si no se ha seleccionado
+                //Agregamos el elemento si no esta ya asociado
                 if(add){
+                    noContent=false;
                     var htmlElement = $(".listOptions .option:first").clone(true); 
                 
                     //Imagen
@@ -537,15 +546,20 @@
                     $(".listOptions").append(htmlElement);
                 }
             });
+
+            //En caso de no haber agregado elementos mostramos el mensaje informativo
+            if(noContent){
+                $('#noContentEmergent').show();
+            }
         }
 
         //--------------------------------------------------------------------------------
         
         //RELLENAR VENTANA EMERGENTE CON LAS PERSONAS DISPONIBLES
         function emergentPeople(title, arraySelected){
-            var people = @json($people);
+            var people = @json($people); //Convertir el contenido de una variable de php a javascript con json
             var url = "{{url('/')}}";
-
+            var noContent = true;
             //Cambiar titulo
             $("#titleEmergent").text(title);
 
@@ -565,8 +579,9 @@
                     }
                 });
 
-                //Agregamos el elemento si no se ha seleccionado
+                //Agregamos el elemento si no esta ya asociado
                 if(add){
+                    noContent=false;
                     var htmlElement = $(".listOptions .option:first").clone(true); 
                 
                     //Imagen
@@ -587,6 +602,11 @@
                     $(".listOptions").append(htmlElement);
                 }
             });
+
+            //En caso de no haber agregado elementos mostramos el mensaje informativo
+            if(noContent){
+                $('#noContentEmergent').show();
+            }
         }
 
         //--------------------------------------------------------------------------------
@@ -594,15 +614,23 @@
         //BUSCAR ELEMENTOS
         function search(){
             $("#bar").on("keyup", function() {
+                var noResults = true;
                 for(var i =0; i<allElements.length;i++){
                     var listElement = removeDiacritic(allElements[i].find("span").text().toLowerCase());
 
                     if(listElement.indexOf($(this).val().toLowerCase()) >= 0){
                         allElements[i].show();
+                        noResults=false;
                     }else{
-                        
                         allElements[i].hide();
                     }
+                }
+
+                //Si no se han encontrado resultados mostramos el mensaje "sin resultados"
+                if(noResults){
+                    $('#noContentEmergent').show();
+                }else{
+                    $('#noContentEmergent').hide();
                 }
             });
         }

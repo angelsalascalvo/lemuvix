@@ -22,6 +22,7 @@
         <div class="imgAspectRatioA4">
             <img class="imgBorderRound" src="{{$movie->poster!=null ? url('/img/movies/'.$movie->poster.'?cache='.Str::random(8)) : url('/img/generic.jpg')}}">
         </div>
+        
         @auth
             <div class="buttonActionShow col100">
                 <div>
@@ -55,80 +56,96 @@
                     <span class='col100 infoTextShow'>{{$movie->duration}} min</span>
                 </div>
                 <span class='col100 subtitleShow'>Puntuación:</span>
-                <span class='col100 infoTextShow'>{{$movie->rating}}/10 ⭐</span>
+                <div class='col infoTextShow'>
+                    @for ($i = 0; $i<$movie->rating; $i++)
+                        <!-- INSERTAMOS UNO DE LOS ICONOS CORRESPONDIENTES DE FORMA ALEATORIA -->
+                        <img width="28px" class="imgRound" src="{{url('/img/star'.mt_rand(0, 1).'.png')}}">
+                    @endfor
+                    @for ($i = 0; $i<(10-$movie->rating); $i++)
+                        <img width="28px" class="imgRound" src="{{url('/img/starB'.mt_rand(0, 1).'.png')}}">
+                    @endfor
+                    <br><span class="txtRating">{{$movie->rating}}/10</span>
+                </div>
+                
                 <span class='col100 subtitleShow'>Generos:</span>
                 <span class='col100 infoTextShow'>
-                    @foreach ($movie->genres as $gen)
-                    <a href="{{route('movie.showByGenre', $gen->id)}}">
-                        <div class="col25 centerParent showElementMovie">
-                            <div class="col100">
-                                <div class="col25">
-                                    <div class="imgAspectRatio11">
-                                        @if ($gen->image!=null)
-                                            <img class="imgRound" src="{{url('/img/genres/'.$gen->image)}}">
-                                        @else
-                                            <img class="imgRound" src="{{url('/img/genre.png')}}">
-                                        @endif
+                    @forelse ($movie->genres as $gen)
+                        <a href="{{route('movie.showByGenre', $gen->id)}}">
+                            <div class="col25 centerParent showElementMovie">
+                                <div class="col100">
+                                    <div class="col25">
+                                        <div class="imgAspectRatio11">
+                                            @if ($gen->image!=null)
+                                                <img class="imgRound" src="{{url('/img/genres/'.$gen->image)}}">
+                                            @else
+                                                <img class="imgRound" src="{{url('/img/genre.png')}}">
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col75">
+                                        <span class="centerChildV txtShowElementMovie">{{$gen->description}}</span>
                                     </div>
                                 </div>
-
-                                <div class="col75">
-                                    <span class="centerChildV txtShowElementMovie">{{$gen->description}}</span>
-                                </div>
                             </div>
-                        </div>
-                    </a>
-                    @endforeach
+                        </a>
+                    @empty
+                        <span>No hay generos asociados</span>
+                    @endforelse
                 </span>
 
                 <span class='col100 subtitleShow'>Direccion:</span>
                 <span class='col100 infoTextShow'>
-                    @foreach ($movie->directors as $dir)
-                    <a href="{{route('person.show', $dir->id)}}">
-                        <div class="col25 centerParent showElementMovie">
-                            <div class="col100">
-                                <div class="col25">
-                                    <div class="imgAspectRatio11">
-                                        @if ($dir->photo!=null)
-                                            <img class="imgRound" src="{{url('/img/people/'.$dir->photo)}}">
-                                        @else
-                                            <img class="imgRound" src="{{url('/img/person.png')}}">
-                                        @endif
+                    @forelse ($movie->directors as $dir)
+                        <a href="{{route('person.show', $dir->id)}}">
+                            <div class="col25 centerParent showElementMovie">
+                                <div class="col100">
+                                    <div class="col25">
+                                        <div class="imgAspectRatio11">
+                                            @if ($dir->photo!=null)
+                                                <img class="imgRound" src="{{url('/img/people/'.$dir->photo)}}">
+                                            @else
+                                                <img class="imgRound" src="{{url('/img/person.png')}}">
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col75">
+                                        <span class="centerChildV txtShowElementMovie">{{$dir->name}}</span>
                                     </div>
                                 </div>
-
-                                <div class="col75">
-                                    <span class="centerChildV txtShowElementMovie">{{$dir->name}}</span>
-                                </div>
                             </div>
-                        </div>
-                    </a>
-                    @endforeach
+                        </a>
+                    @empty
+                        <span>No hay directores asociados</span>
+                    @endforelse
                 </span>
 
                 <span class='col100 subtitleShow'>Reparto:</span>
                 <span class='col100 infoTextShow'>
-                    @foreach ($movie->actors as $act)
-                    <a href="{{route('person.show', $act->id)}}">
-                        <div class="col25 centerParent showElementMovie">
-                            <div class="col100">
-                                <div class="col25">
-                                    <div class="imgAspectRatio11">
-                                        @if ($act->photo!=null)
-                                            <img class="imgRound" src="{{url('/img/people/'.$act->photo)}}">
-                                        @else
-                                            <img class="imgRound" src="{{url('/img/person.png')}}">
-                                        @endif
+                    @forelse ($movie->actors as $act)
+                        <a href="{{route('person.show', $act->id)}}">
+                            <div class="col25 centerParent showElementMovie">
+                                <div class="col100">
+                                    <div class="col25">
+                                        <div class="imgAspectRatio11">
+                                            @if ($act->photo!=null)
+                                                <img class="imgRound" src="{{url('/img/people/'.$act->photo)}}">
+                                            @else
+                                                <img class="imgRound" src="{{url('/img/person.png')}}">
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="col75">
+                                        <span class="centerChildV txtShowElementMovie">{{$act->name}}</span>
                                     </div>
                                 </div>
-
-                                <div class="col75">
-                                    <span class="centerChildV txtShowElementMovie">{{$act->name}}</span>
-                                </div>
                             </div>
-                        </div>
-                    </a>
-                    @endforeach
+                        </a>
+                    @empty
+                        <span>No hay actores asociados</span>
+                    @endforelse
                 </span>
             </div>
         </center>

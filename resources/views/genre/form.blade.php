@@ -24,37 +24,39 @@
     <center>
         <div id="formGenre">
             @if ($action=='edit')
-                <form enctype='multipart/form-data' action="{{route('genre.update', $data->id)}}" method="post">    
+                <form id="formGenPer" enctype='multipart/form-data' action="{{route('genre.update', $data->id)}}" method="post">    
                     @csrf
                     <input type="hidden" name="_method" value="PATCH">
             @else
-                <form enctype='multipart/form-data' action="{{route('genre.store')}}" method="post">
+                <form id="formGenPer" enctype='multipart/form-data' action="{{route('genre.store')}}" method="post">
                     @csrf
             @endif
-                <div class="col25">
-                    <div class="imgAspectRatio11">
-                        <img class="imgRound" id="imgUpload" src="{{isset($data) && $data->image!=null ? url('/img/genres/'.$data->image) : url('/img/uploadGenre.png')}}">
-                        <img class="imgHover imgRound" src="{{url('/img/uploadGenre2.png')}}" onclick="$('#browseImage').trigger('click')">
-                    </div>
-
-                    <div class="groupField" style="display:none">    
-                        <input type="file" name="image" accept=".png, .jpg, .jpeg" id="browseImage">
-                    </div>
-                </div>
-
-                <div class="col75"> 
-                    <div class="groupField @error('description') invalid @enderror">
-                        <input class="inpForm" type="text" name="description" placeholder=" " autocomplete="off" required value="{{old('description')?? ($data->description ?? "")}}">
-                        <label class="labForm" for="description">Nombre</label><br>  
-                        @error('description')
-                            <div class="invalidTxt">{{ $message }}</div>
-                        @enderror
-                        <br>
-                    </div>
-                </div>
-                
                 <div class="col100">
-                    <input class="bSubmit button" class="button" type="submit" value="{{$action=='edit'?"Actualizar":"Guardar"}}">      
+                    <center>
+                        <div class="width25">
+                            <div class="imgAspectRatio11">
+                                <img class="imgRound" id="imgUpload" src="{{isset($data) && $data->image!=null ? url('/img/genres/'.$data->image) : url('/img/uploadGenre.png')}}">
+                                <img class="imgHover imgRound" src="{{url('/img/uploadGenre2.png')}}" onclick="$('#browseImage').trigger('click')">
+                            </div>
+
+                            <div class="groupField" style="display:none">    
+                                <input type="file" name="image" accept=".png, .jpg, .jpeg" id="browseImage">
+                            </div>
+                        </div>
+
+                        <div class="groupField @error('description') invalid @enderror">
+                            <input class="inpForm" type="text" name="description" placeholder=" " autocomplete="off" required value="{{old('description')?? ($data->description ?? "")}}">
+                            <label class="labForm" for="description">Nombre</label><br>  
+                            @error('description')
+                                <div class="invalidTxt">{{ $message }}</div>
+                            @enderror
+                            <br>
+                        </div>
+
+                        <div class="col100">
+                            <input class="bSubmit button" class="button" type="submit" value="{{$action=='edit'?"Actualizar":"Guardar"}}">      
+                        </div>
+                    </center>
                 </div>
             </form>          
         </div>

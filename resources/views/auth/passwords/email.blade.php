@@ -20,8 +20,8 @@
 
 <!-- CONTENIDO -->
 <center>
-    <div id="formForgetPwd">
-        <div class="marginFormForgetPwd col100">
+    <div id="formLoginSystem">
+        <div class="marginFormLoginSystem col100">
         </div>
 
         <form method="POST" action="{{ route('password.email') }}">

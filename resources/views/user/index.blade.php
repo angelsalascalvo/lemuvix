@@ -42,16 +42,21 @@
                     <td>{{$usu->email}}</td>
                     <td>********</td>
                     <td>{{$usu->admin}}</td>
-
-                    <td>
-                        <button id="bRemove{{$usu->id}}" class="bDelete">Eliminar</button>
-                    </td>
-
-                    <td>
-                        <a href="{{route('user.edit', $usu->id)}}">
-                            <button>Editar</button>
-                        </a>
-                    </td>
+                    <!-- No agregar botones de accion para el propio usuario registrado -->
+                        <td class="paddingButtonsTable">
+                            <div class="buttonTable">
+                                <a href="{{route('user.edit', $usu->id)}}">
+                                    <button class="fbEdit"></button>
+                                </a>
+                            </div>
+                        </td>
+                    @if (Auth::user()->id != $usu->id)                  
+                        <td class="paddingButtonsTable">
+                                <div class="buttonTable">
+                                    <button id="bRemove{{$usu->id}}" class="fbDelete"></button>
+                                </div>
+                            </td>
+                    @endif
                 </tr>
             @endforeach
         </table>

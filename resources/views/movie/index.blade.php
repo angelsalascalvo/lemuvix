@@ -36,7 +36,7 @@
         <center>
     </div>
     
-    @foreach ($movies as $m)
+    @forelse ($movies as $m)
         <div id="mov{{$m->id}}" class="element col25 contentMovie">
             <div class="marginContentMovie">
                 <!-- BOTONES DE EDICION FLOTANTES -->
@@ -68,7 +68,13 @@
                 </a>
             </div>
         </div>
-    @endforeach
+    @empty
+        <div class="col100 noContent">
+            <center>
+                <span>Sin contenido</span>
+            </center>
+        </div>
+    @endforelse
 
     @auth
         <div class="buttonScan buttonFloat">

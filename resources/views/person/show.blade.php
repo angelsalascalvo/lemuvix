@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title', $person->name)
+@section('title', $person->name." | lemuvix")
     
 @section('content')
 
@@ -107,8 +107,11 @@
         </center>
     </div>
 
-     <!-- SCRIPT -->
-     <script>
+     
+    <script>
+        /**
+        * INICIO DE EJECUCION
+        */
         $(document).ready(function() {
             $("#removeButton").click(function(){
                 var txt = "¿Desea eliminar la persona?";

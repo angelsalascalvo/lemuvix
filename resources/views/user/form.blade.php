@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
 @if ($action=='edit')
-    @section('title', 'Editar Usuario')
+    @section('title', 'Editar Usuario | lemuvix')
 @else
-    @section('title', 'Nuevo Usuario')
+    @section('title', 'Nuevo Usuario | lemuvix')
 @endif
 
 @section('content')

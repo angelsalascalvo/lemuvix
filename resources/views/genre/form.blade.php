@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
 @if ($action=='edit')
-    @section('title', 'Editar Pelicula')
+    @section('title', 'Editar Genero | lemuvix')
 @else
-    @section('title', 'Nueva Pelicula')
+    @section('title', 'Nuevo Genero | lemuvix')
 @endif
 
 @section('content')
@@ -63,8 +63,21 @@
     </center>
 
     <script>
+        /**
+        * INICIO DE EJECUCION
+        */
+        $(document).ready(function() {
+            //Detectar examinacion de una imagen en el formulario
+            $("#browseImage").change(function() {
+                loadPreview(this);
+            });
+        });
+        
+        //----------------------------------------------------------------------------------------------
 
-        //PREVISUALIZACION DE POSTAR CARGADO
+        /**
+        * METODO PARA CARGAR LA PREVISUALIZACIÓN DE UNA IMAGEN SELECCIONADA PARA EL FORMULARIO
+        */
         function loadPreview(input) {
             if (input.files && input.files[0]) {
                 //Establecer como atributo de la imagen la ruta de la imagen seleccionada
@@ -77,11 +90,5 @@
                 $('#imgUpload').attr('src', "{{url('/img/uploadGenre.png')}}");
             }
         }
-
-        //Detectar examinacion de una imagen en el formulario
-        $("#browseImage").change(function() {
-            loadPreview(this);
-        });
-
     </script>
 @endsection

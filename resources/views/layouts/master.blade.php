@@ -160,15 +160,19 @@
     </body>
 
     <script>
-
+        /**
+        * INICIO DE EJECUCION
+        */
         $(document).ready(function() {
+            //Inicializaciones
             $(".backModal").click(showModalWindow);
             $("#closeEmergentModal").click(showModalWindow);
             searchBar();
             checkOffset();
+            
+            //Ejecutar al hacer scroll
+            $(document).scroll(checkOffset); 
         });
-
-        $(document).scroll(checkOffset); //Ejecutar al hacer scroll
 
         //----------------------------------------------------------------------------------------
 
@@ -206,7 +210,9 @@
 
         //----------------------------------------------------------------------------------------
 
-        //METODO PARA MOSTRAR U OCULTAR LA VENTANA EMERGENTE
+        /**
+        * METODO PARA MOSTRAR U OCULTAR LA VENTANA EMERGENTE
+        */
         function showModalWindow(){
             if($("#emergentAction").is(':visible')){
                 $("#emergentAction").hide();
@@ -218,7 +224,7 @@
         //----------------------------------------------------------------------------------------
 
         /**
-        * METODO PARA HACER QUE EL BOTON FLOTANTE NO BAJE AL ENCONTRAR EL FOOTER DE LA PAGINA
+        * METODO PARA HACER QUE EL BOTON FLOTANTE NO BAJE AL LLEGAR AL FOOTER DE LA PAGINA
         */
         function checkOffset() {
             if( $('footer').length ){
@@ -235,15 +241,14 @@
             }
         }
 
-        
-
         //----------------------------------------------------------------------------------------
 
-        //BUSCAR ELEMENTOS
+        /*
+        * METODO PARA BUSCAR ELEMENTOS DEL CONTENEDOR DE ELEMENTOS ACTUAL
+        */
         function searchBar(){
 
             $("#barSearchTop").on("keyup", function() {
-
                 var word = $(this).val().toLowerCase();
                 var allElementsIndex = $(".element");
                 var mostrado = false;
@@ -272,7 +277,11 @@
             });
         }
 
-        //METODO PARA ELIMINAR LOS SIGNOS DE ACENTUACION DE LAS PALABRAS
+        //----------------------------------------------------------------------------------------------
+
+        /** 
+        * METODO PARA ELIMINAR LOS SIGNOS DE ACENTUACION DE LAS PALABRAS
+        */
         function removeDiacritic(texto) {
             return texto
            .normalize('NFD')

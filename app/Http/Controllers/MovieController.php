@@ -10,12 +10,17 @@ include(public_path('scripts/simple_html_dom.php'));
 
 class MovieController extends Controller
 {
+    /**
+     * CONSTRUCTOR
+     */
     public function __construct() {
         // Solo usuarios logueados podrán acceder a este controlador:
         $this->middleware("auth")->except("show","index","showByGenre");
     }
 
-     /**
+    //------------------------------------------------------------------------------
+
+    /**
      * METODO PARA MOSTRAR LA PAGINA DE INICIO DE PELICULAS
      */
     public function index(){
@@ -28,8 +33,8 @@ class MovieController extends Controller
     /**
      * METODO PARA MOSTRAR LA INFORMACION COMPLETA DE LA PELICUA
      */
-    public function show(Movie $id){
-        return view('movie/show', ['movie'=>$id]);
+    public function show(Movie $movie){
+        return view('movie/show', ['movie'=>$movie]);
     }
 
     //------------------------------------------------------------------------------
@@ -88,9 +93,9 @@ class MovieController extends Controller
     /**
      * METODO PARA MOSTRAR EL FORMULARIO DE EDICION DE UNA PELICULA PASADA POR LA URL (ID)
      */
-    public function edit(Movie $id){        
-        //$id vale directamente los valores del objeto con ese id, igual que find
-        return view('movie/form', ['data'=>$id, 'action'=>'edit', 'genres'=>Genre::all(), 'people'=>Person::all()]);
+    public function edit(Movie $movie){        
+        //$movie vale directamente los valores del objeto con ese id, igual que find
+        return view('movie/form', ['data'=>$movie, 'action'=>'edit', 'genres'=>Genre::all(), 'people'=>Person::all()]);
     }
 
     //------------------------------------------------------------------------------
@@ -98,7 +103,7 @@ class MovieController extends Controller
     /**
      * METODO PARA REALIZAR LA ACCION DE ACTUALIZACION DE DATOS DE LA PELICULA EN LA BASE DE DATOS
      */
-    public function update(Request $result, $id){
+    public function update(Request $result, $movie){
         //Validacion de datos
         $result->validate([
             'title' => 'required|min:1|max:35',
@@ -110,7 +115,7 @@ class MovieController extends Controller
             'filepath' => 'required'
             ]);
 
-        $mov = Movie::find($id);
+        $mov = Movie::find($movie);
         $mov->fill($result->all()); //Fill rellena los campos del objeto pasados en un array
 
         //Comprobar si existe un archivo "Poster" adjunto
@@ -142,10 +147,10 @@ class MovieController extends Controller
     //------------------------------------------------------------------------------
 
     /**
-     * METODO PARA ELIMINAR LOS DATOS DE LA PELICULA INDICADO POR LA URL (ID) DE LA BASE DE DATOS
+     * METODO PARA ELIMINAR LOS DATOS DE LA PELICULA INDICADO POR LA URL (movie) DE LA BASE DE DATOS
      */
-    public function destroy(Request $result, $id){
-        $mov = Movie::find($id);
+    public function destroy(Request $result, $movie){
+        $mov = Movie::find($movie);
         //Eliminar relaciones con generos
         $mov->genres()->detach();
         $mov->actors()->detach();
@@ -159,7 +164,7 @@ class MovieController extends Controller
         $mov->delete();
 
         //Comprobar que se ha eliminado
-        if(Movie::find($id)==null){
+        if(Movie::find($movie)==null){
             //Redirigir en funcion de si es una peticion Ajax o no
             if($result->ajax()){
                 return response()->json([

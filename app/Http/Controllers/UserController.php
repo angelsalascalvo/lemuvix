@@ -7,10 +7,15 @@ use App\User;
 
 class UserController extends Controller{
 
+    /**
+     * CONSTRUCTOR
+     */
     public function __construct() {
         // Solo usuarios logueados podrán acceder a este controlador:
         $this->middleware("auth");
     }
+
+    //------------------------------------------------------------------------------
 
     /**
      * METODO PARA MOSTRAR LA PAGINA DE INICIO DE USUARIOS

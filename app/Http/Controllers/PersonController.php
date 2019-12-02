@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use App\Person;
 
 class PersonController extends Controller {
-
+    /**
+     * CONSTRUCTOR
+     */
     public function __construct() {
         // Solo usuarios logueados podrán acceder a este controlador:
         $this->middleware("auth")->except("show","index");
     }
 
-     /**
+    //------------------------------------------------------------------------------
+
+    /**
      *  METODO PARA MOSTRAR LA VISTA QUE MOSTRARÁ TODOS LAS PERSONAS
      */
     public function index(){
@@ -161,7 +165,6 @@ class PersonController extends Controller {
                 ]);
             }
             return redirect(route("person.index"))->with('error', $error);
-
         }
     }
 }

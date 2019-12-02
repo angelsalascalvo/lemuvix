@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    
+    //Campos que pueden agragarse al objeto por asignacion masiva
     protected $fillable = [
         'name'
     ];

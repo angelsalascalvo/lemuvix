@@ -53,5 +53,4 @@
             <input class="bSubmit button" class="button" type="submit" value="Guardar">
         </form>
     </div>
-
 @endsection

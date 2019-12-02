@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title', 'Cine')
+@section('title', 'Usuarios | lemuvix')
 
 @section('content')
     <!-- TITULO -->
@@ -63,6 +63,9 @@
     </center>
 
     <script>
+        /**
+        * INICIO DE EJECUCION
+        */
         $(document).ready(function() {
             //Comprobar existencia de errores para ser mostrados
             @if (session('error'))
@@ -77,8 +80,9 @@
                 //Llamada a la ventana modal indicando que metodo debe ejecutar si se acepta el usuario
                 modalWindow(txt, 1, "removeUserAjax("+id+")");
             });
-
         });
+
+        //----------------------------------------------------------------------------------------------
 
         /*
         * METODO PARA ENVIAR LA PETICION DE ELIMINACION POR AJAX AL SERVIDOR

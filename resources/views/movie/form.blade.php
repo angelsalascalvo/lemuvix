@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
 @if ($action=='edit')
-    @section('title', 'Editar Pelicula')
+    @section('title', 'Editar Pelicula | lemuvix')
 @else
-    @section('title', 'Nueva Pelicula')
+    @section('title', 'Nueva Pelicula | lemuvix')
 @endif
 
 <!-- VENTANA EMERGENTE -->
@@ -273,13 +273,16 @@
     </center>
 
     <script>
-
+        //Inicializacion de variables
         var selectedElement = null;
         var allElements = [];
         var genresSelected = [];
         var directorsSelected = [];
         var actorsSelected = [];
     
+        /**
+        * INICIO DE EJECUCION
+        */
         $(document).ready(function() {
             $(".backgroundBlack").click(showEmergent);
             $("#closeEmergent").click(showEmergent);
@@ -305,7 +308,7 @@
                 showEmergent();
             });
 
-
+            //PREVIO
             //Rellenar array con elementos previamente asociados (si estamos editando)
             //Crear elementos ocultos para el array correspondiente
             @if ($action=='edit')
@@ -326,10 +329,50 @@
                 });
             @endif
 
+            //Inicialización
             search();
+            //Detectar examinacion de una imagen en el formulario
+            $("#browseImage").change(function() {
+                loadPreview(this);
+            });
         });
 
-        //METODO PARA AGREGAR EL ELEMENTO GRAFICO DE GENERO A LA VISTA
+        //--------------------------------------------------------------------------------
+
+        /** 
+        * METODO QUE SE EJECUTARÁ AL PULSAR SOBRE EL BOTON ACEPTAR AGREGANDO EL ELEMENTO
+        */
+        function acept(type){       
+            //Llamada al metodo para agregar el elemento graficamente y al formulario correspondiente     
+            switch (type){
+                case "genre":
+                    genresSelected.push(selectedElement.id);
+                    $('#arrayGenres').append("<input type='hidden' class='genreForm' name='genres[]' value='"+selectedElement.id+"'>");
+                    addGraphicGenre(selectedElement);
+                break;
+
+                case "director":
+                    directorsSelected.push(selectedElement.id);
+                    $('#arrayDirectors').append("<input type='hidden' class='directorForm' name='directors[]' value='"+selectedElement.id+"'>");
+                    addGraphicPeople(selectedElement,"director");
+                break;
+
+                case "actor":
+                    actorsSelected.push(selectedElement.id);
+                    $('#arrayActors').append("<input type='hidden' class='actorForm' name='actors[]' value='"+selectedElement.id+"'>");
+                    addGraphicPeople(selectedElement,"actor");
+                break;
+            }
+        
+            //Ocultar ventana
+            showEmergent();
+        }
+
+        //----------------------------------------------------------------------------------------------
+
+        /** 
+        * METODO PARA AGREGAR UN ELEMENTO GRAFICO DE GENERO A LA VISTA
+        */
         function addGraphicGenre(element){
             var url = "{{url('/')}}";
             var htmlElement = $("#containerGenres .elementMovie:first").clone(true); 
@@ -348,7 +391,11 @@
             $("#containerGenres").append(htmlElement);
         }
 
-        //METODO PARA ELIMINAR EL ELEMENTO GRAFICO DE GENERO DE LA VISTA
+        //----------------------------------------------------------------------------------------------
+
+        /** 
+        * METODO PARA ELIMINAR UN ELEMENTO GRAFICO DE GENERO DE LA VISTA Y DEL ARRAY DEL FORMULARIO
+        */
         function removeGraphicGenre(id, htmlElement){
             //Eliminar elemento html
             htmlElement.remove();
@@ -366,7 +413,11 @@
             });
         }
 
-        //METODO PARA AGREGAR EL ELEMENTO GRAFICO DE PERSONA A LA VISTA
+        //----------------------------------------------------------------------------------------------
+
+        /** 
+        * METODO PARA AGREGAR UN ELEMENTO GRAFICO DE PERSONA A LA VISTA
+        */
         function addGraphicPeople(element, type){
             var url = "{{url('/')}}";
 
@@ -397,7 +448,11 @@
 
         }
 
-        //METODO PARA ELIMINAR EL ELEMENTO GRAFICO DE PERSONA DE LA VISTA
+        //----------------------------------------------------------------------------------------------
+
+        /** 
+        * METODO PARA ELIMINAR UN ELEMENTO GRAFICO DE PERSONA DE LA VISTA Y DEL ARRAY DEL FORMULARIO
+        */        
         function removeGraphicPeople(id, htmlElement, type){
             //Eliminar elemento html
             htmlElement.remove();
@@ -425,42 +480,14 @@
                 directorsSelected = jQuery.grep(directorsSelected, function(value) {
                     return value != id;
                 });
-            }
-
-           
+            }           
         }
 
         //--------------------------------------------------------------------------------
 
-        //METODO QUE SE EJECUTARÁ AL PULSAR SOBRE EL BOTON ACEPTAR 
-        function acept(type){            
-            switch (type){
-                case "genre":
-                    genresSelected.push(selectedElement.id);
-                    $('#arrayGenres').append("<input type='hidden' class='genreForm' name='genres[]' value='"+selectedElement.id+"'>");
-                    addGraphicGenre(selectedElement);
-                break;
-
-                case "director":
-                    directorsSelected.push(selectedElement.id);
-                    $('#arrayDirectors').append("<input type='hidden' class='directorForm' name='directors[]' value='"+selectedElement.id+"'>");
-                    addGraphicPeople(selectedElement,"director");
-                break;
-
-                case "actor":
-                    actorsSelected.push(selectedElement.id);
-                    $('#arrayActors').append("<input type='hidden' class='actorForm' name='actors[]' value='"+selectedElement.id+"'>");
-                    addGraphicPeople(selectedElement,"actor");
-                break;
-            }
-        
-            //Ocultar ventana
-            showEmergent();
-        }
-
-        //--------------------------------------------------------------------------------
-
-        //METODO PARA MOSTRAR U OCULTAR LA VENTANA EMERGENTE
+        /** 
+        * METODO PARA MOSTRAR U OCULTAR LA VENTANA EMERGENTE
+        */
         function showEmergent(){
             if($("#emergent").is(':visible')){
                 $("#emergent").hide();
@@ -473,7 +500,9 @@
 
         //--------------------------------------------------------------------------------
 
-        //FUNCION PARA ALMACENAR EL ELEMENTO SELECCIONADO Y MARCARLO
+        /** 
+        * FUNCION PARA ALMACENAR EL ELEMENTO SELECCIONADO Y MARCARLO GRAFICAMENTE
+        */
         function selected(elementOption, elementHtml){
             $("#emergetAcept").removeAttr("disabled");
             selectedElement = elementOption;
@@ -489,18 +518,9 @@
 
         //--------------------------------------------------------------------------------
 
-        //METODO PARA VACIAR EL LISTADO DE OPCIONES
-        function clearOptions(){
-            $(".listOptions .option").each(function(){
-                if(!($(this).is(':first-child'))){
-                    $(this).remove();
-                }
-            });
-        }
-
-        //--------------------------------------------------------------------------------
-
-        //RELLENAR VENTANA EMERGENTE CON LOS GENEROS DISPONIBLES
+        /** 
+        * METODO PARA RELLENAR VENTANA EMERGENTE CON LOS GENEROS DISPONIBLES
+        */
         function emergentGenres(){
             var genres = @json($genres); //Convertir el contenido de una variable de php a javascript con json
             var url = "{{url('/')}}";
@@ -555,7 +575,9 @@
 
         //--------------------------------------------------------------------------------
         
-        //RELLENAR VENTANA EMERGENTE CON LAS PERSONAS DISPONIBLES
+         /** 
+        * METODO PARA RELLENAR VENTANA EMERGENTE CON LAS PERSONAS DISPONIBLES
+        */
         function emergentPeople(title, arraySelected){
             var people = @json($people); //Convertir el contenido de una variable de php a javascript con json
             var url = "{{url('/')}}";
@@ -611,7 +633,22 @@
 
         //--------------------------------------------------------------------------------
 
-        //BUSCAR ELEMENTOS
+        /** 
+        * METODO PARA VACIAR EL LISTADO DE OPCIONES DE LA VENTANA EMERGENTE POR COMPLETO
+        */
+        function clearOptions(){
+            $(".listOptions .option").each(function(){
+                if(!($(this).is(':first-child'))){
+                    $(this).remove();
+                }
+            });
+        }
+
+        //--------------------------------------------------------------------------------
+
+        /*
+        * METODO PARA BUSCAR ELEMENTOS DEL LISTADO DE LA VENTANA EMERGENTE
+        */
         function search(){
             $("#bar").on("keyup", function() {
                 var noResults = true;
@@ -635,17 +672,11 @@
             });
         }
 
-        //METODO PARA ELIMINAR LOS SIGNOS DE ACENTUACION DE LAS PALABRAS
-        function removeDiacritic(texto) {
-            return texto
-           .normalize('NFD')
-           .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1")
-           .normalize();
-        }
-
         //--------------------------------------------------------------------------------
 
-        //PREVISUALIZACION DE POSTAR CARGADO
+        /**
+        * METODO PARA CARGAR LA PREVISUALIZACIÓN DE UNA IMAGEN SELECCIONADA PARA EL FORMULARIO
+        */
         function loadPreview(input) {
             if (input.files && input.files[0]) {
                 //Establecer como atributo de la imagen la ruta de la imagen seleccionada
@@ -658,13 +689,5 @@
                 $('#imgUpload').attr('src', "{{url('/img/uploadPoster.png')}}");
             }
         }
-
-        //--------------------------------------------------------------------------------
-
-        //Detectar examinacion de una imagen en el formulario
-        $("#browseImage").change(function() {
-            loadPreview(this);
-        });
-
     </script>
 @endsection

@@ -6,10 +6,15 @@ use App\Genre;
 
 class GenreController extends Controller{
     
+    /**
+     * CONSTRUCTOR
+     */
     public function __construct() {
         // Solo usuarios logueados podrán acceder a este controlador:
         $this->middleware("auth")->except("index");
     }
+
+    //------------------------------------------------------------------------------
 
     /**
      *  METODO PARA MOSTRAR LA VISTA QUE MOSTRARÁ TODOS LOS GENEROS

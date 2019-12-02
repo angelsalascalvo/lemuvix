@@ -43,6 +43,9 @@
     </div>
 
     <script>
+        /**
+        * INICIO DE EJECUCION
+        */
         $(document).ready(function() {
             //Mostrar mensaje informativo en ventana emergente si existe
             @if (session('status'))

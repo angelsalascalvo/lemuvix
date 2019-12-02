@@ -92,6 +92,9 @@
     
     
     <script>
+        /**
+        * INICIO DE EJECUCION
+        */
          $(document).ready(function() {
             //Comprobar existencia de errores para ser mostrados
             @if (session('error'))
@@ -107,6 +110,8 @@
             });
 
          });
+
+        //----------------------------------------------------------------------------------------------
 
         /*
         * METODO PARA ENVIAR LA PETICION DE ELIMINACION POR AJAX AL SERVIDOR

@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title', $movie->title)
+@section('title', $movie->title." | lemuvix")
     
 @section('content')
 
@@ -156,12 +156,14 @@
         <center>
             <h1 class="width85 titlePlayer">Ver pelicula</h1>
             <div class="width85">
-                <video controls width="100%" src="{{url($movie->filepath."/".$movie->filename)}}"></video>
+                <video controls preload="metadata" width="100%" ">
+                    <source src="{{url($movie->filepath."/".$movie->filename)}}#t=1.0" type="video/mp4">
+                </video>
             </div>
         </center>
     </div>
 
-
+    <!-- BOTON FLOTANTE -->
     @auth
         <div class="buttonSync buttonFloat">
             <button></button>
@@ -169,8 +171,10 @@
     @endauth
 
 
-    <!-- SCRIPT -->
     <script>
+        /**
+        * INICIO DE EJECUCION
+        */
          $(document).ready(function() {
 
             //Comprobar existencia de informacion para ser mostrada;

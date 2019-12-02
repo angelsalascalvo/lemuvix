@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title', 'Generos | lemuvix')
+@section('title', 'Personas | lemuvix')
 
 @section('content')
      <!-- TITULO -->
@@ -69,6 +69,7 @@
         </div>
     @endforelse
 
+    <!-- BOTON FLOTANTE -->
     <div class="buttonAdd buttonFloat">
         <a href="{{route('person.create')}}">
             <button></button>
@@ -77,6 +78,9 @@
     
 
     <script>
+        /**
+        * INICIO DE EJECUCION
+        */
         $(document).ready(function() {
             //Comprobar existencia de errores para ser mostrados
             @if (session('error'))
@@ -91,6 +95,8 @@
                 modalWindow(txt, 1, "removePersonAjax("+id+")");
             });
         });
+
+        //----------------------------------------------------------------------------------------------
 
         /*
         * METODO PARA ENVIAR LA PETICION DE ELIMINACION POR AJAX AL SERVIDOR
@@ -115,5 +121,4 @@
             });
         }
     </script>
-
 @endsection

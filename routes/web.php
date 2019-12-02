@@ -33,3 +33,6 @@ Route::resource('person', 'PersonController');
 
 /////////////// AUTENTICACION ///////////////
 Auth::routes(['register' => false]);
+
+// RUTA PROVISIONAL PARA REALIZAR UNA MIGRACION DE LOS DATOS
+Route::get('migrate/', 'MovieController@migrate');

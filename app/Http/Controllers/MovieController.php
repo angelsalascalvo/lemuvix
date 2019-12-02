@@ -6,7 +6,10 @@ use App\Movie;
 use App\Genre;
 use App\Person;
 use Image;
+use Artisan;
 include(public_path('scripts/simple_html_dom.php'));
+
+
 
 class MovieController extends Controller
 {
@@ -169,7 +172,7 @@ class MovieController extends Controller
             if($result->ajax()){
                 return response()->json([
                     'status'=> true,
-                    'id'=>$id
+                    'id'=>$movie
                 ]);
             }
             return redirect(route("movie.index"));
@@ -373,5 +376,13 @@ class MovieController extends Controller
         if($noRedirect==null){
             return redirect(route("movie.show", $mov->id))->with('info', $text);
         }
+    }
+
+    /**
+     * METODO PROVISIONAL PARA HACER UNA MIGRACION DE LA APLICACION
+     */
+    public function migrate(){
+        Artisan::call("migrate:fresh --seed");
+        return redirect(route("movie.index"));
     }
 }

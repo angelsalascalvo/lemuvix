@@ -127,6 +127,7 @@
                 },
                 success:function(result){
                     //Si nos devuelve el codigo de la pelicula eliminada, borramos el elemento HTML
+                    console.log(result);
                     if(result['status']){                        
                         $("#mov"+result['id']).remove();
                     }else{

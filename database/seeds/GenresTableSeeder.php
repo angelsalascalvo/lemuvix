@@ -59,6 +59,14 @@ class GenresTableSeeder extends Seeder
             'updated_at' => date('Y-m-d H:m:s')
         ]);
 
+        DB::table('genres')->insert([
+            'id'=>7,
+            'description'=>'Drama',
+            'image'=>'image7.png',
+            'created_at' => date('Y-m-d H:m:s'),
+            'updated_at' => date('Y-m-d H:m:s')
+        ]);
+
 
     }
 }

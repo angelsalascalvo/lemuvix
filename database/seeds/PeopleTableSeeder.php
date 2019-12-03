@@ -11,9 +11,9 @@ class PeopleTableSeeder extends Seeder
      */
     public function run()
     {
-        $names = ['Joseph Gordon-Levitt','Ben Kingsley','Charlotte Le Bon','James Badge Dale','Michael Fassbender','Kate Winslet','Seth Rogen','Ryan Gosling'];
+        $names = ['Pete Docter','Lee Unkrich','Robert Zemeckis','Joseph Gordon-Levitt','Ben Kingsley','Charlotte Le Bon','Todd Phillips','Joaquin Phoenix','Robert De Niro','Zazie Beetz','Denis Villeneuve','Harrison Ford',' Ana de Armas','David Kerr','Rowan Atkinson','Olga Kurylenko','Emma Thompson','Frances Conroy', 'Ryan Gosling'];
         for($i=0;$i<count($names);$i++){
-            if($i<=3){
+            if($i<=12 || $i==14){
                 DB::table('people')->insert([
                     'id'=>$i+1,
                     'name'=>$names[$i],

@@ -336,9 +336,13 @@ class MovieController extends Controller
 
             //Obtener los propios datos de la pelicula
             $content = file_get_html($filmUrl);
-            $titleRead = str_replace(" aka","", trim($content->find("dl[class='movie-info'] dd",0)->plaintext));
-            $ratingRead = trim($content->find("div[itemprop='ratingValue']",0)->plaintext);
-            $ratingRead = explode(",", $ratingRead)[0];
+            $titleRead = trim($content->find("span[itemprop='name']",0)->plaintext);
+            if($content->find("div[itemprop='ratingValue']",0)){
+            	$ratingRead = trim($content->find("div[itemprop='ratingValue']",0)->plaintext);
+				$ratingRead = explode(",", $ratingRead)[0];
+			}else{
+				$ratingRead=0;
+			}
             $yearRead = trim($content->find("dd[itemprop='datePublished']",0)->plaintext);
             $durationRead = trim(str_replace(" min.","",$content->find("dd[itemprop='duration']",0)->plaintext));
             $sinopsisRead = trim(str_replace("(FILMAFFINITY)", "", $content->find("dd[itemprop='description']",0)->plaintext));

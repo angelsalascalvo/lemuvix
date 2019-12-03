@@ -12,7 +12,7 @@
 */
 
 /////////////// RESTfull Movie ////////////////
-Route::resource('movie', 'MovieController');
+
 //Inicio
 Route::get('', 'MovieController@index')->name('movie.index');
 //Escanear peliculas existentes en los directorios
@@ -21,6 +21,8 @@ Route::get('movie/scan', 'MovieController@scan')->name("movie.scan");
 Route::get('movie/sync/{id}', 'MovieController@sync')->name("movie.sync");
 //Ver peliculas de un genero
 Route::get('movie/showbygenre/{genre}', 'MovieController@showByGenre')->name('movie.showByGenre');
+
+Route::resource('movie', 'MovieController');
 
 /////////////// RESTfull User ////////////////
 Route::resource('user', 'UserController', ['except' => ['show']]);

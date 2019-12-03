@@ -66,7 +66,7 @@
             <div id="menu">
                     <a class="elementMenu" href="{{route('movie.index')}}">
                         <div >
-                            <span>Peliculas</span>
+                            <span>Películas</span>
                             @if (url()->current()=="http://lemuvix.test" || strpos(url()->current(), '/movie')!==false)
                                 <div class="markMenu"></div>
                             @endif      
@@ -75,7 +75,7 @@
 
                     <a class="elementMenu" href="{{route('genre.index')}}">
                         <div>
-                            <span>Generos</span>
+                            <span>Géneros</span>
                             @if (strpos(url()->current(), '/genre')!==false)
                                 <div class="markMenu"></div>
                             @endif      
@@ -105,7 +105,7 @@
                         <div class="elementMenu">
                         <form class="convertFormButton" action="{{route('logout')}}" method="POST">
                             @csrf
-                            <button class="noButtonStyle">Cerrar sesion</button>
+                            <button class="noButtonStyle">Cerrar sesión</button>
                         </form>
                         </div>
                     
@@ -142,8 +142,8 @@
                     </div>
                     <div class="col10 colFooter">
                         <ul>
-                            <a href="{{route('movie.index')}}"><li>Peliculas</li></a>
-                            <a href="{{route('genre.index')}}"><li>Generos</li></a>
+                            <a href="{{route('movie.index')}}"><li>Películas</li></a>
+                            <a href="{{route('genre.index')}}"><li>Géneros</li></a>
                             <a href="{{route('person.index')}}"><li>Actores y Directores</li></a>
                         </ul>
                     </div>

@@ -70,12 +70,13 @@
     @endforelse
 
     <!-- BOTON FLOTANTE -->
-    <div class="buttonAdd buttonFloat">
-        <a href="{{route('person.create')}}">
-            <button></button>
-        </a>
-    </div>
-    
+    @auth
+        <div class="buttonAdd buttonFloat">
+            <a href="{{route('person.create')}}">
+                <button></button>
+            </a>
+        </div>
+    @endauth
 
     <script>
         /**

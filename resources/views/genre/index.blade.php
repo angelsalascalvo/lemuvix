@@ -67,12 +67,14 @@
             </center>
         </div>
     @endforelse
-
-    <div class="buttonAdd buttonFloat">
-        <a href="{{route('genre.create')}}">
-            <button></button>
-        </a>
-    </div>
+    
+    @auth
+        <div class="buttonAdd buttonFloat">
+            <a href="{{route('genre.create')}}">
+                <button></button>
+            </a>
+        </div>
+    @endauth
     
 
     <script>
